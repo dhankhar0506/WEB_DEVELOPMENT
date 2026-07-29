@@ -627,3 +627,144 @@ It tells the Operating System:
 **IP Address → Finds the Server**  
 **Port → Finds the Application**  
 **Operating System → Routes the Request to the Correct Application**
+
+
+
+
+
+
+# How Ports Work on AWS (Interview)
+
+Suppose your MERN application is hosted on AWS.
+
+```text
+AWS EC2 (Linux Operating System)
+
+Port 443   → Nginx (HTTPS)
+Port 5000  → Node.js Backend
+Port 27017 → MongoDB
+```
+
+---
+
+# Complete Flow
+
+```text
+User
+   │
+https://xyz.com
+   │
+   ▼
+AWS Server (IP Address)
+   │
+   ▼
+Operating System (Linux)
+   │
+   ▼
+Port 443
+(Nginx is listening)
+   │
+   ▼
+Forward Request
+   │
+   ▼
+Port 5000
+(Node.js Application)
+   │
+Business Logic
+   │
+Need Data?
+   │
+Yes
+   │
+   ▼
+MongoDB
+(Port 27017)
+   │
+Returns Data
+   │
+   ▼
+Node.js
+   │
+JSON Response
+   │
+   ▼
+Nginx
+   │
+HTTPS Response
+   │
+   ▼
+Browser
+```
+
+---
+
+# What Does the Operating System Do?
+
+The Operating System keeps track of which application is using which port.
+
+Example:
+
+```text
+Port 443   → Nginx
+Port 5000  → Node.js
+Port 27017 → MongoDB
+```
+
+When a request arrives on **Port 443**, the OS sends it to **Nginx** because Nginx is listening on that port.
+
+---
+
+# Why Port 443?
+
+When the browser sees:
+
+```text
+https://xyz.com
+```
+
+it automatically connects to:
+
+```text
+Server IP : 443
+```
+
+because **443 is the standard port for HTTPS**.
+
+---
+
+# Why MongoDB Uses Port 27017?
+
+When Node.js needs data, it connects to MongoDB using its default port:
+
+```text
+localhost:27017
+```
+
+or
+
+```text
+mongodb://server-ip:27017
+```
+
+The Operating System forwards the request to the MongoDB process because it is listening on Port **27017**.
+
+---
+
+# Important Interview Point
+
+- **Port identifies the application**, not the request.
+- **Operating System maps the port to the correct application.**
+- **Node.js communicates with MongoDB using MongoDB's port (27017).**
+
+---
+
+# Interview Answer (30 sec)
+
+> Yes, an AWS EC2 instance runs an Operating System such as Linux or Windows, and the OS manages all port mappings. When a user opens an HTTPS website, the browser automatically sends the request to Port 443, where the web server (such as Nginx) is listening. Nginx forwards the request to the Node.js application on Port 5000. If the backend needs data, Node.js communicates with MongoDB on its default Port 27017. The Operating System uses the port number to deliver each request to the correct application.
+
+---
+
+# One-Line Revision
+
+User → Port 443 (Nginx) → Port 5000 (Node.js) → Port 27017 (MongoDB) → Response
