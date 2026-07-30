@@ -198,6 +198,24 @@ They are mainly used for grouping or styling elements.
 
 [---------------------------------------------------------------------------------------------------------------------------------------------]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Interview Questions
 
 ### 1. What is HTML?
@@ -389,100 +407,144 @@ Examples:
 
 ---
 
-# Difference: `<head>` vs `<body>`
-
-| `<head>` | `<body>` |
-|----------|-----------|
-| Contains metadata | Contains visible content |
-| Not displayed on the webpage | Displayed in the browser |
-| Includes `<title>`, `<meta>`, `<link>`, `<style>`, `<script>` | Includes headings, paragraphs, images, forms, tables, etc. |
-
----
-
-# Interview Questions
-
-### 1. What is `<!DOCTYPE html>`?
-
-It declares the document as **HTML5** and tells the browser which HTML version to use.
-
----
-
-### 2. What is the purpose of the `<head>` tag?
-
-The `<head>` contains metadata such as the page title, character encoding, CSS, JavaScript, and other information that is not displayed on the webpage.
-
----
-
-### 3. What is the purpose of the `<body>` tag?
-
-The `<body>` contains all the visible content displayed in the browser.
-
----
-
-### 4. Why do we use `lang="en"`?
-
-- Improves SEO.
-- The lang attribute specifies the language of the webpage. It helps search engines understand the page language for better SEO and helps screen readers pronounce the content correctly, improving accessibility.
-
----
-
-### 5. Why is the viewport meta tag important?
-
-Viewport is the visible area of a webpage on a user's device. We use the viewport meta tag to make web pages responsive by setting the page width to the device's width and the initial zoom level to 100%.
 
 
-### 6. what  is  meta data?
-
-Metadata is information about a webpage that is stored inside the <head> section. It is not visible to users but helps browsers and search engines understand the webpage. We use metadata for character encoding, responsive design, SEO, and page information.
-
-### 7.What is UTF-8?
-
-UTF-8 is a character encoding that tells the browser how to represent and display text. We use <meta charset="UTF-8"> to support almost all languages, symbols, and emojis correctly.
-UTF-8 = Universal Text Format 🌍
----
-
-# Quick Revision
-
-- `<!DOCTYPE html>` → Declares HTML5
-- `<html>` → Root element
-- `lang="en"` → Specifies page language
-- `<head>` → Metadata (Hidden)
-- `<meta charset="UTF-8">` → Character encoding
-- `<meta name="viewport">` → Responsive design
-- `<title>` → Browser tab title
-- `<body>` → Visible webpage content
-
----
-
-# HTML5 vs Earlier HTML Versions (HTML4/XHTML)
-
-HTML5 is the latest version of HTML. Compared to earlier versions, it introduced semantic tags, built-in audio and video support, new form input types, Canvas and SVG graphics, Local Storage, Geolocation API, and better support for SEO, accessibility, and mobile devices.
 
 
-# HTML Attributes
 
-## What are Attributes?
 
-- Attributes provide **additional information** about HTML elements.
-- They are written inside the **opening tag**.
-- Attributes usually consist of a **name** and a **value**.
 
-### Syntax
 
-```html
-<tagname attribute="value">Content</tagname>
-```
 
-### Example
 
-```html
-<a href="https://example.com">Visit Website</a>
-<img src="image.jpg" alt="Nature">
-```
 
-> **Interview Point:** Attributes provide extra information about an HTML element and are specified in the opening tag.
 
----
+
+
+
+
+    # Difference: `<head>` vs `<body>`
+
+    | `<head>` | `<body>` |
+    |----------|-----------|
+    | Contains metadata | Contains visible content |
+    | Not displayed on the webpage | Displayed in the browser |
+    | Includes `<title>`, `<meta>`, `<link>`, `<style>`, `<script>` | Includes headings, paragraphs, images, forms, tables, etc. |
+
+    ---
+
+    # Interview Questions
+
+    ### 1. What is `<!DOCTYPE html>`?
+
+    It declares the document as **HTML5** and tells the browser which HTML version to use.
+
+    ---
+
+    ### 2. What is the purpose of the `<head>` tag?
+
+    The `<head>` contains metadata such as the page title, character encoding, CSS, JavaScript, and other information that is not displayed on the webpage.
+
+    ---
+
+    ### 3. What is the purpose of the `<body>` tag?
+
+    The `<body>` contains all the visible content displayed in the browser.
+
+    ---
+
+    ### 4. Why do we use `lang="en"`?
+
+    - Improves SEO.
+    - The lang attribute specifies the language of the webpage. It helps search engines understand the page language for better SEO and helps screen readers pronounce the content correctly, improving accessibility.
+
+    ---
+
+    ### 5. Why is the viewport meta tag important?
+
+    Viewport is the visible area of a webpage on a user's device. We use the viewport meta tag to make web pages responsive by setting the page width to the device's width and the initial zoom level to 100%.
+
+
+    ### 6. what  is  meta data?
+
+    Metadata is information about a webpage that is stored inside the <head> section. It is not visible to users but helps browsers and search engines understand the webpage. We use metadata for character encoding, responsive design, SEO, and page information.
+
+    ### 7.What is UTF-8?
+
+    UTF-8 is a character encoding that tells the browser how to represent and display text. We use <meta charset="UTF-8"> to support almost all languages, symbols, and emojis correctly.
+    UTF-8 = Universal Text Format 🌍
+    ---
+
+    # Quick Revision
+
+    - `<!DOCTYPE html>` → Declares HTML5
+    - `<html>` → Root element
+    - `lang="en"` → Specifies page language
+    - `<head>` → Metadata (Hidden)
+    - `<meta charset="UTF-8">` → Character encoding
+    - `<meta name="viewport">` → Responsive design
+    - `<title>` → Browser tab title
+    - `<body>` → Visible webpage content
+
+    ---
+
+    # HTML5 vs Earlier HTML Versions (HTML4/XHTML)
+
+    HTML5 is the latest version of HTML. Compared to earlier versions, it introduced semantic tags, built-in audio and video support, new form input types, Canvas and SVG graphics, Local Storage, Geolocation API, and better support for SEO, accessibility, and mobile devices.
+
+
+    # HTML Attributes
+
+    ## What are Attributes?
+
+    - Attributes provide **additional information** about HTML elements.
+    - They are written inside the **opening tag**.
+    - Attributes usually consist of a **name** and a **value**.
+
+    ### Syntax
+
+    ```html
+    <tagname attribute="value">Content</tagname>
+    ```
+
+    ### Example
+
+    ```html
+    <a href="https://example.com">Visit Website</a>
+    <img src="image.jpg" alt="Nature">
+    ```
+
+    > **Interview Point:** Attributes provide extra information about an HTML element and are specified in the opening tag.
+
+    ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Global Attributes
 
