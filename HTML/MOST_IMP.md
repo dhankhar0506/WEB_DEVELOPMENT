@@ -201,6 +201,27 @@ With CSS, you can control the color, font, the size of text, the spacing between
 <img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## What is an Image Map?
 => An Image Map is an image that contains multiple clickable areas. Each clickable area can open a different webpage or perform a different action.
     <img src="image.jpg" usemap="#myMap"> <!-- The usemap attribute connects an image (<img>) to a <map> element by referring to its name.-->
@@ -302,6 +323,24 @@ HTML Description Lists
   </dl>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## HTML Block and Inline Elements
 Block-level Elements : A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element.
   - A block-level element always takes up the full width available 
@@ -383,6 +422,14 @@ Answer: No. Many websites prevent embedding using security headers like X-Frame-
     Perform calculations
     Fetch data from APIs
 
+
+
+
+
+
+
+
+
 ## How to Add JavaScript in HTML?
 
 - [Inline_JavaScript]
@@ -418,6 +465,16 @@ Answer: No. Many websites prevent embedding using security headers like X-Frame-
     </body>
 
 **The <noscript> tag is used to display alternative content when JavaScript is disabled or unavailable in the browser.**
+
+
+
+
+
+
+
+
+
+
 
 ## HTML Layout Elements
 - HTML5 introduced semantic layout elements to organize a webpage into meaningful sections. These elements improve readability, SEO, and accessibility.
@@ -518,6 +575,18 @@ Closing tags are optional for some elements	          Every tag must be closed
 Attribute values may be unquoted(<input type=text>)   Attribute values must be quoted (<input type="text" />)
 Empty tags don't need closing slash	                  Empty tags must end with />
 More forgiving of errors	                            Errors are not tolerated
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## HTML Forms
@@ -697,6 +766,18 @@ JavaScript alone cannot:
   Access the camera or microphone
   Set timers
   Web APIs provide these capabilities.
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Web APIs are browser-provided APIs that JavaScript uses to interact with browser features.
   Fetch API
