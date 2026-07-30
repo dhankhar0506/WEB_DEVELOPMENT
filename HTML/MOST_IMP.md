@@ -98,6 +98,20 @@ The <hr> tag is an empty tag, which means that it has no end tag.
 
 => It displays text exactly as it is written in the HTML code, preserving:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## HTML Styles
 
 => The HTML style attribute is used to add styles to an element, such as color, font, size, and more.
