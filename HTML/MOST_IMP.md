@@ -409,7 +409,7 @@ Answer: No. Many websites prevent embedding using security headers like X-Frame-
 
   <p><a href="https://www.w3schools.com" target="iframe_a">W3Schools.com</a></p>
 
-**[name] The name attribute is used to identify an element. In forms, it connects the frontend to the backend by sending data as name=value. In some elements like radio buttons, it is also used to group related elements.**
+
 
 ## HTML javascript
 - JavaScript is used in HTML to make web pages interactive and dynamic.
