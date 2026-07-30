@@ -942,31 +942,51 @@ disabled>
 - `disabled` → Temporarily unavailable fields
 
 ---
-
 # HTML Canvas Graphics
 
 > **Definition:**  
 The `<canvas>` element is used to draw graphics on a webpage using **JavaScript**.
 
-Common Uses:
+Unlike normal HTML elements, the `<canvas>` itself does **not draw anything**. JavaScript is required to draw shapes, text, images, or animations on it.
 
-- Charts
+### Syntax
+
+```html
+<canvas id="myCanvas" width="400" height="200">
+Your browser does not support the canvas element.
+</canvas>
+```
+
+### Common Uses
+
+- Charts & Graphs
 - Games
 - Animations
 - Drawing Applications
+- Image Editing
+- Signatures
+
+> **Interview Tip:**  
+The `<canvas>` element is just a drawing area. **JavaScript** is required to create graphics.
 
 ---
 
 # HTML Multimedia
 
 > **Definition:**  
-HTML Multimedia allows embedding **audio** and **video** directly into a webpage without external plugins like Flash.
+HTML Multimedia allows embedding **audio** and **video** directly into a webpage without using external plugins like Flash.
+
+HTML5 introduced built-in multimedia support through:
+
+- `<audio>`
+- `<video>`
 
 ---
 
 # `<audio>`
 
-Used to embed audio files.
+> **Definition:**  
+The `<audio>` element is used to embed audio files in a webpage.
 
 ### Example
 
@@ -989,17 +1009,20 @@ Your browser does not support the audio element.
 
 ### Common Attributes
 
-- `controls`
-- `autoplay`
-- `loop`
-- `muted`
-- `preload`
+| Attribute | Purpose |
+|-----------|---------|
+| `controls` | Displays audio controls |
+| `autoplay` | Starts automatically |
+| `loop` | Plays repeatedly |
+| `muted` | Starts in muted mode |
+| `preload` | Loads audio before playing |
 
 ---
 
 # `<video>`
 
-Used to embed videos.
+> **Definition:**  
+The `<video>` element is used to embed videos in a webpage.
 
 ### Example
 
@@ -1022,19 +1045,26 @@ Your browser does not support the video tag.
 
 ### Common Attributes
 
-- `controls`
-- `autoplay`
-- `loop`
-- `width`
-- `height`
-- `poster`
+| Attribute | Purpose |
+|-----------|---------|
+| `controls` | Shows video controls |
+| `autoplay` | Starts automatically |
+| `loop` | Repeats the video |
+| `width` | Video width |
+| `height` | Video height |
+| `poster` | Thumbnail image before playback |
+
+> **Interview Tip:**  
+The `poster` attribute displays an image before the video starts playing.
 
 ---
 
 # `<source>`
 
 > **Definition:**  
-Allows the browser to choose a supported media format.
+The `<source>` element allows the browser to choose a supported media format.
+
+If the browser cannot play the first format, it automatically tries the next one.
 
 ### Example
 
@@ -1052,12 +1082,16 @@ type="video/webm">
 </video>
 ```
 
+### Why Use Multiple `<source>` Tags?
+
+Different browsers support different video/audio formats.
+
 ---
 
 # `<track>`
 
 > **Definition:**  
-Adds subtitles, captions, or descriptions to a video.
+The `<track>` element adds subtitles, captions, or descriptions to a video.
 
 ### Example
 
@@ -1077,28 +1111,46 @@ label="English">
 </video>
 ```
 
+### Common Attributes
+
+| Attribute | Purpose |
+|-----------|---------|
+| `src` | Subtitle file path |
+| `kind` | Type of track (subtitles, captions, descriptions) |
+| `srclang` | Language of subtitles |
+| `label` | Display name shown to users |
+
 ---
 
 # HTML - What is a Web API?
 
 > **Definition:**  
-A **Web API** allows **JavaScript** to communicate with the browser or external services to perform tasks.
+A **Web API** is a browser-provided interface that allows **JavaScript** to communicate with browser features or external services.
 
-HTML5 introduced several browser-provided APIs.
+HTML5 introduced several built-in browser APIs.
 
-These are commonly called **HTML5 APIs** or **Web APIs**.
+These are commonly called:
+
+- HTML5 APIs
+- Browser APIs
+- Web APIs
 
 ---
 
-# Examples of HTML5/Web APIs
+# Common Web APIs
 
-- Geolocation API
-- Local Storage API
+- DOM API
 - Fetch API
+- Local Storage API
+- Geolocation API
 - Drag & Drop API
-- Web Workers API
 - Canvas API
 - History API
+- Clipboard API
+- Notification API
+- WebSocket API
+- Web Worker API
+- Media API
 
 ---
 
@@ -1110,7 +1162,10 @@ JavaScript **alone cannot**:
 - Store data in the browser
 - Make HTTP requests
 - Access the camera or microphone
+- Display browser notifications
+- Use the clipboard
 - Set timers
+- Run background threads
 
 Web APIs provide these capabilities.
 
@@ -1120,23 +1175,16 @@ Web APIs provide these capabilities.
 
 | Topic | Purpose |
 |--------|---------|
-| `<form>` | Collects user input |
-| `action` | Destination where form data is sent |
-| `method` | Defines how data is sent (`GET` / `POST`) |
-| Radio Button | Select only one option |
-| Checkbox | Select multiple options |
-| `<label>` | Describes an input field |
-| `<select>` | Creates a dropdown |
-| `<textarea>` | Multi-line text input |
-| `<fieldset>` | Groups related form controls |
-| `<legend>` | Caption for a fieldset |
-| `<datalist>` | Provides input suggestions |
-| `readonly` | Value submitted but not editable |
-| `disabled` | Value not submitted |
 | `<canvas>` | Draw graphics using JavaScript |
-| `<audio>` | Embed audio |
-| `<video>` | Embed video |
-| `<source>` | Multiple media formats |
-| `<track>` | Adds subtitles/captions |
+| `<audio>` | Embed audio files |
+| `<video>` | Embed videos |
+| `<source>` | Provide multiple media formats |
+| `<track>` | Add subtitles and captions |
 | Web API | Gives JavaScript access to browser features |
-````
+| DOM API | Manipulate HTML elements |
+| Fetch API | Send HTTP requests |
+| Local Storage API | Store data in the browser |
+| Geolocation API | Get user's location |
+| WebSocket API | Real-time communication |
+| Web Worker API | Run heavy tasks in the background |
+| Media API | Access camera and microphone |
