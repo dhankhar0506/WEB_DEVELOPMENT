@@ -309,6 +309,19 @@ JavaScript executes all microtasks before processing any task in the Task Queue.
 | Executes after all microtasks               | Executes immediately after synchronous code finishes                 |
 | Processes one task per event loop iteration | Processes **all** pending microtasks before moving to the Task Queue |
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## What is a Promise?
 - A Promise is a JavaScript object that represents the future result of an asynchronous operation.
 
@@ -346,6 +359,11 @@ Pending
     }
 
 });
+
+
+
+
+
 
 ## How do we handle a Promise?
 1.    const promise = new Promise((resolve, reject) => {
