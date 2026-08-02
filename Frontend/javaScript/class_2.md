@@ -1,13 +1,22 @@
 # Chapter 1 — JavaScript Engine (How JavaScript Works Internally)
 
 ## What is a JavaScript Engine?
-A JavaScript Engine is a software program that reads, understands, optimizes, and executes JavaScript code.
-Node.js does not have its own JavaScript engine. = It uses Google's V8 Engine.
+
+A **JavaScript Engine** is a software program that reads, understands, optimizes, and executes JavaScript code.
+
+**Node.js does not have its own JavaScript engine.**
+It uses Google's **V8 Engine**.
+
+---
 
 ## What is V8?
-V8 is Google's open-source JavaScript Engine. Developed by Google.
 
-##           JavaScript Code
+**V8** is Google's open-source JavaScript Engine. Developed by Google.
+
+### Basic V8 Architecture
+
+```text
+          JavaScript Code
                  │
                  ▼
           JavaScript Engine (V8)
@@ -22,116 +31,230 @@ Parser       Ignition        TurboFan
               Machine Code
                       ▼
                     CPU
+```
 
+---
 
-## Step 1 — You Write Code
-    let a = 10;
-    let b = 20;
+# Step 1 — You Write Code
 
-    console.log(a + b);
-this is called the Source Code and The CPU cannot understand this.
-CPU understands only(binary 0 & 1) 101010100010101...
+```js
+let a = 10;
+let b = 20;
+
+console.log(a + b);
+```
+
+This is called the **Source Code**.
+
+The CPU cannot understand this.
+
+CPU understands only **binary (0 & 1)**:
+
+```text
+101010100010101...
+```
+
 Something has to translate it.
 
-## Step 2: Lexer (Tokenizer)
-The Lexer reads the characters and breaks them into meaningful pieces called tokens.
+---
+
+# Step 2 — Lexer (Tokenizer)
+
+The **Lexer** reads the characters and breaks them into meaningful pieces called **tokens**.
+
+Example:
+
+```js
+let x = 2 + 3 * 4;
+```
+
+The lexer can break it into tokens like:
 
 | Token | Type                |
 | ----- | ------------------- |
-| let   | Keyword             |
-| x     | Identifier          |
-| =     | Assignment Operator |
-| 2     | Number              |
-| +     | Operator            |
-| 3     | Number              |
-| *     | Operator            |
-| 4     | Number              |
+| `let` | Keyword             |
+| `x`   | Identifier          |
+| `=`   | Assignment Operator |
+| `2`   | Number              |
+| `+`   | Operator            |
+| `3`   | Number              |
+| `*`   | Operator            |
+| `4`   | Number              |
 
+---
 
-## Step 3: Parser
-Now the parser reads the tokens.
-It checks
-    Is the syntax correct?
-    Are the brackets matched?
-    Which operator has higher precedence?
+## Question: Why Break Code into Tokens?
 
-If everything is valid, it creates an AST.
-The AST doesn't calculate anything.
+Tokenization breaks JavaScript code into meaningful pieces like:
 
-## Question 1: Why break code into Tokens?
-- Tokenization breaks JavaScript code into meaningful pieces like keywords, identifiers, operators, and literals so the parser can easily understand and analyze the program.
+* Keywords
+* Identifiers
+* Operators
+* Literals
 
-## Step 4 — AST (Abstract Syntax Tree)
-What is AST?
-- AST is a tree representation of your JavaScript program.
-- Instead of keeping code as text, the engine converts it into a tree.
-- let a = 10;
-- let b = 20;
-**The CPU doesn't understand trees**
+This allows the parser to easily understand and analyze the program.
+
+---
+
+# Step 3 — Parser
+
+Now the **Parser** reads the tokens.
+
+It checks:
+
+* Is the syntax correct?
+* Are the brackets matched?
+* Which operator has higher precedence?
+
+If everything is valid, it creates an **AST**.
+
+> **Important:** The AST doesn't calculate anything.
+
+---
+
+# Step 4 — AST (Abstract Syntax Tree)
+
+## What is AST?
+
+**AST (Abstract Syntax Tree)** is a tree representation of your JavaScript program.
+
+Instead of keeping code only as text, the engine converts its structure into a tree.
+
+Example:
+
+```js
+let a = 10;
+let b = 20;
 
 console.log(a + b);
+```
 
-                │
-        ┌────┴─────┐
-        │          │
-        Assignment Assignment
-        │          │
-        a=10       b=20
-            │
-        console.log
-            │
-            +
-            /   \
-        a     b
+Conceptually:
 
-**AST is also used by**
-    Babel
-    ESLint
-    TypeScript
-    Prettier
+```text
+                Program
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+    Assignment            Assignment
+        │                     │
+      a = 10                b = 20
+                              
+                   │
+              console.log
+                   │
+                   +
+                  / \
+                 a   b
+```
+
+**The CPU doesn't understand trees.**
+
+The AST is an intermediate representation that other parts of the engine can understand and process.
+
+---
+
+## AST is Also Used By
+
+* Babel
+* ESLint
+* TypeScript
+* Prettier
 
 That's why these tools can understand your code.
 
-## Step 5: Ignition Interpreter
-Ignition is V8's interpreter. It reads the AST, generates bytecode, and executes that bytecode.
-- Now Ignition starts reading the AST. It walks through the tree and converts it into Bytecode.
-- The AST does NOT convert itself into bytecode.
-- The Ignition Interpreter reads the AST and generates bytecode.
+---
 
+# Step 5 — Ignition Interpreter
 
-## Step 6: Execute Bytecode
+**Ignition is V8's interpreter.**
+
+It reads the program representation, generates **bytecode**, and executes that bytecode.
+
+Now Ignition starts reading the program representation and converts it into Bytecode.
+
+> **Important:** The AST does NOT convert itself into bytecode.
+
+The **Ignition Interpreter** generates bytecode.
+
+---
+
+# Step 6 — Execute Bytecode
+
 Ignition now executes those instructions.
 
-## what is bytecode
-- Intermediate instructions that are easier for V8 to execute than JavaScript.
+---
 
-## Step 7: Hot Code Detection
-Suppose you write
+## What is Bytecode?
 
-for(let i=0;i<1000000;i++){
+> **Bytecode is an intermediate set of instructions generated by the JavaScript engine. It is easier for the engine to execute than JavaScript source code but is not directly understood by the CPU.**
+
+Simple flow:
+
+```text
+JavaScript Source Code
+        ↓
+      AST
+        ↓
+    Ignition
+        ↓
+    Bytecode
+```
+
+---
+
+# Step 7 — Hot Code Detection
+
+Suppose you write:
+
+```js
+for (let i = 0; i < 1000000; i++) {
     total += i;
 }
-Ignition notices : "I'm executing the same instructions again and again."
+```
 
+Ignition/runtime notices that the same instructions/code are being executed again and again.
 
+Conceptually:
 
-## Step 8: TurboFan
-TurboFan takes the bytecode and convert into machine code
-    Bytecode
-    ↓
+```text
+"I'm executing the same code again and again."
+```
+
+This frequently executed code can become a candidate for optimization.
+
+---
+
+# Step 8 — TurboFan
+
+**TurboFan** is V8's optimizing compiler.
+
+TurboFan can take frequently executed code and compile it into optimized **machine code**.
+
+```text
+Bytecode / Runtime Information
+        ↓
     TurboFan
-Now the CPU executes it directly. This is much faster.
+        ↓
+Optimized Machine Code
+```
 
+Now the CPU can execute the generated machine code directly.
 
-## compltete flow
+This is much faster for frequently executed code.
 
+---
+
+# Complete JavaScript Engine Flow
+
+```text
             You Write Code
                    │
                    ▼
              Source Code
                    │
                    ▼
-        Lexer (Tokenizer)
+        Lexer / Tokenization
                    │
                    ▼
                Tokens
@@ -144,7 +267,7 @@ Now the CPU executes it directly. This is much faster.
                    │
                    ▼
       Ignition Interpreter
-     (Reads AST & Generates Bytecode)
+       (Generates Bytecode)
                    │
                    ▼
               Bytecode
@@ -152,52 +275,328 @@ Now the CPU executes it directly. This is much faster.
                    ▼
         Execute Bytecode
                    │
-          Is Code Hot?(frequent calls)
+                   ▼
+      Collect Runtime Feedback
+                   │
+                   ▼
+        Is Code Hot / Worth
+           Optimizing?
            /        \
          No          Yes
          │            │
          ▼            ▼
- Continue     TurboFan Optimizer
+ Continue       TurboFan
+Execution       Optimizer
                     │
                     ▼
-              Machine Code
+             Optimized
+             Machine Code
                     │
                     ▼
                    CPU
                     │
                     ▼
                  Output
+```
 
-## what is bytecode?
-Bytecode is an intermediate set of instructions generated by the JavaScript engine. It is easier for the engine to execute than JavaScript source code but is not directly understood by the CPU.
+---
 
-## Why convert into an AST?
-- Actually, the parser builds the AST according to JavaScript's grammar.
+# Important Interview Questions
 
-## Does AST execute JavaScript?
-- No. AST only represents the structure of the program. The interpreter/compiler uses the AST (or the bytecode generated from it) to execute the program.
+## What is Bytecode?
 
-## Why doesn't V8 compile everything into Machine Code immediately?
-Definition:Compiling all JavaScript into machine code increases startup time and memory usage. V8 first generates lightweight bytecode for fast startup and later optimizes only frequently executed (hot) code into machine code.
+**Bytecode is an intermediate set of instructions generated by the JavaScript engine. It is easier for the engine to execute than JavaScript source code but is not directly understood by the CPU.**
 
-## 18. What is Hot Code?(Hot Code = Frequently Executed Code)
+---
+
+## Why Convert Code into an AST?
+
+The parser builds the AST according to JavaScript's grammar.
+
+The AST gives a structured tree representation of the JavaScript program that the engine and other tools can analyze and process.
+
+---
+
+## Does AST Execute JavaScript?
+
+**No.**
+
+AST only represents the structure of the program.
+
+The interpreter/compiler uses the program representation to generate executable instructions such as bytecode and machine code.
+
+---
+
+# Why Doesn't V8 Compile Everything into Machine Code Immediately?
+
+### Definition
+
+Compiling all JavaScript into optimized machine code immediately can increase startup time and memory usage.
+
+V8 can first generate lightweight bytecode for fast startup and later optimize frequently executed or important code into machine code.
+
+Simple idea:
+
+```text
+Everything → Machine Code Immediately
+
+          ❌ Higher startup cost
+          ❌ More memory
+```
+
+Instead:
+
+```text
+JavaScript
+    ↓
+Bytecode
+    ↓
+Fast Startup
+    ↓
+Runtime Feedback
+    ↓
+Frequently Executed / Hot Code
+    ↓
+Optimized Machine Code
+```
+
+---
+
+# What is Hot Code?
+
+> **Hot Code = Frequently Executed Code**
+
 Hot code is code that is executed many times.
 
-## What is TurboFan?
-TurboFan is V8's optimizing compiler. It converts frequently executed (hot) bytecode into optimized machine code for better performance.
+Example:
 
-## 20. Does TurboFan optimize every function?
-No
-It only optimizes hot (frequently executed) code.
+```js
+function add(a, b) {
+    return a + b;
+}
 
-## What is JIT Compilation?
-JIT (Just-In-Time) Compilation is a technique where V8 first executes JavaScript using bytecode for fast startup and then compiles frequently executed (hot) code into optimized machine code while the program is running.
+for (let i = 0; i < 1000000; i++) {
+    add(i, i);
+}
+```
 
-## Why is it called Just-In-Time?
-Because machine code is generated during program execution, just before it is needed, rather than before the application starts.
+Because `add()` executes many times, the engine can identify it as code worth optimizing.
 
-- Why Do We Need JIT?
-- Compile Everything First (AOT - Ahead of Time)
-  - ✅ Fast execution
-    ❌ Slow startup
-    ❌ More memory
+---
+
+# What is TurboFan?
+
+> **TurboFan is V8's optimizing compiler. It uses runtime information to compile code into optimized machine code for better performance.**
+
+Simple flow:
+
+```text
+Frequently Executed Code
+          ↓
+Runtime Feedback
+          ↓
+      TurboFan
+          ↓
+Optimized Machine Code
+          ↓
+         CPU
+```
+
+---
+
+# Does TurboFan Optimize Every Function?
+
+**No.**
+
+It focuses on code that V8 determines is worth optimizing based on runtime behavior and collected feedback.
+
+In simple interview terms:
+
+> TurboFan mainly optimizes frequently executed (hot) code.
+
+---
+
+# What is JIT Compilation?
+
+**JIT = Just-In-Time Compilation**
+
+> **JIT Compilation is a technique where JavaScript execution begins quickly using bytecode, while the engine uses runtime information to compile performance-critical code into optimized machine code during program execution.**
+
+Flow:
+
+```text
+JavaScript Code
+      ↓
+    Parse
+      ↓
+     AST
+      ↓
+  Ignition
+      ↓
+   Bytecode
+      ↓
+   Execute
+      ↓
+Runtime Feedback
+      ↓
+Hot / Optimizable Code
+      ↓
+  TurboFan
+      ↓
+Optimized Machine Code
+```
+
+---
+
+# Why is it Called Just-In-Time?
+
+Because machine code is generated **during program execution**, when the engine determines it is useful, rather than compiling the entire application into optimized machine code before execution starts.
+
+```text
+Program Running
+      ↓
+Engine Observes Code
+      ↓
+Finds Optimization Opportunity
+      ↓
+Compiles to Optimized Machine Code
+      ↓
+Continues Execution
+```
+
+That's why it is called:
+
+> **Just-In-Time (JIT) Compilation**
+
+---
+
+# Why Do We Need JIT?
+
+There are trade-offs between compiling everything before execution and compiling/optimizing during execution.
+
+## Compile Everything First — AOT (Ahead of Time)
+
+```text
+Source Code
+     ↓
+Compile Everything
+     ↓
+Machine Code
+     ↓
+Execute
+```
+
+### Advantages
+
+* ✅ Fast execution
+
+### Disadvantages
+
+* ❌ Slow startup
+* ❌ More memory
+
+---
+
+## JIT Approach
+
+```text
+JavaScript
+    ↓
+Bytecode
+    ↓
+Start Execution Quickly
+    ↓
+Observe Runtime Behavior
+    ↓
+Optimize Important / Hot Code
+    ↓
+Machine Code
+```
+
+This provides a balance between:
+
+* Fast startup
+* Runtime performance
+* Memory usage
+
+---
+
+# Quick Interview Revision
+
+### JavaScript Engine
+
+> A JavaScript Engine is software that reads, understands, optimizes, and executes JavaScript code.
+
+### V8
+
+> V8 is Google's open-source JavaScript engine used by Chrome and Node.js.
+
+### Tokenization
+
+> Breaks source code into meaningful tokens.
+
+### Parser
+
+> Reads tokens, checks syntax/grammar, and builds an AST.
+
+### AST
+
+> Tree representation of the structure of JavaScript code.
+
+### Ignition
+
+> V8's interpreter that generates and executes bytecode.
+
+### Bytecode
+
+> Intermediate instructions used by the JavaScript engine.
+
+### Hot Code
+
+> Code that is executed frequently and may benefit from optimization.
+
+### TurboFan
+
+> V8's optimizing compiler that produces optimized machine code.
+
+### JIT
+
+> A compilation technique where optimization/compilation to machine code happens during program execution.
+
+---
+
+# Final Flow to Remember for Interview
+
+```text
+JavaScript Source Code
+        ↓
+Tokenization
+        ↓
+Tokens
+        ↓
+Parser
+        ↓
+AST
+        ↓
+Ignition
+        ↓
+Bytecode
+        ↓
+Execution
+        ↓
+Runtime Feedback
+        ↓
+Hot / Optimizable Code?
+        ↓ YES
+TurboFan
+        ↓
+Optimized Machine Code
+        ↓
+CPU
+        ↓
+Output
+```
+
+### One-Line Memory Trick
+
+**Source Code → Tokens → Parser → AST → Ignition → Bytecode → Execute → Hot Code → TurboFan → Optimized Machine Code → CPU**
