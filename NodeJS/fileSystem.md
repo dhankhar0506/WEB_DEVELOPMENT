@@ -208,14 +208,23 @@ Server RAM    = 8 GB
 -> A Buffer is Node.js's way of working with raw binary data.
 <Buffer ff d8 ff e0 00 10 4a 46 ...>
 
+## Why does Node need Buffer?
+But backend applications frequently deal with raw bytes:
+    Images
+    Videos
+    PDFs
+    File uploads
+    Network packets/data
+    Streams
+    Encryption
+
 ## What is Base64?
--> Base64 is an encoding that represents binary data as text characters.
+->  is a text encoding used to represent binary data as text characters.
     Binary bytes
     ↓
     Base64 encoding
     ↓
     Text
-
 
 
 

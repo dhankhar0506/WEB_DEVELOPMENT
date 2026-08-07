@@ -45,6 +45,15 @@
     | WebSockets              | Large-scale data analytics       |
     | CRUD Applications       | CPU-bound parallel computation   |
 
+## What are Events?
+
+-> An event is a signal that something has happened in the application.
+    User registered
+    Payment successful
+    Order placed
+    File uploaded
+    Email sent
+    Data received
 
 
 ## How node js handle events ?
@@ -86,22 +95,32 @@
 
 
 > EventEmitter -> 
-    - EventEmitter is a built-in Node.js class that lets you create custom events, register listeners, and trigger those events.
+    - EventEmitter is a class provided by Node.js's built-in events module that allows us to create, emit, and listen for events.
     - EventEmitter is a class provided by Node.js.
     - The object responsible for managing events.
         -> Think of it as a notification system.
+        
         -> const emitter = new EventEmitter();
             -> Creating events
             -> Listening to events
             -> Triggering events
        
+
+-> const user = {
+    id: 101,
+    name: "Gourav",
+    email: "gourav@example.com"
+};
+
+
 > Register a Listener using .on()
-    - emitter.on("login", () => {
-        console.log("User Logged In");
+    - emitter.on("userRegistered", (user) => {
+        console.log(user.email);
     });
 
 > Trigger the Event
-    - emitter.emit("login");
+    - We can send this data when emitting:
+    - emitter.emit("userRegistered", user);;
 
 > .once() 
     - Registers a listener that runs only one time.
@@ -137,22 +156,15 @@
     }
 
 ## Built-in Events (Provided by Node.js)
-    - HTTP request -> Triggered whenever a client (browser, Postman, mobile app, etc.) sends an HTTP request to your server.
-    -> Used For : 
-                Login
-                Register
-                Fetch data
-                Upload files
-                REST APIs
+    -> HTTP request → Triggered when a client sends a request to the server.
+        Used for: Login, Register, Fetch Data, File Upload, REST APIs.
+   
     TCP connection -> TCP (Transmission Control Protocol) is a protocol that creates a reliable connection between two computers before data is exchanged.
-                    -> chating application
-                    -> video streaming
+        Used for: Chat applications, real-time/network communication.
 
-    File stream data -> Large files are read in chunks, not all at once.
-   
-    File stream end -> Triggered when the entire file has been read.
-   
-    File stream error -> Triggered whenever an error occurs while reading or writing a stream.
+    Stream data → Triggered when a chunk of data is available while reading a stream.
+    Stream end → Triggered when all data has been read from a readable stream.
+    Stream error → Triggered when an error occurs during stream operations.
    
     Process exit -> Triggered when the Node.js application is about to terminate.
                     -> "Application under execution is called process."
@@ -167,7 +179,7 @@
                     └── Release Resources
 
 ## Custom Events (Created by You)
-    These are business events that make sense in your application.
+    -> A custom event is simply an event that we as developers define ourselves based on our application's needs.
         Examples:
         userRegistered
         userLoggedIn
