@@ -1744,3 +1744,700 @@ but still referenced"
 # Final One-Line Revision
 
 **Debouncing waits until repeated events stop before executing → `clearTimeout()` cancels the previous pending timer → closure remembers the timer → throttling limits execution to at most once per interval → `apply()` can preserve the wrapper's `this` and arguments → memory leaks occur when unnecessary data remains reachable and therefore cannot be reclaimed by garbage collection.**
+
+
+
+
+
+
+
+
+
+
+
+JavaScript Interview Notes — Debouncing, Throttling & Memory Leaks
+
+1. Debouncing
+
+Debouncing delays function execution until a specified amount of time has passed since the last event. Every new event cancels the previous timer and starts a new one.
+
+Simple Flow
+
+Event → Cancel previous timer → Start new timer
+      → Event again → Reset timer
+      → User stops → Wait for delay → Execute once
+
+Why Do We Need Debouncing?
+
+Useful when the final action matters, such as a search box.
+
+Without debounce:
+
+G → API Call
+Go → API Call
+Gou → API Call
+Gour → API Call
+Goura → API Call
+Gourav → API Call
+
+With 500ms debounce:
+
+G → Go → Gou → Gour → Goura → Gourav
+                    ↓
+              User stops
+                    ↓
+                 500ms
+                    ↓
+              1 API Call
+
+Debounce Code
+
+function search(value) {
+    console.log("Searching:", value);
+}
+
+function debounce(fn, delay) {
+    let timer;
+
+    return function (value) {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            fn(value);
+        }, delay);
+    };
+}
+
+const debounceSearch = debounce(search, 500);
+
+const input = document.getElementById("search");
+
+input.addEventListener("input", (e) => {
+    debounceSearch(e.target.value);
+});
+
+Why clearTimeout()?
+
+clearTimeout(timer);
+
+It cancels the previous pending timer.
+
+Without it:
+
+Event → Timer 1
+Event → Timer 2
+Event → Timer 3
+        ↓
+All timers execute
+        ↓
+Multiple function/API calls ❌
+
+With it:
+
+Event → Timer 1
+Event → Cancel Timer 1 → Timer 2
+Event → Cancel Timer 2 → Timer 3
+        ↓
+Only final timer executes
+
+Debounce + Closure
+
+When:
+
+debounce(search, 500);
+
+runs, it creates:
+
+fn → search
+delay → 500
+timer → undefined
+
+The returned function still needs these variables after debounce() finishes.
+
+Therefore, a closure keeps them accessible:
+
+Returned Function
+      ↓
+   Closure
+      ├── fn
+      ├── delay
+      └── timer
+
+Debouncing depends on closure to preserve the timer between calls.
+
+Reusable Debounce
+
+function debounce(fn, delay) {
+    let timer;
+
+    return function (...args) {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+        }, delay);
+    };
+}
+
+This supports:
+
+Multiple arguments
++
+Correct dynamic `this`
+
+Why fn.apply(this, args)?
+
+fn.apply(this, args);
+
+apply():
+
+Calls the function
+Sets this
+Passes arguments as an array
+
+2. Throttling
+
+Throttling limits how frequently a function can execute, allowing it to run at most once during a specified time interval.
+
+For the implementation below, throttle:
+
+Executes immediately on the first event, blocks subsequent events while the timer is running, and allows execution again after the timer finishes.
+
+Simple Flow
+
+Events continuously happen
+        ↓
+Execute
+        ↓
+Block temporarily
+        ↓
+Delay finishes
+        ↓
+Allow next execution
+
+Why Do We Need Throttling?
+
+Useful when events happen continuously, such as:
+
+Scroll
+Resize
+Mouse Move
+Continuous Event Tracking
+
+Example with 500ms:
+
+Event → Execute
+
+100ms → Ignore
+200ms → Ignore
+300ms → Ignore
+400ms → Ignore
+
+500ms → Allow again
+
+Next event → Execute
+
+Throttle Code
+
+const search = {
+    search(value) {
+        console.log(
+            this.name,
+            "Calling API with:",
+            value
+        );
+    }
+};
+
+function throttle(fn, delay) {
+    let canRun = true;
+
+    return function (...args) {
+        if (!canRun) return;
+
+        canRun = false;
+
+        fn.apply(this, args);
+
+        setTimeout(() => {
+            canRun = true;
+        }, delay);
+    };
+}
+
+Using Throttle
+
+const user1 = {
+    name: "Gourav"
+};
+
+user1.throttleSearch = throttle(
+    search.search,
+    500
+);
+
+user1.throttleSearch("React");
+// Gourav Calling API with: React
+
+const user2 = {
+    name: "Dhankhar"
+};
+
+user2.throttleSearch = throttle(
+    search.search,
+    500
+);
+
+user2.throttleSearch("JavaScript");
+// Dhankhar Calling API with: JavaScript
+
+How Throttling Works
+
+Initially:
+
+canRun = true
+
+First event:
+
+Event
+ ↓
+canRun === true
+ ↓
+canRun = false
+ ↓
+Execute function
+ ↓
+Start timer
+
+During the delay:
+
+Event
+ ↓
+canRun === false
+ ↓
+return
+ ↓
+Ignore
+
+After the delay:
+
+setTimeout(() => {
+    canRun = true;
+}, delay);
+
+Now the next event can execute.
+
+Throttle + Closure
+
+The returned function needs access to:
+
+fn
+delay
+canRun
+
+Therefore closure keeps them available:
+
+Returned Function
+      ↓
+   Closure
+      ├── fn
+      ├── delay
+      └── canRun
+
+Why apply() in Throttle?
+
+When:
+
+user1.throttleSearch("React");
+
+the wrapper's:
+
+this → user1
+
+Then:
+
+fn.apply(this, args);
+
+conceptually calls:
+
+search.search.apply(user1, ["React"]);
+
+Therefore inside search.search:
+
+this.name
+
+is:
+
+"Gourav"
+
+For user2:
+
+this → user2
+this.name → "Dhankhar"
+
+3. Debounce vs Throttle
+
+Debounce
+
+Throttle
+
+Waits until events stop
+
+Limits execution frequency
+
+Timer resets on every event
+
+Events are blocked/limited during interval
+
+Final action matters
+
+Continuous updates matter
+
+Search box
+
+Scroll
+
+Auto-save
+
+Resize
+
+Search suggestions
+
+Mouse movement
+
+Form validation
+
+Event tracking
+
+Easy Memory Trick
+
+Debounce → "Wait until you stop"
+
+Throttle → "Slow down how often you run"
+
+Real-Life Example
+
+Debounce — Elevator:
+
+Person enters
+    ↓
+Wait
+Another person enters
+    ↓
+Reset wait
+Nobody enters
+    ↓
+Wait finishes
+    ↓
+Door closes
+
+Throttle — Gate:
+
+Person → Allowed
+        ↓
+Gate locked temporarily
+        ↓
+Others → Blocked
+        ↓
+Delay finishes
+        ↓
+Next person → Allowed
+
+4. Memory Leaks
+
+A memory leak occurs when memory that is no longer needed cannot be reclaimed because it is still reachable/referenced.
+
+JavaScript uses automatic Garbage Collection.
+
+Normally:
+
+Create Object
+    ↓
+Use Object
+    ↓
+No references remain
+    ↓
+Eligible for Garbage Collection
+
+Memory leak:
+
+Object no longer needed
+        ↓
+Some reference still exists
+        ↓
+Garbage Collector sees it as reachable
+        ↓
+Memory remains allocated
+
+Garbage Collection
+
+Garbage Collection automatically reclaims memory that is no longer reachable/needed.
+
+Object
+  ↓
+Reachable?
+ ┌──┴──┐
+Yes   No
+ ↓     ↓
+Keep  Eligible for GC
+
+5. Common Causes of Memory Leaks
+
+Memory Leaks
+│
+├── Unremoved Event Listeners
+├── Timers Not Cleared
+├── Closures Holding Unnecessary/Large Data
+├── Unnecessary Global References
+└── Detached DOM References
+
+Unremoved Event Listeners
+
+const button = document.getElementById("btn");
+
+function handleClick() {
+    console.log("Clicked");
+}
+
+button.addEventListener("click", handleClick);
+
+When no longer needed, remove the listener:
+
+button.removeEventListener("click", handleClick);
+
+This is especially important when listeners are repeatedly attached/removed in long-running applications or components.
+
+Timers Not Cleared
+
+const interval = setInterval(() => {
+    console.log("Running");
+}, 1000);
+
+When no longer needed:
+
+clearInterval(interval);
+
+Flow:
+
+setInterval()
+     ↓
+Callback repeatedly scheduled
+     ↓
+Still active
+
+Cleanup:
+
+clearInterval()
+     ↓
+Stop future interval scheduling
+
+Closures Holding Large Objects
+
+function createFunction() {
+    const largeData = new Array(1000000);
+
+    return function () {
+        console.log(largeData.length);
+    };
+}
+
+const fn = createFunction();
+
+The returned function references largeData:
+
+fn
+ ↓
+Returned Function
+ ↓
+Closure
+ ↓
+largeData
+
+Even after createFunction() finishes, largeData remains reachable because the returned function uses it.
+
+This is not automatically a memory leak. It becomes a problem when the data is retained unnecessarily.
+
+Important Interview Point
+
+Closures do not automatically cause memory leaks. They can contribute to leaks when they unintentionally keep unnecessary data reachable for longer than needed.
+
+6. Debouncing + Closure + Timer
+
+debounce(search, 500)
+        ↓
+Creates:
+├── fn
+├── delay
+└── timer
+        ↓
+Returns Function
+        ↓
+Closure keeps variables alive
+        ↓
+Event
+        ↓
+clearTimeout(previous timer)
+        ↓
+Create New Timer
+        ↓
+User Stops
+        ↓
+Final Timer Completes
+        ↓
+search() Executes
+
+7. Throttling + Closure + Timer
+
+throttle(fn, 500)
+        ↓
+Creates:
+├── fn
+├── delay
+└── canRun = true
+        ↓
+Returns Function
+        ↓
+Closure
+        ↓
+First Event
+        ↓
+canRun = false
+        ↓
+fn()
+        ↓
+Timer Starts
+        ↓
+Other Events Ignored
+        ↓
+Timer Ends
+        ↓
+canRun = true
+        ↓
+Next Event Allowed
+
+8. Important Interview Questions
+
+Q1. What is Debouncing?
+
+Debouncing delays execution until the user stops triggering an event for a specified period.
+
+Q2. Why is clearTimeout() used?
+
+It cancels the previous pending timer so only the latest timer can execute the function.
+
+Q3. Why is Closure Used in Debouncing?
+
+The returned function needs to remember the same timer, fn, and delay values across calls.
+
+Q4. What is Throttling?
+
+Throttling limits function execution so it runs at most once within a specified time interval.
+
+Q5. Why is Closure Used in Throttling?
+
+Because the returned function needs to remember:
+
+fn
+delay
+canRun
+
+Q6. Why use apply() in Debounce/Throttle?
+
+apply() calls the original function with the wrapper's current this value and passes arguments as an array.
+
+Q7. Debounce vs Throttle?
+
+Debounce waits until events stop. Throttle limits how frequently the function can execute while events continue.
+
+Q8. Where is Debouncing Used?
+
+Search Box
+Autocomplete
+Auto Save
+Form Validation
+API Search Suggestions
+
+Q9. Where is Throttling Used?
+
+Scroll
+Resize
+Mouse Move
+Continuous Event Tracking
+
+Q10. What is a Memory Leak?
+
+Memory that is no longer logically needed but remains reachable because a reference still exists, preventing garbage collection.
+
+Q11. Common Causes of Memory Leaks?
+
+Unremoved Event Listeners
+Timers Not Cleared
+Closures Holding Unnecessary Data
+Detached DOM References
+Long-Lived Global References
+
+9. Quick Interview Revision
+
+Concept
+
+Meaning
+
+Debounce
+
+Wait until events stop
+
+Throttle
+
+Limit execution frequency
+
+clearTimeout()
+
+Cancel previous timeout
+
+Closure in Debounce
+
+Remembers timer, fn, delay
+
+Closure in Throttle
+
+Remembers canRun, fn, delay
+
+apply()
+
+Sets this and passes arguments as an array
+
+Memory Leak
+
+Unneeded memory remains reachable
+
+Garbage Collector
+
+Reclaims unreachable memory
+
+clearInterval()
+
+Stops an interval
+
+removeEventListener()
+
+Removes a registered listener
+
+10. Final Memory Trick
+
+DEBOUNCE
+"Wait until user STOPS"
+
+Typing → Typing → Typing → STOP → Wait → Execute
+
+THROTTLE
+"Execute, then WAIT before allowing another execution"
+
+Execute → Block → Block → Allow → Execute
+
+MEMORY LEAK
+"No longer needed,
+but still referenced"
+
+One-Line Revision
+
+Debouncing waits until repeated events stop before executing → clearTimeout() cancels the previous pending timer → closure remembers the timer → throttling limits execution to at most once per interval → apply() can preserve the wrapper's this and arguments → memory leaks occur when unnecessary data remains reachable and cannot be reclaimed by garbage collection.

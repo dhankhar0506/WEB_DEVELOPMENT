@@ -1459,3 +1459,1067 @@ try / catch
 ## One-Line Revision
 
 **Hoisting prepares declarations → TDZ protects uninitialized `let`/`const` → Scope controls accessibility → Lexical Scope depends on where a function is written → Scope Chain searches outward → Closure remembers outer variables → Callbacks can create Callback Hell → Promises flatten async flows → Async/Await makes Promise code easier to read.**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JavaScript Interview Notes — Hoisting, Scope, Closure & Async JavaScript
+
+1. What is Hoisting?
+
+Hoisting is JavaScript's behavior where variable and function declarations are processed before code execution.
+
+Declarations are conceptually available before their written position; JavaScript does not literally move the code.
+
+Declaration vs Initialization
+
+Declaration → JavaScript creates/reserves the binding.
+
+Initialization → The variable receives its initial value.
+
+var a;
+
+console.log(a); // undefined
+
+a = 10;
+
+Conceptually:
+
+Memory Creation
+      ↓
+a → undefined
+      ↓
+Code Execution
+      ↓
+console.log(a) → undefined
+      ↓
+a = 10
+      ↓
+a → 10
+
+2. Is let Hoisted?
+
+Yes. let is hoisted, but its binding remains uninitialized until execution reaches the declaration.
+
+console.log(a); // ReferenceError
+
+let a = 10;
+
+Conceptually:
+
+Memory Creation
+      ↓
+a → <uninitialized>
+      ↓
+     TDZ
+      ↓
+Declaration executes
+      ↓
+a → 10
+
+3. Temporal Dead Zone (TDZ)
+
+TDZ is the period between entering the scope where a let/const binding exists and the point where its declaration initializes it. Accessing it during this period throws a ReferenceError.
+
+console.log(a);
+
+let a = 10;
+
+Result:
+
+ReferenceError:
+Cannot access 'a' before initialization
+
+TDZ Flow
+
+Scope starts
+    ↓
+Binding exists
+    ↓
+<uninitialized>
+    ↓
+TDZ
+    ↓
+Declaration executes
+    ↓
+Variable initialized
+    ↓
+TDZ ends
+
+let and const have TDZ behavior.
+
+Scope & Scope Chain
+
+4. What is Scope?
+
+Scope determines where a variable can be accessed in your code.
+
+Scope = Where can I use this variable?
+
+5. Types of Scope
+
+Scope
+│
+├── Global Scope
+├── Function Scope
+├── Block Scope
+└── Lexical Scope
+
+5.1 Global Scope
+
+A variable declared outside functions/blocks is generally in the global scope.
+
+let company = "Google";
+
+function show() {
+    console.log(company);
+}
+
+show();
+console.log(company);
+
+Output:
+
+Google
+Google
+
+Inner scopes can generally access outer/global variables unless shadowed or restricted by the environment.
+
+5.2 Function Scope
+
+Variables declared with var inside a function belong to that function's scope.
+
+function test() {
+    var age = 25;
+    console.log(age);
+}
+
+test();
+
+console.log(age); // ReferenceError
+
+5.3 Block Scope
+
+A block is code inside { }, such as:
+
+if
+
+else
+
+for
+
+while
+
+switch
+
+Standalone { }
+
+let and const are block-scoped.
+
+if (true) {
+    let a = 10;
+    const b = 20;
+}
+
+console.log(a); // ReferenceError
+console.log(b); // ReferenceError
+
+6. var vs let vs const Scope
+
+function test() {
+    if (true) {
+        var x = 10;
+        let y = 20;
+        const z = 30;
+    }
+
+    console.log(x); // 10
+    console.log(y); // ReferenceError
+    console.log(z); // ReferenceError
+}
+
+test();
+
+Why?
+
+var
+ ↓
+Function Scoped
+ ↓
+Ignores ordinary block scope
+
+let
+ ↓
+Block Scoped
+
+const
+ ↓
+Block Scoped
+
+var creates function scope, while let and const support block scope.
+
+7. What is Lexical Scope?
+
+Lexical Scope means a function's accessible variables are determined by where the function is defined/written in the source code, not where it is called.
+
+This is the foundation of closures.
+
+let a = 10;
+
+function outer() {
+    let b = 20;
+
+    function inner() {
+        console.log(a);
+        console.log(b);
+    }
+
+    return inner;
+}
+
+const myFunc = outer();
+
+myFunc();
+
+inner() can access a and b because of where inner() was created.
+
+Global Scope
+    ↓
+a = 10
+    ↓
+outer()
+    ↓
+b = 20
+    ↓
+inner()
+    ↓
+Can access b and a
+
+Even when myFunc() calls inner() later, its scope is based on where inner() was defined.
+
+Lexical Environment & Closure
+
+8. What is a Lexical Environment?
+
+A Lexical Environment is an internal structure that keeps track of bindings in a scope and maintains a reference to its outer Lexical Environment.
+
+Simple:
+
+Lexical Environment
+=
+Current scope's bindings
++
+Reference to outer environment
+
+Conceptually:
+
+Inner Lexical Environment
+│
+├── c = 30
+│
+└── Outer Reference
+        ↓
+Outer Lexical Environment
+│
+├── b = 20
+│
+└── Outer Reference
+        ↓
+Global Lexical Environment
+│
+└── a = 10
+
+This outer reference helps JavaScript perform scope-chain lookup.
+
+9. What is Closure?
+
+A Closure is a function together with the lexical environment in which it was created. It allows the function to access outer variables even after the outer function has finished executing.
+
+function outer() {
+    let count = 0;
+
+    function inner() {
+        count++;
+        console.log(count);
+    }
+
+    return inner;
+}
+
+const counter = outer();
+
+counter(); // 1
+counter(); // 2
+counter(); // 3
+
+Why does count survive?
+
+inner()
+  ↓
+References count
+  ↓
+Outer lexical environment remains reachable
+  ↓
+Closure
+
+Memory Trick
+
+Function
+   +
+Outer Variables
+   +
+Lexical Environment
+   =
+Closure
+
+10. Why Can inner() Access b After outer() Finishes?
+
+Normally, when a function finishes, its execution context is removed from the call stack.
+
+But if an inner function still references variables from that outer function, the required environment remains reachable.
+
+function outer() {
+    let b = 20;
+
+    function inner() {
+        console.log(b);
+    }
+
+    return inner;
+}
+
+const myFunc = outer();
+
+myFunc(); // 20
+
+Flow:
+
+outer()
+ ↓
+b = 20
+ ↓
+inner() created
+ ↓
+inner remembers outer lexical environment
+ ↓
+outer() returns inner
+ ↓
+outer() finishes
+ ↓
+outer execution context removed
+ ↓
+myFunc()
+ ↓
+inner executes
+ ↓
+Still accesses b
+ ↓
+Closure
+
+11. What is Scope Chain?
+
+Scope Chain is the process JavaScript uses to search for a variable from the current scope toward outer scopes until it reaches the global scope.
+
+let a = 10;
+
+function outer() {
+    let b = 20;
+
+    function inner() {
+        let c = 30;
+        console.log(a, b, c);
+    }
+
+    return inner;
+}
+
+const myFunc = outer();
+
+myFunc();
+
+Lookup:
+
+For c:
+inner → Found
+
+For b:
+inner
+  ↓
+outer → Found
+
+For a:
+inner
+  ↓
+outer
+  ↓
+global → Found
+
+Complete:
+
+Current Scope
+      ↓
+Outer Scope
+      ↓
+Outer Scope
+      ↓
+Global Scope
+
+If the variable cannot be found in the accessible chain:
+
+ReferenceError
+
+Execution Context & Memory
+
+12. What is Execution Context?
+
+Execution Context is the environment in which JavaScript code is evaluated and executed.
+
+Conceptually:
+
+Execution Context
+│
+├── Lexical Environment
+├── Variable Environment
+└── this
+
+13. What is Call Stack?
+
+The Call Stack is a stack that keeps track of currently executing function calls/execution contexts.
+
+function outer() {
+    inner();
+}
+
+function inner() {
+    console.log("Hello");
+}
+
+outer();
+
+Conceptually:
+
+┌──────────────────┐
+│ inner()          │
+├──────────────────┤
+│ outer()          │
+├──────────────────┤
+│ Global Context   │
+└──────────────────┘
+
+When inner() finishes, it is removed:
+
+┌──────────────────┐
+│ outer()          │
+├──────────────────┤
+│ Global Context   │
+└──────────────────┘
+
+14. Lexical Environment — Important Point
+
+A Lexical Environment represents the bindings of a scope and maintains a reference to the outer environment.
+
+Current Lexical Environment
+        │
+        ├── Variables
+        ├── Functions / bindings
+        │
+        └── Outer Reference
+                ↓
+        Outer Environment
+
+The outer reference enables Scope Chain lookup.
+
+15. Scope Chain — Important Point
+
+Current Scope
+     ↓
+Outer Scope
+     ↓
+Outer Scope
+     ↓
+Global Scope
+
+JavaScript searches outward until it finds the required variable or throws ReferenceError.
+
+16. Heap Memory
+
+Heap Memory stores dynamically allocated objects, arrays, functions, and other runtime data.
+
+const user = {
+    name: "Gourav"
+};
+
+const numbers = [10, 20, 30];
+
+function test() {}
+
+Conceptually:
+
+Reference
+   ↓
+Heap Memory
+┌──────────────────┐
+│ Objects          │
+│ Arrays           │
+│ Functions        │
+│ Runtime Data     │
+└──────────────────┘
+
+Closures may keep referenced data reachable in memory even after an outer function returns.
+
+17. Garbage Collector
+
+Garbage Collection is the process of automatically reclaiming memory that is no longer reachable/needed by a JavaScript program.
+
+JavaScript automatically manages memory. Engines such as V8 decide when garbage collection runs.
+
+Object Created
+     ↓
+Stored in Memory
+     ↓
+Still Reachable?
+    / \
+  Yes  No
+   ↓    ↓
+ Keep  Eligible for
+       Garbage Collection
+
+18. Lexical Environment vs Variable Environment
+
+For interview learning, these concepts can be understood as:
+
+Lexical Environment
+
+Variable Environment
+
+Tracks lexical bindings and scope information
+
+Tracks variable-declaration environment information
+
+Important for lexical/block scoping
+
+Important for var/function-level declaration handling
+
+Connected with let/const behavior
+
+Connected with var behavior
+
+Has an outer environment reference
+
+Part of execution-context environment handling
+
+Important for scope-chain lookup
+
+Related to declaration storage
+
+Important for closures
+
+Also part of the execution-context model
+
+Easy Understanding
+
+Execution Context
+│
+├── Lexical Environment
+│      ↓
+│   Scope + outer references
+│
+├── Variable Environment
+│      ↓
+│   Variable declaration environment
+│
+└── this
+
+Callbacks, Promises & Async JavaScript
+
+19. What is a Callback?
+
+A Callback is a function passed to another function so that the receiving function can call it, often later or after some work completes.
+
+function greet(name, callback) {
+    console.log("Hello " + name);
+    callback();
+}
+
+function sayBye() {
+    console.log("Bye");
+}
+
+greet("Gourav", sayBye);
+
+Output:
+
+Hello Gourav
+Bye
+
+Flow:
+
+greet()
+  ↓
+"Hello Gourav"
+  ↓
+callback()
+  ↓
+sayBye()
+  ↓
+"Bye"
+
+Important
+
+Callbacks are not always asynchronous.
+
+This callback is synchronous:
+
+callback();
+
+Callbacks are also commonly used with asynchronous APIs:
+
+setTimeout(() => {
+    console.log("Hello");
+}, 1000);
+
+20. What is Callback Hell?
+
+Callback Hell occurs when multiple nested callbacks make code difficult to read, maintain, debug, and handle errors in.
+
+Example flow:
+
+Login User
+    ↓
+Get User Details
+    ↓
+Check Cart
+    ↓
+Make Payment
+    ↓
+Send Email
+
+Example structure:
+
+login(() => {
+    getUser(() => {
+        getCart(() => {
+            makePayment(() => {
+                sendEmail(() => {
+                    console.log("🎉 Order Completed");
+                });
+            });
+        });
+    });
+});
+
+This is also called:
+
+Pyramid of Doom
+
+Problems
+
+❌ Hard to read
+
+❌ Hard to debug
+
+❌ Difficult error handling
+
+❌ Deep nesting
+
+Promises
+
+21. What is a Promise?
+
+A Promise is an object that represents the eventual completion (success) or failure of an asynchronous operation.
+
+Promise States
+
+             Promise
+                │
+        ┌───────┼────────┐
+        ↓       ↓        ↓
+     Pending Fulfilled Rejected
+
+Pending → Operation is still running.
+
+Fulfilled → Operation completed successfully.
+
+Rejected → Operation failed.
+
+22. Creating a Promise
+
+const promise = new Promise((resolve, reject) => {
+
+    let success = true;
+
+    if (success) {
+        resolve("Payment Successful");
+    } else {
+        reject("Payment Failed");
+    }
+
+});
+
+promise
+    .then(result => console.log(result))
+    .catch(error => console.log(error))
+    .finally(() => console.log("Finished"));
+
+Output:
+
+Payment Successful
+Finished
+
+Flow:
+
+resolve()
+   ↓
+Success
+   ↓
+Fulfilled
+
+reject()
+   ↓
+Failure
+   ↓
+Rejected
+
+23. Promise Solution to Callback Hell
+
+Instead of:
+
+login
+ └── getUser
+      └── getOrders
+           └── makePayment
+
+Promises allow chaining:
+
+login()
+    .then(getUser)
+    .then(getOrders)
+    .then(makePayment)
+    .then(() => {
+        console.log("Done");
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+Flow:
+
+login()
+  ↓
+getUser()
+  ↓
+getOrders()
+  ↓
+makePayment()
+  ↓
+Done
+
+This produces a flatter and easier-to-read structure.
+
+Async / Await
+
+24. What is Async/Await?
+
+Async/Await is cleaner syntax for working with Promises.
+
+async
+
+The async keyword makes a function return a Promise.
+
+await
+
+await pauses the execution of the current async function until the awaited Promise settles.
+
+It does not block the entire JavaScript thread.
+
+async function test() {
+
+    try {
+        const data = await getData();
+        console.log(data);
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+Flow:
+
+async function
+      ↓
+getData()
+      ↓
+Returns Promise
+      ↓
+await
+      ↓
+Pause this async function
+      ↓
+Other JavaScript can continue
+      ↓
+Promise settles
+      ↓
+Resume async function
+      ↓
+data
+
+Why Use try...catch With Async/Await?
+
+A rejected awaited Promise can be handled with try...catch.
+
+try {
+    const data = await getData();
+} catch (error) {
+    console.log(error);
+}
+
+Flow:
+
+Promise
+   │
+   ├── Fulfilled
+   │      ↓
+   │   try continues
+   │
+   └── Rejected
+          ↓
+        catch
+
+Callback vs Promise
+
+Feature
+
+Callback
+
+Promise
+
+Readability
+
+Can become poor when deeply nested
+
+Better with chaining
+
+Error Handling
+
+Can become scattered
+
+.catch() provides centralized chain handling
+
+Callback Hell
+
+Possible
+
+Helps avoid deep nesting
+
+Chaining
+
+Difficult
+
+Easy
+
+States
+
+No Promise states
+
+Pending, Fulfilled, Rejected
+
+Modern JS
+
+Still used and important
+
+Preferred for many async workflows
+
+Callback → Promise → Async/Await
+
+Callbacks
+    │
+    │ Problem
+    ↓
+Callback Hell
+    │
+    │ Cleaner solution
+    ↓
+Promises
+    │
+    │ Cleaner syntax
+    ↓
+Async / Await
+
+Complete Connection
+
+JavaScript
+    │
+    ▼
+Execution Context
+    │
+    ├───────────────┐
+    ▼               ▼
+Lexical         Call Stack
+Environment
+    │
+    ▼
+Lexical Scope
+    │
+    ▼
+Scope Chain
+    │
+    ▼
+Closure
+    │
+    ▼
+Memory Reachability
+    │
+    ▼
+Garbage Collection
+
+Async JavaScript
+       │
+       ▼
+    Callback
+       │
+       ▼
+ Callback Hell
+       │
+       ▼
+    Promise
+       │
+       ▼
+ Async / Await
+
+Most Important Interview Definitions
+
+Topic
+
+Simple Definition
+
+Hoisting
+
+Declarations are processed before normal code execution
+
+TDZ
+
+Period where let/const exists but cannot yet be accessed
+
+Scope
+
+Determines where a variable can be accessed
+
+Global Scope
+
+Scope available to global code and accessible inner scopes
+
+Function Scope
+
+Scope belonging to a function
+
+Block Scope
+
+Scope created by a block for let/const
+
+Lexical Scope
+
+Scope depends on where a function is defined
+
+Lexical Environment
+
+Scope bindings + reference to outer environment
+
+Scope Chain
+
+Search from current scope toward outer scopes
+
+Closure
+
+Function + its remembered lexical environment
+
+Execution Context
+
+Environment in which JavaScript code is evaluated/executed
+
+Call Stack
+
+Tracks active function calls/execution contexts
+
+Heap
+
+Memory for dynamically allocated runtime data
+
+Garbage Collection
+
+Automatically reclaims unreachable memory
+
+Callback
+
+Function passed to another function to be called by it
+
+Callback Hell
+
+Deeply nested callbacks that are difficult to manage
+
+Promise
+
+Object representing eventual async success/failure
+
+Async/Await
+
+Cleaner syntax for Promise-based asynchronous code
+
+Final Interview Memory Map
+
+var
+ ↓
+Function Scope
+ ↓
+Hoisted + undefined
+
+
+let / const
+ ↓
+Block Scope
+ ↓
+Hoisted + TDZ
+
+
+Function Defined
+ ↓
+Lexical Scope
+ ↓
+Lexical Environment
+ ↓
+Scope Chain
+ ↓
+Closure
+ ↓
+Outer Variables Remain Reachable
+
+
+Async Work
+ ↓
+Callbacks
+ ↓
+Callback Hell
+ ↓
+Promises
+ ↓
+.then() / .catch() / .finally()
+ ↓
+Async / Await
+ ↓
+try / catch
+
+One-Line Revision
+
+Hoisting prepares declarations → TDZ protects uninitialized let/const → Scope controls accessibility → Lexical Scope depends on where a function is written → Scope Chain searches outward → Closure remembers outer variables → Callbacks can create Callback Hell → Promises flatten async flows → Async/Await makes Promise code easier to read.

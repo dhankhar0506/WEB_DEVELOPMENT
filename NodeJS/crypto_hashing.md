@@ -128,6 +128,7 @@ Why slow?
         bcrypt
             ↓
         bcrypt result
+        
 > The returned bcrypt string contains the salt and cost information along with the derived hash.
 $2b$10$abcdefghijklmnopqrstuuXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  │   │  │                    │
