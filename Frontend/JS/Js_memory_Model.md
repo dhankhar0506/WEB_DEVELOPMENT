@@ -7,21 +7,19 @@
 A simple way to understand JavaScript memory:
 
 ```text
-                    Memory
+                     Memory
            ┌──────────────────────┐
-           │ Heap Memory          │
+           │     Heap Memory      │
            │                      │
            │ Objects              │
            │ Arrays               │
            │ Functions            │
            └──────────────────────┘
-
-                    ▲
-                    │ References
-                    │
-
+                     ▲
+                     │ References
+                     │
            ┌──────────────────────┐
-           │ Execution Context    │
+           │   Execution Context  │
            │                      │
            │ Lexical Environment  │
            │ this Binding         │
@@ -29,16 +27,17 @@ A simple way to understand JavaScript memory:
            └──────────────────────┘
 ```
 
-Main concepts:
+### Main Concepts
 
 ```text
 JavaScript Memory Model
 │
 ├── Heap Memory
+│
 ├── Execution Context
-│      ├── Lexical Environment
-│      ├── this Binding
-│      └── Code Execution
+│     ├── Lexical Environment
+│     ├── this Binding
+│     └── Code Execution
 │
 └── References
 ```
@@ -51,29 +50,15 @@ JavaScript Memory Model
 
 Example:
 
-```js
+```javascript
 const obj = {
-    name: "Gourav"
+  name: "Gourav"
 };
 
 function test() {}
 ```
 
 Conceptually:
-
-```text
-Heap Memory
-│
-├── Object
-│      │
-│      └── name → "Gourav"
-│
-└── Function Object
-       │
-       └── test()
-```
-
-So we can think:
 
 ```text
 obj
@@ -85,11 +70,8 @@ Heap
  └── {
        name: "Gourav"
      }
-```
 
-And:
 
-```text
 test
  │
  │ Reference
@@ -99,15 +81,17 @@ Heap
  └── Function Object
 ```
 
+> **Objects, arrays, and functions are reference values and are conceptually stored in Heap Memory.**
+
 ---
 
-# 3. Objects in Heap Memory
+# 3. Objects and Arrays in Heap Memory
 
-Consider:
+## Object
 
-```js
+```javascript
 const obj = {
-    name: "Gourav"
+  name: "Gourav"
 };
 ```
 
@@ -115,36 +99,25 @@ Conceptually:
 
 ```text
 Execution Context
-│
-│
-├── obj ──────────────┐
-│                     │
-                      ▼
-                 Heap Memory
-                 ┌──────────────┐
-                 │ Object       │
-                 │              │
-                 │ name:Gourav  │
-                 └──────────────┘
+
+obj ────────────────┐
+                    │
+                    ▼
+               Heap Memory
+               ┌──────────────┐
+               │ Object       │
+               │              │
+               │ name:Gourav  │
+               └──────────────┘
 ```
 
-The variable:
-
-```js
-obj
-```
-
-holds a reference to the object.
+The variable `obj` holds a reference to the object.
 
 The actual object data is stored in heap memory.
 
----
+## Array
 
-# 4. Arrays in Heap Memory
-
-Example:
-
-```js
+```javascript
 const numbers = [10, 20, 30];
 ```
 
@@ -171,15 +144,13 @@ Heap Memory
 
 ---
 
-# 5. Functions in Heap Memory
+# 4. Functions in Heap Memory
 
 Functions are also objects in JavaScript.
 
-Example:
-
-```js
+```javascript
 function test() {
-    console.log("Hello");
+  console.log("Hello");
 }
 ```
 
@@ -202,13 +173,9 @@ Heap Memory
 └─────────────────────┘
 ```
 
-So:
-
-> **Objects, arrays, and functions are reference values and are conceptually stored in Heap Memory.**
-
 ---
 
-# 6. What is a Lexical Environment?
+# 5. Lexical Environment
 
 > **A Lexical Environment stores the variables and functions of a scope and also keeps a reference to its outer Lexical Environment.**
 
@@ -226,23 +193,21 @@ For objects, arrays, and functions, the environment holds the corresponding bind
 
 ---
 
-# 7. Lexical Environment Example
+# 6. Lexical Environment Example
 
 Consider:
 
-```js
+```javascript
 function outer() {
+  let a = 10;
 
-    let a = 10;
+  function inner() {
+    let b = 20;
 
-    function inner() {
+    console.log(a, b);
+  }
 
-        let b = 20;
-
-        console.log(a, b);
-    }
-
-    return inner;
+  return inner;
 }
 
 const myFunc = outer();
@@ -256,32 +221,18 @@ Output:
 10 20
 ```
 
-Let's understand the memory relationship.
-
----
-
-# 8. `outer()` Lexical Environment
-
-When:
-
-```js
-outer();
-```
-
-runs, conceptually:
+When `outer()` runs, conceptually:
 
 ```text
 outer() Execution Context
 │
 ├── Lexical Environment
-│      │
-│      ├── a = 10
-│      │
-│      └── inner ───────────────┐
-│                               │
-│                               ▼
-│                          Function Object
-│                          in Heap Memory
+│     ├── a = 10
+│     │
+│     └── inner ───────────────┐
+│                              ▼
+│                         Function Object
+│                         in Heap Memory
 │
 └── Outer Reference
        │
@@ -289,22 +240,7 @@ outer() Execution Context
 Global Environment
 ```
 
----
-
-# 9. `inner()` Lexical Environment
-
-Inside:
-
-```js
-function inner() {
-
-    let b = 20;
-
-    console.log(a, b);
-}
-```
-
-`inner()` has access to:
+Inside `inner()`:
 
 ```text
 inner Lexical Environment
@@ -319,13 +255,13 @@ outer Lexical Environment
        └── a = 10
 ```
 
-Therefore:
+Therefore, when JavaScript evaluates:
 
-```js
+```javascript
 console.log(a, b);
 ```
 
-can find:
+It searches:
 
 ```text
 b
@@ -355,20 +291,18 @@ Output:
 
 ---
 
-# 10. Connection With Scope Chain
+# 7. Scope Chain
 
-The outer references form the basis of the scope chain.
+The outer references form the basis of the **scope chain**.
 
 ```text
 inner()
 │
 │ b = 20
-│
 ▼
 outer()
 │
 │ a = 10
-│
 ▼
 Global Scope
 │
@@ -381,39 +315,35 @@ When JavaScript needs a variable:
 ```text
 Current Scope
      ↓
-Found?
- ┌───┴───┐
-Yes      No
- │        │
-Use      ▼
-      Outer Scope
-          ↓
-        Found?
+   Found?
+  ┌───┴───┐
+ Yes      No
+  │        │
+ Use       ▼
+       Outer Scope
+           ↓
+         Found?
 ```
 
-This process is called the:
-
-> **Scope Chain**
+> **Scope Chain** = the path JavaScript follows to find a variable from the current scope to outer scopes.
 
 ---
 
-# 11. Connection With Closure
+# 8. Closure
 
-Consider again:
+Consider:
 
-```js
+```javascript
 function outer() {
+  let a = 10;
 
-    let a = 10;
+  function inner() {
+    let b = 20;
 
-    function inner() {
+    console.log(a, b);
+  }
 
-        let b = 20;
-
-        console.log(a, b);
-    }
-
-    return inner;
+  return inner;
 }
 
 const myFunc = outer();
@@ -431,64 +361,44 @@ Function finishes
 Execution Context removed
 ```
 
-But:
+But `inner()` still needs access to `a`.
 
-```js
-inner()
+Therefore, the required outer lexical environment remains reachable.
+
+```text
+myFunc
+ │
+ ▼
+inner Function
+ │
+ │ remembers lexical environment
+ ▼
+outer Lexical Environment
+ │
+ └── a = 10
 ```
 
-still needs:
+> **Closure = a function together with access to its remembered lexical environment.**
 
-```js
-a
-```
+---
 
-Therefore the required outer lexical environment remains reachable.
+# 9. `this` Binding
+
+> **For a normal function, the value of `this` is determined when the function is called. The execution context for that invocation has a `this` binding.**
 
 Conceptually:
 
 ```text
-myFunc
-  │
-  ▼
-inner Function
-  │
-  │ remembers lexical environment
-  ▼
-outer Lexical Environment
-  │
-  └── a = 10
-```
-
-This gives us a:
-
-> **Closure**
-
----
-
-# 12. What is `this` Binding?
-
-> **For a normal function, the value of `this` is determined when the function is called. The execution context for that invocation has a `this` binding.**
-
-Simple conceptual representation:
-
-```text
 Execution Context
 ┌──────────────────────────┐
-│                          │
 │ Lexical Environment      │
-│                          │
 ├──────────────────────────┤
-│                          │
 │ this Binding             │
 │      │                   │
 │      ▼                   │
 │      ?                   │
-│                          │
 ├──────────────────────────┤
-│                          │
 │ Code Execution           │
-│                          │
 └──────────────────────────┘
 ```
 
@@ -496,33 +406,29 @@ When the function is invoked, JavaScript determines what `this` should be accord
 
 ---
 
-# 13. Example — Object Method
+# 10. Object Method Call
 
-Consider:
-
-```js
+```javascript
 function test() {
-    console.log(this);
+  console.log(this);
 }
 
 const obj = {
-    test
+  test
 };
 
 obj.test();
 ```
 
-Ask:
+For:
 
-```text
-Object before the dot?
-        ↓
-       YES
-        ↓
-       obj
+```javascript
+obj.test();
 ```
 
-Therefore, for this normal method call:
+the object before the dot is `obj`.
+
+Therefore:
 
 ```text
 this → obj
@@ -534,7 +440,6 @@ Conceptually:
 obj.test()
    │
    ▼
-
 test() Execution Context
 
 ┌──────────────────────────┐
@@ -546,13 +451,11 @@ test() Execution Context
 └──────────────────────────┘
 ```
 
----
+### Easy Interview Rule
 
-# 14. Easy Rule for Normal Method Calls
+For:
 
-For a normal function called like:
-
-```js
+```javascript
 obj.test();
 ```
 
@@ -561,136 +464,6 @@ look immediately before the dot:
 ```text
 obj.test()
 ↑
-│
-obj
-```
-
-So:
-
-```text
-this → obj
-```
-
-This is a very useful interview shortcut.
-
----
-
-# 15. Plain Function Call
-
-Consider:
-
-```js
-function test() {
-    console.log(this);
-}
-
-test();
-```
-
-There is no object receiver:
-
-```text
-test()
-↑
-│
-No object before a dot
-```
-
-The result depends on the JavaScript environment/mode.
-
-### Non-strict browser script
-
-A plain function call commonly gets:
-
-```text
-this → window
-```
-
-### Strict mode
-
-```js
-"use strict";
-
-function test() {
-    console.log(this);
-}
-
-test();
-```
-
-gives:
-
-```text
-this → undefined
-```
-
-ES modules are strict by default.
-
-So for interviews, don't simply say:
-
-> `test()` always gives `window`.
-
-Better answer:
-
-> **For a plain normal-function call, `this` is `undefined` in strict mode. In a non-strict browser script, it generally becomes the global object (`window`).**
-
----
-
-# 16. Function Reference Problem
-
-Consider:
-
-```js
-function test() {
-    console.log(this);
-}
-
-const obj = {
-    test
-};
-
-const x = obj.test;
-
-x();
-```
-
-Initially:
-
-```text
-obj
-│
-└── test ─────────────┐
-                      │
-                      ▼
-                  Function
-                      ▲
-                      │
-x ────────────────────┘
-```
-
-Important:
-
-```js
-const x = obj.test;
-```
-
-does NOT copy the object relationship.
-
-It only gives `x` a reference to the same function.
-
----
-
-# 17. `obj.test()` vs `x()`
-
-When we call:
-
-```js
-obj.test();
-```
-
-the receiver is:
-
-```text
 obj
 ```
 
@@ -700,29 +473,121 @@ Therefore:
 this → obj
 ```
 
-But when:
+---
 
-```js
+# 11. Plain Function Call
+
+Consider:
+
+```javascript
+function test() {
+  console.log(this);
+}
+
+test();
+```
+
+There is no object receiver.
+
+The result depends on the environment/mode.
+
+### Non-Strict Browser Script
+
+```text
+this → window
+```
+
+### Strict Mode
+
+```javascript
+"use strict";
+
+function test() {
+  console.log(this);
+}
+
+test();
+```
+
+Result:
+
+```text
+this → undefined
+```
+
+> ES modules are strict by default.
+
+### Interview Answer
+
+> **For a plain normal-function call, `this` is `undefined` in strict mode. In a non-strict browser script, it generally becomes the global object (`window`).**
+
+---
+
+# 12. Function Reference — `obj.test()` vs `x()`
+
+Consider:
+
+```javascript
+function test() {
+  console.log(this);
+}
+
+const obj = {
+  test
+};
+
+const x = obj.test;
+
 x();
 ```
 
-runs, the call is no longer:
+Important:
 
-```text
-obj.test()
+```javascript
+const x = obj.test;
 ```
 
-It is simply:
+does **not** copy the object relationship.
+
+It only gives `x` a reference to the same function.
+
+```text
+obj
+│
+└── test ────────────┐
+                     │
+                     ▼
+                  Function
+                     ▲
+                     │
+x ───────────────────┘
+```
+
+### `obj.test()`
+
+```javascript
+obj.test();
+```
+
+The receiver is `obj`.
+
+```text
+this → obj
+```
+
+### `x()`
+
+```javascript
+x();
+```
+
+The call is now simply:
 
 ```text
 x()
 ```
 
-So:
-
-```text
-Original object receiver lost
-```
+The original object receiver is lost.
 
 In strict mode:
 
@@ -736,135 +601,41 @@ In a non-strict browser script:
 this → window
 ```
 
----
-
-# 18. Important Correction — `x` is NOT the `this` Object
-
-It would be incorrect to think:
-
-```text
-x()
-↑
-x is before ()
-↓
-this → x
-```
-
-No.
-
-`x` is a variable containing a function reference.
-
-It is not an object receiver in a member call.
+> **`x` is a variable containing a function reference. It is not an object receiver.**
 
 Compare:
 
-```js
+```javascript
 x();
 ```
 
 with:
 
-```js
+```javascript
 obj.x();
 ```
 
-Only the second one has an object receiver:
-
-```text
-obj.x()
-↑
-obj
-```
+Only the second one has an object receiver.
 
 ---
 
-# 19. Memory-Level Example
-
-Consider:
-
-```js
-const obj = {
-    name: "Gourav",
-
-    test() {
-        console.log(this.name);
-    }
-};
-
-const x = obj.test;
-```
-
-Memory:
-
-```text
-Execution Context
-
-obj ───────────────────┐
-                       │
-x ───────────────┐     │
-                 │     │
-                 ▼     ▼
-
-             Heap Memory
-
-      ┌─────────────────────┐
-      │ obj                 │
-      │                     │
-      │ name → "Gourav"     │
-      │                     │
-      │ test ────────┐      │
-      └──────────────│──────┘
-                     │
-                     ▼
-              Function Object
-                     ▲
-                     │
-                     └──── x
-```
-
-Both:
-
-```js
-obj.test
-```
-
-and:
-
-```js
-x
-```
-
-refer to the same function object.
-
-But `this` is not permanently stored as:
-
-```text
-this → obj
-```
-
-inside that normal function.
-
----
-
-# 20. Why Doesn't a Normal Function Permanently Store `this`?
+# 13. Why Doesn't a Normal Function Permanently Store `this`?
 
 Because the same function can be called by different objects.
 
-Example:
-
-```js
+```javascript
 function show() {
-    console.log(this.name);
+  console.log(this.name);
 }
 
 const user1 = {
-    name: "Gourav",
-    show
+  name: "Gourav",
+  show
 };
 
 const user2 = {
-    name: "Rahul",
-    show
+  name: "Rahul",
+  show
 };
 ```
 
@@ -874,7 +645,7 @@ Both objects reference the same function:
 user1.show ──────┐
                  │
                  ▼
-             Function
+              Function
                  ▲
                  │
 user2.show ──────┘
@@ -882,11 +653,9 @@ user2.show ──────┘
 
 Now:
 
-```js
+```javascript
 user1.show();
 ```
-
-gives:
 
 ```text
 this → user1
@@ -896,11 +665,9 @@ Output → Gourav
 
 But:
 
-```js
+```javascript
 user2.show();
 ```
-
-gives:
 
 ```text
 this → user2
@@ -908,73 +675,11 @@ this → user2
 Output → Rahul
 ```
 
-Same function.
-
-Different `this`.
-
-Therefore:
-
 > **A normal function's `this` is determined by how it is invoked, not by the object where the function was originally created/stored.**
 
 ---
 
-# 21. Execution Context + `this`
-
-Suppose:
-
-```js
-user1.show();
-```
-
-JavaScript creates a Function Execution Context for `show()`.
-
-Conceptually:
-
-```text
-show() Execution Context
-
-┌──────────────────────────────┐
-│ Lexical Environment          │
-├──────────────────────────────┤
-│ this → user1                 │
-├──────────────────────────────┤
-│ Code                         │
-│                              │
-│ console.log(this.name)       │
-└──────────────────────────────┘
-```
-
-Later:
-
-```js
-user2.show();
-```
-
-creates another execution context:
-
-```text
-show() Execution Context
-
-┌──────────────────────────────┐
-│ Lexical Environment          │
-├──────────────────────────────┤
-│ this → user2                 │
-├──────────────────────────────┤
-│ Code                         │
-│                              │
-│ console.log(this.name)       │
-└──────────────────────────────┘
-```
-
-Same function code.
-
-Different invocation.
-
-Different `this`.
-
----
-
-# 22. Lexical Environment vs `this`
+# 14. Lexical Environment vs `this`
 
 Do not confuse:
 
@@ -994,10 +699,9 @@ Conceptually:
 Execution Context
 │
 ├── Lexical Environment
-│      │
-│      ├── Local Variables
-│      ├── Function Bindings
-│      └── Outer Reference
+│     ├── Local Variables
+│     ├── Function Bindings
+│     └── Outer Reference
 │
 └── this Binding
        │
@@ -1005,15 +709,14 @@ Execution Context
            for normal functions
 ```
 
-For example:
+Example:
 
-```js
+```javascript
 function show() {
+  let age = 24;
 
-    let age = 24;
-
-    console.log(age);
-    console.log(this.name);
+  console.log(age);
+  console.log(this.name);
 }
 ```
 
@@ -1023,8 +726,8 @@ Conceptually:
 Execution Context
 │
 ├── Lexical Environment
-│      │
-│      └── age = 24
+│     │
+│     └── age = 24
 │
 └── this Binding
        │
@@ -1033,11 +736,11 @@ Execution Context
 
 ---
 
-# 23. Important Difference — Scope vs `this`
+# 15. Scope vs `this`
 
 ### Scope
 
-Determined lexically by where code is written.
+Determined lexically by where the code is written.
 
 ```text
 Where was the function written?
@@ -1045,7 +748,7 @@ Where was the function written?
 Lexical Scope
 ```
 
-### `this` for normal functions
+### `this` for Normal Functions
 
 Usually determined by how the function is called.
 
@@ -1055,41 +758,38 @@ How was the function called?
 this
 ```
 
-Memory trick:
+### Memory Trick
 
 ```text
 Scope
- ↓
+  ↓
 WHERE written
 
 
 this
- ↓
+  ↓
 HOW called
 ```
 
 ---
 
-# 24. Arrow Functions Are Different
+# 16. Arrow Functions and `this`
 
-Arrow functions do not create their own `this` binding.
+Arrow functions do **not** create their own `this` binding.
 
 Example:
 
-```js
+```javascript
 const obj = {
+  name: "Gourav",
 
-    name: "Gourav",
+  show() {
+    const arrow = () => {
+      console.log(this.name);
+    };
 
-    show() {
-
-        const arrow = () => {
-            console.log(this.name);
-        };
-
-        arrow();
-    }
-
+    arrow();
+  }
 };
 
 obj.show();
@@ -1107,7 +807,7 @@ Therefore:
 show() this → obj
 ```
 
-The arrow function then captures that surrounding `this`.
+The arrow function captures that surrounding `this`.
 
 ```text
 obj.show()
@@ -1116,14 +816,14 @@ obj.show()
 show Execution Context
    │
    └── this → obj
-           │
-           ▼
+          │
+          ▼
        Arrow Function
-           │
-           └── Uses outer this
-                    │
-                    ▼
-                   obj
+          │
+          └── Uses outer this
+                 │
+                 ▼
+                obj
 ```
 
 Output:
@@ -1132,56 +832,56 @@ Output:
 Gourav
 ```
 
+> **Arrow functions use the `this` value from their surrounding lexical context.**
+
 ---
 
-# 25. Complete Memory Model
+# 17. Complete Memory Model
 
 ```text
                     JavaScript Program
                            │
                            ▼
-                  Execution Context
+                    Execution Context
                            │
-          ┌────────────────┼────────────────┐
-          │                │                │
-          ▼                ▼                ▼
- Lexical Environment   this Binding     Code Execution
-          │                │
-          │                │
-          ▼                ▼
-   Variables          Current this
-   Function refs      for invocation
-   Outer Reference
-          │
-          │ References
-          ▼
+            ┌──────────────┼──────────────┐
+            │              │              │
+            ▼              ▼              ▼
+   Lexical Environment  this Binding  Code Execution
+            │              │
+            │              ▼
+            │         Current this
+            │         for invocation
+            ▼
+       Variables
+       Function refs
+       Outer Reference
+            │
+            │ References
+            ▼
                     Heap Memory
-          ┌────────────────────────┐
-          │                        │
-          │ Objects                │
-          │ Arrays                 │
-          │ Functions              │
-          │ Other dynamic data     │
-          │                        │
-          └────────────────────────┘
+            ┌────────────────────────┐
+            │ Objects                │
+            │ Arrays                 │
+            │ Functions              │
+            │ Other dynamic data     │
+            └────────────────────────┘
 ```
 
 ---
 
-# 26. Heap + Lexical Environment + `this` Example
+# 18. Heap + Lexical Environment + `this` Example
 
-```js
+```javascript
 const user = {
+  name: "Gourav",
 
-    name: "Gourav",
+  show() {
+    let message = "Hello";
 
-    show() {
-        let message = "Hello";
-
-        console.log(message);
-        console.log(this.name);
-    }
-
+    console.log(message);
+    console.log(this.name);
+  }
 };
 
 user.show();
@@ -1201,7 +901,7 @@ Heap Memory
 
 When:
 
-```js
+```javascript
 user.show();
 ```
 
@@ -1211,12 +911,12 @@ runs:
 show() Execution Context
 │
 ├── Lexical Environment
-│      │
-│      └── message = "Hello"
+│     │
+│     └── message = "Hello"
 │
 ├── this Binding
-│      │
-│      └── user
+│     │
+│     └── user
 │
 └── Code Execution
        │
@@ -1234,7 +934,7 @@ Gourav
 
 ---
 
-# 27. Quick Interview Definitions
+# 19. Quick Interview Definitions
 
 | Concept                 | Simple Definition                                                           |
 | ----------------------- | --------------------------------------------------------------------------- |
@@ -1248,7 +948,7 @@ Gourav
 
 ---
 
-# 28. Most Important Interview Rules
+# 20. Most Important Interview Rules
 
 ### Heap Memory
 
@@ -1275,12 +975,12 @@ Lexical Environment
 ```text
 How was the function called?
            ↓
-Determine this
+      Determine this
 ```
 
 ### Method Call
 
-```js
+```javascript
 obj.test();
 ```
 
@@ -1290,7 +990,7 @@ this → obj
 
 ### Plain Function
 
-```js
+```javascript
 test();
 ```
 
@@ -1306,7 +1006,7 @@ window
 
 ### Function Reference
 
-```js
+```javascript
 const x = obj.test;
 
 x();
@@ -1326,15 +1026,15 @@ Uses surrounding lexical this
 
 ---
 
-# 29. Final Memory Trick
+# 21. Final Memory Trick
 
 ```text
-               JavaScript Memory
+                JavaScript Memory
                        │
           ┌────────────┴────────────┐
           │                         │
           ▼                         ▼
-   Execution Context            Heap Memory
+   Execution Context           Heap Memory
           │                         │
           ├── Lexical Env           ├── Objects
           │                         ├── Arrays
@@ -1343,7 +1043,7 @@ Uses surrounding lexical this
           └── Code Execution
 ```
 
-And remember:
+Remember:
 
 ```text
 Lexical Environment
@@ -1363,4 +1063,4 @@ Heap
 
 # Final One-Line Revision
 
-**Heap stores objects, arrays, and functions → lexical environments maintain scope bindings and outer references → execution contexts manage function execution and `this` → normal-function `this` depends on how the function is called → `obj.fn()` gives `this = obj` → extracting the function loses that receiver → arrow functions capture `this` from their surrounding context.**
+> **Heap stores objects, arrays, and functions → lexical environments maintain scope bindings and outer references → execution contexts manage function execution and `this` → normal-function `this` depends on how the function is called → `obj.fn()` gives `this = obj` → extracting the function loses that receiver → arrow functions capture `this` from their surrounding context.**

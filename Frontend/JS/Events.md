@@ -13,9 +13,9 @@ Events
 ├── Event Target
 ├── currentTarget
 ├── Event Flow
-│     ├── Capturing Phase
-│     ├── Target Phase
-│     └── Bubbling Phase
+│   ├── Capturing Phase
+│   ├── Target Phase
+│   └── Bubbling Phase
 ├── Event Propagation
 ├── stopPropagation()
 ├── stopImmediatePropagation()
@@ -33,7 +33,7 @@ Events
 
 > **An event is an action or occurrence that happens in the browser which JavaScript can respond to.**
 
-Examples:
+### Examples
 
 ```text
 Mouse Click
@@ -46,7 +46,7 @@ Resize
 Input Change
 ```
 
-Example:
+### Example
 
 ```js
 document.getElementById("btn").addEventListener("click", () => {
@@ -62,7 +62,7 @@ button.addEventListener("click", () => {
 });
 ```
 
-Flow:
+### Flow
 
 ```text
 User Action
@@ -82,13 +82,13 @@ Event Handler Executes
 
 > **An event listener waits for a specific event on an element and invokes the registered handler when that event occurs.**
 
-Example:
+### Example
 
 ```js
 button.addEventListener("click", handleClick);
 ```
 
-Here:
+### Flow
 
 ```text
 button
@@ -104,7 +104,7 @@ Event Listener
 handleClick()
 ```
 
-Simple way to remember:
+### Simple way to remember
 
 ```text
 Listener = Waits
@@ -117,7 +117,7 @@ Handler  = Runs
 
 > **An event handler is the function that executes when the event occurs.**
 
-Example:
+### Example
 
 ```js
 button.addEventListener("click", function () {
@@ -147,8 +147,6 @@ btn.addEventListener("click", function (event) {
 });
 ```
 
-Here:
-
 ### Event
 
 ```text
@@ -169,7 +167,7 @@ function (event) {
 }
 ```
 
-Simple interview difference:
+### Simple Interview Difference
 
 | Event Listener                | Event Handler                     |
 | ----------------------------- | --------------------------------- |
@@ -177,13 +175,12 @@ Simple interview difference:
 | Uses `addEventListener()`     | Contains the actual logic         |
 | Associated with an event type | Runs when the event is dispatched |
 
-Memory trick:
+### Memory Trick
 
 ```text
 Listener
    ↓
 "I am waiting for click"
-
 
 Handler
    ↓
@@ -196,13 +193,11 @@ Handler
 
 > **The Event Object is automatically created by the browser when an event occurs and contains information about that event.**
 
-Example:
+### Example
 
 ```js
 btn.addEventListener("click", function (event) {
-
     console.log(event);
-
 });
 ```
 
@@ -233,23 +228,14 @@ Conceptually, you can imagine an event object like:
 
 ```js
 const event = {
-
     type: "click",
-
     target: button,
-
     currentTarget: button,
-
     clientX: 200,
-
     clientY: 100,
-
     timeStamp: 123456,
-
     preventDefault() {},
-
     stopPropagation() {}
-
 };
 ```
 
@@ -273,17 +259,13 @@ event.clientY
 event.key
 ```
 
-Example:
+### Example
 
 ```js
 button.addEventListener("click", function (event) {
-
     console.log(event.type);
-
     console.log(event.target);
-
     console.log(event.currentTarget);
-
 });
 ```
 
@@ -293,7 +275,7 @@ button.addEventListener("click", function (event) {
 
 > **`event.target` is the element where the event originally occurred.**
 
-Example HTML:
+### Example HTML
 
 ```html
 <div id="parent">
@@ -323,15 +305,12 @@ Even if the listener is attached to the parent.
 
 > **`event.currentTarget` is the element whose event listener is currently executing.**
 
-Example:
+### Example
 
 ```js
 parent.addEventListener("click", function (event) {
-
     console.log(event.target);
-
     console.log(event.currentTarget);
-
 });
 ```
 
@@ -342,21 +321,17 @@ event.target
      ↓
 button
 
-
 event.currentTarget
      ↓
 parent
 ```
 
-Why?
-
-Because:
+### Why?
 
 ```text
 button
   ↓
 Originally triggered the event
-
 
 parent
   ↓
@@ -375,7 +350,7 @@ This is an important interview question.
 | Usually remains the same during propagation | Changes as different listeners execute      |
 | Useful in event delegation                  | Useful to identify listener owner           |
 
-Example:
+### Example
 
 ```text
 Parent
@@ -393,11 +368,10 @@ Then:
 
 ```text
 target        → Button
-
 currentTarget → Parent
 ```
 
-Memory trick:
+### Memory Trick
 
 > **target = Where it started**
 
@@ -414,12 +388,12 @@ It has three phases:
 ```text
 Capturing
     ↓
- Target
+Target
     ↓
 Bubbling
 ```
 
-Complete flow:
+### Complete Flow
 
 ```text
 Window
@@ -469,23 +443,17 @@ Suppose:
 
 ```html
 <div id="grandParent">
-
     Grand Parent
-
     <div id="parent">
-
         Parent
-
         <button id="child">
             Click Me
         </button>
-
     </div>
-
 </div>
 ```
 
-DOM structure:
+### DOM Structure
 
 ```text
 Window
@@ -508,7 +476,6 @@ If we click the button:
 ```text
           CAPTURING
               ↓
-
 Window
   ↓
 Document
@@ -527,9 +494,8 @@ Button
 
           Button
 
-          BUBBLING
+         BUBBLING
               ↑
-
 Button
   ↑
 Parent
@@ -551,7 +517,7 @@ Window
 
 > **During the Capturing Phase, the event travels from the top of the DOM tree toward the target element.**
 
-Flow:
+### Flow
 
 ```text
 Window
@@ -629,7 +595,7 @@ Child
 
 > **The Target Phase occurs when the event reaches the actual element where the event originated.**
 
-Example:
+### Example
 
 ```html
 <button id="child">
@@ -655,7 +621,7 @@ The event has reached its target.
 
 Bubbling is the normal/default listener behavior for most common bubbling events.
 
-Flow:
+### Flow
 
 ```text
 Target
@@ -671,13 +637,11 @@ Document
 Window
 ```
 
-Example:
+### Example
 
 ```js
 parent.addEventListener("click", () => {
-
     console.log("Parent clicked");
-
 });
 ```
 
@@ -695,37 +659,31 @@ Parent listener can run
 
 # 17. Bubbling Example
 
-HTML:
+### HTML
 
 ```html
 <div id="parent">
-
     <button id="child">
         Click
     </button>
-
 </div>
 ```
 
-JavaScript:
+### JavaScript
 
 ```js
 parent.addEventListener("click", () => {
-
     console.log("Parent");
-
 });
 
 child.addEventListener("click", () => {
-
     console.log("Child");
-
 });
 ```
 
 Click the child.
 
-Typical bubbling order:
+### Typical Bubbling Order
 
 ```text
 Child
@@ -733,7 +691,7 @@ Child
 Parent
 ```
 
-Output:
+### Output
 
 ```text
 Child
@@ -752,13 +710,12 @@ Parent
 | Less commonly used directly  | Very commonly used      |
 | Can intercept before target  | Powers event delegation |
 
-Memory trick:
+### Memory Trick
 
 ```text
 Capturing
    ↓
 TOP TO BOTTOM
-
 
 Bubbling
    ↑
@@ -773,15 +730,12 @@ BOTTOM TO TOP
 
 It can prevent the event from continuing to other elements during capturing or bubbling.
 
-Example:
+### Example
 
 ```js
 child.addEventListener("click", (event) => {
-
     event.stopPropagation();
-
     console.log("Child");
-
 });
 ```
 
@@ -789,9 +743,7 @@ Suppose the parent also has:
 
 ```js
 parent.addEventListener("click", () => {
-
     console.log("Parent");
-
 });
 ```
 
@@ -811,7 +763,7 @@ event.stopPropagation();
 
 the event stops from continuing to the parent.
 
-Output:
+### Output
 
 ```text
 Child
@@ -828,7 +780,6 @@ stopPropagation()
         ↓
 Stops event travelling
 
-
 preventDefault()
         ↓
 Stops browser's default action
@@ -842,21 +793,16 @@ This distinction is very important.
 
 > **`stopImmediatePropagation()` stops propagation and also prevents other listeners registered on the same element from executing for that event.**
 
-Example:
+### Example
 
 ```js
 button.addEventListener("click", (event) => {
-
     console.log("Handler 1");
-
     event.stopImmediatePropagation();
-
 });
 
 button.addEventListener("click", () => {
-
     console.log("Handler 2");
-
 });
 ```
 
@@ -876,7 +822,6 @@ Suppose:
 
 ```js
 button.addEventListener("click", handler1);
-
 button.addEventListener("click", handler2);
 ```
 
@@ -894,13 +839,12 @@ Other listeners on same element
 Further propagation
 ```
 
-Memory trick:
+### Memory Trick
 
 ```text
 stopPropagation()
         ↓
 Stop travelling
-
 
 stopImmediatePropagation()
         ↓
@@ -915,15 +859,12 @@ Stop remaining listeners here
 
 Some HTML elements have built-in browser behavior.
 
-Examples:
+### Examples
 
 ```text
 <a>        → Navigate to another page
-
 <form>     → Submit form
-
 checkbox   → Toggle checked state
-
 input      → Accept/edit input
 ```
 
@@ -935,7 +876,7 @@ These are browser default actions.
 
 > **`preventDefault()` prevents the browser's default action associated with an event when that event is cancelable.**
 
-Example:
+### Example
 
 ```html
 <a href="https://google.com" id="link">
@@ -943,17 +884,14 @@ Example:
 </a>
 ```
 
-JavaScript:
+### JavaScript
 
 ```js
 const link = document.getElementById("link");
 
 link.addEventListener("click", (event) => {
-
     event.preventDefault();
-
     console.log("Link clicked");
-
 });
 ```
 
@@ -981,29 +919,25 @@ the navigation is prevented.
 
 # 25. Form Example With `preventDefault()`
 
-HTML:
+### HTML
 
 ```html
 <form id="form">
-
     <input type="text">
 
     <button type="submit">
         Submit
     </button>
-
 </form>
 ```
 
-JavaScript:
+### JavaScript
 
 ```js
 form.addEventListener("submit", (event) => {
-
     event.preventDefault();
 
     console.log("Handle form using JavaScript");
-
 });
 ```
 
@@ -1031,7 +965,7 @@ Run our JavaScript logic
 | Doesn't automatically stop propagation | Doesn't automatically stop default action |
 | Common for forms/links                 | Common for nested event handlers          |
 
-Example:
+### Example
 
 ```js
 event.preventDefault();
@@ -1069,12 +1003,10 @@ Suppose:
 
 ```html
 <ul id="list">
-
     <li>Apple</li>
     <li>Mango</li>
     <li>Banana</li>
     <li>Orange</li>
-
 </ul>
 ```
 
@@ -1084,11 +1016,9 @@ Instead of:
 const items = document.querySelectorAll("li");
 
 items.forEach((item) => {
-
     item.addEventListener("click", () => {
         console.log("Clicked");
     });
-
 });
 ```
 
@@ -1098,13 +1028,9 @@ we can attach one listener:
 const list = document.getElementById("list");
 
 list.addEventListener("click", (event) => {
-
     if (event.target.matches("li")) {
-
         console.log(event.target.textContent);
-
     }
-
 });
 ```
 
@@ -1135,7 +1061,7 @@ User clicks:
 LI Mango
 ```
 
-Flow:
+### Flow
 
 ```text
 LI Mango clicked
@@ -1189,7 +1115,7 @@ The parent listener can still handle clicks from the new child because the event
 
 > **Event Delegation uses event bubbling to handle events from multiple child elements using a single listener attached to a common parent.**
 
-Memory:
+### Memory
 
 ```text
 Many Children
@@ -1209,9 +1135,7 @@ One Listener
 const btn = document.getElementById("btn");
 
 btn.addEventListener("click", function (event) {
-
     console.log("Button Clicked");
-
 });
 ```
 
@@ -1224,8 +1148,6 @@ click
 ```
 
 User clicks the button.
-
----
 
 ### 2. Event Listener
 
@@ -1242,14 +1164,11 @@ Button
   │
   ▼
 👮 Listener
-
 "I am waiting..."
 
 "If someone clicks,
 I'll execute the handler."
 ```
-
----
 
 ### 3. Event Handler
 
@@ -1257,15 +1176,11 @@ The handler is:
 
 ```js
 function (event) {
-
     console.log("Button Clicked");
-
 }
 ```
 
 This function runs when the event occurs.
-
----
 
 ### 4. Event Object
 
@@ -1286,11 +1201,9 @@ User clicks Submit
         ↓
 API Call
 
-
 User clicks again
         ↓
 API Call Again
-
 
 User clicks again
         ↓
@@ -1299,13 +1212,12 @@ API Call Again
 
 Sometimes we want the listener to work only once.
 
-Example:
+### Example
 
 ```js
 const submitBtn = document.getElementById("submit");
 
 function handleSubmit() {
-
     console.log("Calling API...");
 
     submitBtn.removeEventListener(
@@ -1320,7 +1232,7 @@ submitBtn.addEventListener(
 );
 ```
 
-First click:
+### First Click
 
 ```text
 Click
@@ -1332,7 +1244,7 @@ Calling API...
 removeEventListener()
 ```
 
-Second click:
+### Second Click
 
 ```text
 Click
@@ -1348,7 +1260,7 @@ Nothing happens
 
 > **`removeEventListener()` is used to remove an event listener that was previously registered using `addEventListener()`.**
 
-Basic syntax:
+### Basic Syntax
 
 ```js
 element.removeEventListener(
@@ -1357,7 +1269,7 @@ element.removeEventListener(
 );
 ```
 
-Example:
+### Example
 
 ```js
 button.removeEventListener(
@@ -1384,19 +1296,15 @@ The most important interview rule is:
 
 ```js
 button.addEventListener("click", () => {
-
     console.log("Hi");
-
 });
 
 button.removeEventListener("click", () => {
-
     console.log("Hi");
-
 });
 ```
 
-Why doesn't this work?
+### Why doesn't this work?
 
 Because every arrow function expression creates a new function object.
 
@@ -1406,7 +1314,6 @@ Conceptually:
 First arrow
     ↓
 Function Object 0x100
-
 
 Second arrow
     ↓
@@ -1429,9 +1336,7 @@ Store the function reference:
 
 ```js
 const handleClick = () => {
-
     console.log("Clicked");
-
 };
 
 button.addEventListener(
@@ -1445,7 +1350,7 @@ button.removeEventListener(
 );
 ```
 
-Memory:
+### Memory
 
 ```text
 handleClick
@@ -1471,13 +1376,11 @@ Consider:
 
 ```js
 function handleClick() {
-
     console.log("Clicked");
-
 }
 ```
 
-Memory:
+### Memory
 
 ```text
 handleClick
@@ -1538,15 +1441,13 @@ For a listener that should automatically run only once, `addEventListener()` sup
 }
 ```
 
-Example:
+### Example
 
 ```js
 submitBtn.addEventListener(
     "click",
     () => {
-
         console.log("Calling API...");
-
     },
     {
         once: true
@@ -1563,7 +1464,6 @@ Handler Executes
     ↓
 Listener automatically removed
 
-
 Second Click
     ↓
 Handler doesn't execute
@@ -1577,44 +1477,40 @@ This is useful when you want one-time event handling.
 
 JavaScript allows us to create our own events.
 
-Example:
+### Example
 
 ```js
 const event = new CustomEvent("userLogin", {
-
     detail: {
         username: "Gourav"
     }
-
 });
 ```
 
-Listen for it:
+### Listen for it
 
 ```js
 document.addEventListener(
     "userLogin",
     (event) => {
-
         console.log(event.detail.username);
-
     }
 );
 ```
 
-Dispatch it:
+### Dispatch it
 
 ```js
 document.dispatchEvent(event);
 ```
 
-Output:
+### Output
 
 ```text
 Gourav
 ```
 
-Flow:
+### Flow
 
 ```text
 Create CustomEvent
@@ -1634,21 +1530,19 @@ Handler Executes
 
 > **`dispatchEvent()` manually dispatches an event on an EventTarget.**
 
-Example:
+### Example
 
 ```js
 const event = new Event("hello");
 
 button.addEventListener("hello", () => {
-
     console.log("Hello Event");
-
 });
 
 button.dispatchEvent(event);
 ```
 
-Output:
+### Output
 
 ```text
 Hello Event
@@ -1666,7 +1560,7 @@ A listener can be registered with:
 }
 ```
 
-Example:
+### Example
 
 ```js
 window.addEventListener(
@@ -1682,7 +1576,7 @@ A passive listener tells the browser that the handler will not call `preventDefa
 
 This can help the browser optimize scrolling-related interactions.
 
-Conceptually:
+### Conceptually
 
 ```text
 Browser
@@ -1696,7 +1590,7 @@ passive: true
 Browser can optimize accordingly
 ```
 
-Important:
+### Important
 
 > **Do not use `preventDefault()` in a listener registered as passive.**
 
@@ -1804,8 +1698,8 @@ During this process, registered listeners for the relevant phase may run.
                        Event
                         │
                         ▼
-                 Browser Creates
-                  Event Object
+                Browser Creates
+                 Event Object
                         │
                         ▼
                 Event Propagation
@@ -1816,19 +1710,19 @@ During this process, registered listeners for the relevant phase may run.
       Capturing       Target       Bubbling
           │             │             │
           ▼             ▼             ▼
-     Top → Down      Actual       Bottom → Up
+     Top → Down       Actual       Bottom → Up
                      Element
                         │
                         ▼
                 Registered Listener
                         │
                         ▼
-                  Event Handler
+                 Event Handler
                         │
           ┌─────────────┼──────────────────┐
           │             │                  │
           ▼             ▼                  ▼
- preventDefault() stopPropagation()  Business Logic
+   preventDefault() stopPropagation()  Business Logic
 ```
 
 ---
@@ -1970,31 +1864,25 @@ target
    ↓
 "Who originally triggered me?"
 
-
 currentTarget
    ↓
 "Whose listener is running?"
-
 
 stopPropagation()
    ↓
 "Stop travelling"
 
-
 stopImmediatePropagation()
    ↓
 "Stop travelling + other listeners here"
-
 
 preventDefault()
    ↓
 "Don't perform browser default action"
 
-
 Event Delegation
    ↓
 "One parent listener for many children"
-
 
 removeEventListener()
    ↓
@@ -2003,876 +1891,4 @@ removeEventListener()
 
 # Final One-Line Revision
 
-**Event occurs → browser creates an event object → event travels through capturing → reaches target → usually bubbles upward → listeners invoke handlers → `target` tells where it started → `currentTarget` tells whose listener is running → `stopPropagation()` stops propagation → `preventDefault()` stops default browser behavior → event delegation uses bubbling to handle many children with one parent listener.**
-
-
-
-
-
-
-
-JavaScript Interview Questions — Events & Event Propagation
-
-1. What is an Event?
-
-An event is an action or occurrence in the browser that JavaScript can respond to.
-
-Examples:
-
-Click | Double Click | Key Press | Scroll | Mouse Move
-Form Submit | Resize | Input Change
-
-document.getElementById("btn").addEventListener("click", () => {
-    alert("Clicked!");
-});
-
-Flow:
-
-User Action → Event Occurs → Browser Detects Event
-→ Event Listener → Event Handler Executes
-
-2. Event Listener
-
-An event listener registers/waits for a specific event and invokes the handler when that event occurs.
-
-button.addEventListener("click", handleClick);
-
-Listener = Waits
-Handler  = Runs
-
-3. Event Handler
-
-An event handler is the function that executes when an event occurs.
-
-button.addEventListener("click", function () {
-    console.log("Button clicked");
-});
-
-Here, the function is the event handler.
-
-Listener vs Handler
-
-Event Listener
-
-Event Handler
-
-Registers/waits for an event
-
-Function executed for the event
-
-Uses addEventListener()
-
-Contains the actual logic
-
-4. Event Object
-
-The Event Object is automatically created by the browser when an event occurs and contains information about that event.
-
-button.addEventListener("click", function (event) {
-    console.log(event);
-});
-
-Important properties:
-
-event.type
-event.target
-event.currentTarget
-event.timeStamp
-event.clientX
-event.clientY
-event.key
-
-5. event.target
-
-event.target is the element where the event originally occurred.
-
-<div id="parent">
-    <button id="child">Click Me</button>
-</div>
-
-If the button is clicked:
-
-event.target → button
-
-Even if the listener is attached to the parent.
-
-6. event.currentTarget
-
-event.currentTarget is the element whose event listener is currently executing.
-
-parent.addEventListener("click", function (event) {
-    console.log(event.target);
-    console.log(event.currentTarget);
-});
-
-If the button is clicked:
-
-target        → button
-currentTarget → parent
-
-Memory Trick
-
-target        → Where the event started
-currentTarget → Where the current listener is running
-
-Event Propagation
-
-7. What is Event Propagation?
-
-Event Propagation is the process through which an event travels through the DOM tree.
-
-It has three phases:
-
-Capturing
-    ↓
-Target
-    ↓
-Bubbling
-
-Complete flow:
-
-Window
-  ↓
-Document
-  ↓
-HTML
-  ↓
-Body
-  ↓
-Parent
-  ↓
-Target
-  ↑
-Parent
-  ↑
-Body
-  ↑
-HTML
-  ↑
-Document
-  ↑
-Window
-
-8. Capturing Phase
-
-Capturing is the phase where an event travels from the top of the DOM tree toward the target.
-
-Window
-  ↓
-Document
-  ↓
-HTML
-  ↓
-Body
-  ↓
-Parent
-  ↓
-Target
-
-By default, listeners are normally registered for the bubbling phase.
-
-To use capturing:
-
-element.addEventListener("click", handler, {
-    capture: true
-});
-
-Or:
-
-element.addEventListener("click", handler, true);
-
-Capturing Example
-
-grandParent.addEventListener("click", () => {
-    console.log("Grand Parent");
-}, true);
-
-parent.addEventListener("click", () => {
-    console.log("Parent");
-}, true);
-
-child.addEventListener("click", () => {
-    console.log("Child");
-}, true);
-
-Capturing order:
-
-Grand Parent
-    ↓
-Parent
-    ↓
-Child
-
-9. Target Phase
-
-The Target Phase occurs when the event reaches the actual element where the event originated.
-
-event.target → actual clicked element
-
-Example:
-
-<button id="child">Click Me</button>
-
-If the button is clicked:
-
-Target Phase → child
-
-10. Bubbling Phase
-
-Bubbling is the phase where an event travels from the target upward through its ancestors.
-
-Target
-  ↑
-Parent
-  ↑
-Body
-  ↑
-HTML
-  ↑
-Document
-  ↑
-Window
-
-Bubbling is the normal/default listener behavior for most common bubbling events.
-
-Example:
-
-parent.addEventListener("click", () => {
-    console.log("Parent");
-});
-
-child.addEventListener("click", () => {
-    console.log("Child");
-});
-
-Clicking the child gives:
-
-Child
-Parent
-
-11. Capturing vs Bubbling
-
-Capturing
-
-Bubbling
-
-Top → Target
-
-Target → Top
-
-Travels downward
-
-Travels upward
-
-capture: true
-
-Default for most bubbling events
-
-Less commonly used directly
-
-Very commonly used
-
-Runs before target
-
-Runs after target
-
-Capturing → TOP TO BOTTOM
-Bubbling  → BOTTOM TO TOP
-
-Stopping Events
-
-12. stopPropagation()
-
-stopPropagation() stops an event from propagating further through the DOM propagation path.
-
-child.addEventListener("click", (event) => {
-    event.stopPropagation();
-    console.log("Child");
-});
-
-It can stop the event from continuing to parent/ancestor listeners.
-
-Important
-
-stopPropagation()
-→ Stops event travelling through the propagation path
-
-preventDefault()
-→ Stops browser's default action
-
-13. stopImmediatePropagation()
-
-stopImmediatePropagation() stops propagation and also prevents other listeners on the same element from executing for that event.
-
-button.addEventListener("click", (event) => {
-    console.log("Handler 1");
-    event.stopImmediatePropagation();
-});
-
-button.addEventListener("click", () => {
-    console.log("Handler 2");
-});
-
-Output:
-
-Handler 1
-
-Difference
-
-stopPropagation()
-
-stopImmediatePropagation()
-
-Stops further propagation
-
-Stops further propagation
-
-Does not by itself stop other listeners on same element
-
-Also stops remaining listeners on same element
-
-stopPropagation()
-→ Stop travelling
-
-stopImmediatePropagation()
-→ Stop travelling + stop remaining listeners here
-
-Default Browser Behavior
-
-14. What is a Default Action?
-
-Some HTML elements have built-in browser behavior:
-
-<a>        → Navigate
-<form>     → Submit
-checkbox   → Toggle checked state
-input      → Accept/edit input
-
-These are browser default actions.
-
-15. preventDefault()
-
-preventDefault() prevents the browser's default action associated with an event when that event is cancelable.
-
-Example:
-
-const link = document.getElementById("link");
-
-link.addEventListener("click", (event) => {
-    event.preventDefault();
-    console.log("Link clicked");
-});
-
-The link's normal navigation is prevented.
-
-Form Example
-
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    console.log("Handle form using JavaScript");
-});
-
-Flow:
-
-Form Submit
-    ↓
-preventDefault()
-    ↓
-Default browser submission prevented
-    ↓
-Run JavaScript logic
-
-16. preventDefault() vs stopPropagation()
-
-preventDefault()
-
-stopPropagation()
-
-Stops browser default behavior
-
-Stops event propagation
-
-Common for forms/links
-
-Common for nested handlers
-
-Does not automatically stop propagation
-
-Does not automatically stop default action
-
-preventDefault() → "Don't perform browser default action"
-
-stopPropagation() → "Don't continue propagating this event"
-
-Event Delegation
-
-17. What is Event Delegation?
-
-Event Delegation uses event bubbling to handle events from multiple child elements using a single listener attached to a common parent.
-
-Example:
-
-<ul id="list">
-    <li>Apple</li>
-    <li>Mango</li>
-    <li>Banana</li>
-    <li>Orange</li>
-</ul>
-
-Instead of adding listeners to every li:
-
-const list = document.getElementById("list");
-
-list.addEventListener("click", (event) => {
-    if (event.target.matches("li")) {
-        console.log(event.target.textContent);
-    }
-});
-
-Flow:
-
-LI clicked
-   ↓
-event.target = LI
-   ↓
-Event bubbles
-   ↓
-UL listener
-   ↓
-Check event.target
-   ↓
-Handle click
-
-Why Use Event Delegation?
-
-Fewer Event Listeners
-Better Efficiency
-Less Repetitive Code
-Easier Maintenance
-Works with Dynamically Added Children
-
-Dynamic children also work because the event bubbles to the parent.
-
-const item = document.createElement("li");
-item.textContent = "Grapes";
-list.appendChild(item);
-
-The existing parent listener can handle the click.
-
-Interview Definition
-
-Event Delegation uses event bubbling to handle multiple child events with one listener attached to a common parent.
-
-Removing Event Listeners
-
-18. removeEventListener()
-
-removeEventListener() removes an event listener previously registered using addEventListener().
-
-element.removeEventListener("click", handler);
-
-Example:
-
-function handleClick() {
-    console.log("Clicked");
-}
-
-button.addEventListener("click", handleClick);
-
-button.removeEventListener("click", handleClick);
-
-Important Rule
-
-The same function reference must be used when removing the listener.
-
-Wrong:
-
-button.addEventListener("click", () => {
-    console.log("Hi");
-});
-
-button.removeEventListener("click", () => {
-    console.log("Hi");
-});
-
-These are two different function objects.
-
-Correct:
-
-const handleClick = () => {
-    console.log("Clicked");
-};
-
-button.addEventListener("click", handleClick);
-
-button.removeEventListener("click", handleClick);
-
-Other Matching Information
-
-The event type and relevant capture setting must also match.
-
-Use Cases
-
-Prevent multiple clicks/API calls
-Component cleanup
-Prevent unnecessary event handling
-Reduce unwanted retained references
-Disable event handling when no longer needed
-
-19. One-Time Event — once: true
-
-Instead of manually removing a listener:
-
-submitBtn.addEventListener("click", () => {
-    console.log("Calling API...");
-}, {
-    once: true
-});
-
-Flow:
-
-First Click
-    ↓
-Handler Executes
-    ↓
-Listener Automatically Removed
-
-Second Click
-    ↓
-Handler does not execute
-
-Custom Events
-
-20. What are Custom Events?
-
-Custom Events allow developers to create and dispatch their own events.
-
-const event = new CustomEvent("userLogin", {
-    detail: {
-        username: "Gourav"
-    }
-});
-
-Listen:
-
-document.addEventListener("userLogin", (event) => {
-    console.log(event.detail.username);
-});
-
-Dispatch:
-
-document.dispatchEvent(event);
-
-Output:
-
-Gourav
-
-Flow:
-
-Create CustomEvent
-      ↓
-Register Listener
-      ↓
-dispatchEvent()
-      ↓
-Event Occurs
-      ↓
-Handler Executes
-
-21. dispatchEvent()
-
-dispatchEvent() manually dispatches an event on an EventTarget.
-
-const event = new Event("hello");
-
-button.addEventListener("hello", () => {
-    console.log("Hello Event");
-});
-
-button.dispatchEvent(event);
-
-Output:
-
-Hello Event
-
-Passive Event Listeners
-
-22. What is a Passive Event Listener?
-
-A listener can be registered with:
-
-{
-    passive: true
-}
-
-Example:
-
-window.addEventListener(
-    "touchmove",
-    handleMove,
-    {
-        passive: true
-    }
-);
-
-A passive listener tells the browser that the handler will not call preventDefault() for that event.
-
-This can help optimize scrolling-related interactions.
-
-Important
-
-Do not use preventDefault() in a listener registered as passive.
-
-Event Loop vs DOM Events
-
-23. Event vs Event Loop
-
-Do not confuse DOM Events with the Event Loop.
-
-Event
-
-User clicks
-    ↓
-Click Event
-    ↓
-Event Handler
-
-Event Loop
-
-Call Stack
-Queues
-Async Callbacks
-    ↓
-Event Loop coordinates execution
-
-Event = Something happened.
-
-Event Loop = Runtime mechanism that coordinates when queued asynchronous callbacks/tasks get a chance to execute.
-
-They are related to browser/runtime behavior but are different concepts.
-
-Complete Event Flow
-
-24. Complete Event Flow
-
-Suppose the user clicks a button:
-
-User Clicks Button
-        ↓
-Browser Creates Event Object
-        ↓
-Event Propagation Begins
-        ↓
-CAPTURING
-Window
-  ↓
-Document
-  ↓
-HTML
-  ↓
-Body
-  ↓
-Parent
-        ↓
-TARGET
-Button
-        ↓
-BUBBLING
-Parent
-  ↓
-Body
-  ↓
-HTML
-  ↓
-Document
-  ↓
-Window
-
-During this process, registered listeners for the relevant phase may execute.
-
-Complete Mental Model
-
-User Action
-     ↓
-Event
-     ↓
-Browser Creates Event Object
-     ↓
-Event Propagation
-     ↓
-┌─────────────┬─────────────┬─────────────┐
-│ Capturing   │   Target    │  Bubbling   │
-│ Top → Down  │   Actual    │ Bottom → Up │
-│             │   Element   │             │
-└─────────────┴─────────────┴─────────────┘
-     ↓
-Registered Listener
-     ↓
-Event Handler
-     ↓
-Business Logic
-
-Important Event Object Properties
-
-Property
-
-Meaning
-
-event.type
-
-Type of event
-
-event.target
-
-Element where event originated
-
-event.currentTarget
-
-Element whose listener is running
-
-event.timeStamp
-
-Event timestamp
-
-event.clientX
-
-Mouse X position
-
-event.clientY
-
-Mouse Y position
-
-event.key
-
-Pressed keyboard key
-
-Quick Interview Revision
-
-Concept
-
-Simple Meaning
-
-Event
-
-Something happens in the browser
-
-Event Listener
-
-Registers/waits for an event
-
-Event Handler
-
-Function executed for the event
-
-Event Object
-
-Contains event information
-
-target
-
-Where event originated
-
-currentTarget
-
-Element whose listener is running
-
-Capturing
-
-Top → Target
-
-Target Phase
-
-Event reaches actual target
-
-Bubbling
-
-Target → Top
-
-Event Propagation
-
-Event travelling through DOM
-
-stopPropagation()
-
-Stops further propagation
-
-stopImmediatePropagation()
-
-Stops propagation + remaining same-element listeners
-
-preventDefault()
-
-Stops browser default action
-
-Event Delegation
-
-One parent listener handles child events
-
-removeEventListener()
-
-Removes registered listener
-
-Custom Event
-
-Developer-created event
-
-dispatchEvent()
-
-Manually dispatches an event
-
-Passive Listener
-
-Promises not to call preventDefault()
-
-Final Interview Memory Trick
-
-EVENT OCCURS
-     ↓
-Browser creates Event Object
-     ↓
-CAPTURING
-Top → Target
-     ↓
-TARGET
-     ↓
-BUBBLING
-Target → Top
-     ↓
-Listeners Run
-     ↓
-Handlers Execute
-
-Remember:
-
-target
-  ↓
-"Where did the event start?"
-
-currentTarget
-  ↓
-"Whose listener is running?"
-
-stopPropagation()
-  ↓
-"Stop travelling"
-
-stopImmediatePropagation()
-  ↓
-"Stop travelling + other listeners here"
-
-preventDefault()
-  ↓
-"Don't perform browser default action"
-
-Event Delegation
-  ↓
-"One parent listener for many children"
-
-removeEventListener()
-  ↓
-"Same function reference"
-
-Final One-Line Revision
-
-Event occurs → browser creates an event object → event travels through capturing → reaches target → usually bubbles upward → listeners invoke handlers → target tells where it started → currentTarget tells whose listener is running → stopPropagation() stops propagation → preventDefault() stops default browser behavior → event delegation uses bubbling to handle many children with one parent listener.
+> **Event occurs → browser creates an event object → event travels through capturing → reaches target → usually bubbles upward → listeners invoke handlers → `target` tells where it started → `currentTarget` tells whose listener is running → `stopPropagation()` stops propagation → `preventDefault()` stops default browser behavior → event delegation uses bubbling to handle many children with one parent listener.**

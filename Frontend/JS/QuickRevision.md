@@ -1,6 +1,8 @@
 # JavaScript Interview — Quick Revision
 
-Below is a **last-minute revision sheet**: simple definitions only, focused on the topics we covered.
+> **Last-minute revision sheet:** Simple definitions only, focused on the topics covered.
+
+---
 
 ## 1. JavaScript Basics
 
@@ -12,6 +14,8 @@ Below is a **last-minute revision sheet**: simple definitions only, focused on t
 | **Asynchronous**      | A task can start and complete later while JavaScript continues executing other code.                   |
 | **Single Threaded**   | JavaScript has one main call stack and executes one piece of JavaScript code at a time.                |
 | **JIT Compilation**   | JavaScript code is compiled/optimized while the program is running.                                    |
+
+---
 
 ## 2. JavaScript Engine
 
@@ -27,9 +31,25 @@ Below is a **last-minute revision sheet**: simple definitions only, focused on t
 | **Hot Code**          | Code that executes frequently.                                    |
 | **TurboFan**          | V8's optimizing compiler that optimizes frequently executed code. |
 
-Basic flow:
+### Basic Flow
 
-`Source Code → Tokens → Parser → AST → Bytecode → Execution → Optimization`
+```text
+Source Code
+     ↓
+Tokens
+     ↓
+Parser
+     ↓
+AST
+     ↓
+Bytecode
+     ↓
+Execution
+     ↓
+Optimization
+```
+
+---
 
 ## 3. Execution Context & Memory
 
@@ -45,6 +65,8 @@ Basic flow:
 | **Garbage Collection**               | Automatic process of reclaiming memory that is no longer reachable.                                |
 | **Memory Leak**                      | Memory remains reachable even though the application no longer needs it.                           |
 
+---
+
 ## 4. Hoisting, TDZ & Scope
 
 | Topic                   | Simple Definition                                                                                     |
@@ -59,13 +81,18 @@ Basic flow:
 | **Lexical Environment** | Stores bindings for a scope and a reference to its outer environment.                                 |
 | **Scope Chain**         | JavaScript searches from the current scope outward until it finds a variable or reaches global scope. |
 
-Important:
+### Important
 
-`var → function scoped`
+```text
+var       → function scoped
+let/const → block scoped
+```
 
-`let / const → block scoped`
+---
 
 ## 5. Closure
+
+### Definition
 
 **Closure:** A function together with access to the lexical environment where it was created, allowing it to remember outer variables even after the outer function finishes.
 
@@ -79,7 +106,15 @@ Remembers Outer Variables
 Closure
 ```
 
-Common uses: **debouncing, throttling, data privacy, callbacks, function factories**.
+### Common Uses
+
+* **Debouncing**
+* **Throttling**
+* **Data privacy**
+* **Callbacks**
+* **Function factories**
+
+---
 
 ## 6. Callback, Promise & Async/Await
 
@@ -97,9 +132,17 @@ Common uses: **debouncing, throttling, data privacy, callbacks, function factori
 | **`async`**       | Makes a function return a Promise.                                                   |
 | **`await`**       | Pauses that async function until the awaited Promise settles.                        |
 
-Promise states:
+### Promise States
 
-`Pending → Fulfilled / Rejected`
+```text
+Pending
+   ↓
+   ├──→ Fulfilled
+   │
+   └──→ Rejected
+```
+
+---
 
 ## 7. Event Loop & Async JavaScript
 
@@ -113,9 +156,11 @@ Promise states:
 | **`setTimeout()`**      | Schedules a callback to run after at least the specified delay.               |
 | **`fetch()`**           | API used to make network requests; it returns a Promise.                      |
 
-Important:
+### Important
 
-**Microtasks are processed before the next task such as a `setTimeout` callback.**
+> **Microtasks are processed before the next task such as a `setTimeout` callback.**
+
+---
 
 ## 8. Prototype
 
@@ -128,6 +173,8 @@ Important:
 | **Constructor Function** | A function used with `new` to create and initialize objects.                                                |
 | **`new`**                | Creates an object, links its prototype, calls the constructor with `this`, and normally returns the object. |
 | **`Object.create()`**    | Creates a new object with the provided object as its prototype.                                             |
+
+---
 
 ## 9. Classes & OOP
 
@@ -151,25 +198,41 @@ Important:
 | **Getter**             | Controls how a property value is read.                                                                           |
 | **Setter**             | Controls how a property value is assigned.                                                                       |
 
-Four OOP pillars:
+### Four OOP Pillars
 
-**Encapsulation → Inheritance → Polymorphism → Abstraction**
+```text
+Encapsulation
+      ↓
+Inheritance
+      ↓
+Polymorphism
+      ↓
+Abstraction
+```
+
+---
 
 ## 10. `this`
 
+### Definition
+
 **`this`:** A special value whose value depends on how a regular function is called.
 
-For a method call:
+### Example
 
 ```js
 person.show();
 ```
 
-`this → person`
+```text
+this → person
+```
 
-Important:
+### Important
 
-**Arrow functions don't create their own `this`; they capture `this` lexically from the surrounding context.**
+> **Arrow functions don't create their own `this`; they capture `this` lexically from the surrounding context.**
+
+---
 
 ## 11. `call()`, `apply()`, `bind()`
 
@@ -179,13 +242,15 @@ Important:
 | **`apply()`** | Immediately calls a function with a specified `this`; arguments are passed as an array/array-like value. |
 | **`bind()`**  | Returns a new function with `this` fixed to the provided value.                                          |
 
-Memory:
+### Easy Memory Trick
 
-`call → Call now`
+```text
+call  → Call now
+apply → Call now + arguments as array
+bind  → Create function for later
+```
 
-`apply → Call now + arguments as array`
-
-`bind → Create function for later`
+---
 
 ## 12. JavaScript Events
 
@@ -207,7 +272,21 @@ Memory:
 | **Event Delegation**             | Uses one parent listener to handle events from multiple children through propagation. |
 | **`removeEventListener()`**      | Removes a registered listener using the same function reference.                      |
 
+### Event Propagation
+
+```text
+Capturing
+    ↓
+Target Phase
+    ↓
+Bubbling
+```
+
+---
+
 ## 13. Debouncing
+
+### Definition
 
 **Debouncing:** Delays execution until repeated events stop for a specified amount of time.
 
@@ -215,11 +294,22 @@ Memory:
 Typing → Typing → Typing → STOP → Wait → Execute once
 ```
 
-Used for: **search box, autocomplete, auto-save, validation**.
+### Used For
 
-**Why `clearTimeout()`?** It cancels the previous pending timer so only the latest call executes.
+* **Search box**
+* **Autocomplete**
+* **Auto-save**
+* **Validation**
+
+### Why `clearTimeout()`?
+
+> It cancels the previous pending timer so only the latest call executes.
+
+---
 
 ## 14. Throttling
+
+### Definition
 
 **Throttling:** Limits a function so it executes at most once within a specified time interval.
 
@@ -227,7 +317,12 @@ Used for: **search box, autocomplete, auto-save, validation**.
 Execute → Wait/Block → Allow → Execute
 ```
 
-Used for: **scroll, resize, mousemove, continuous events**.
+### Used For
+
+* **Scroll**
+* **Resize**
+* **Mousemove**
+* **Continuous events**
 
 ### Debounce vs Throttle
 
@@ -237,17 +332,28 @@ Used for: **scroll, resize, mousemove, continuous events**.
 | Search                 | Scroll                    |
 | Final action matters   | Continuous updates matter |
 
+---
+
 ## 15. Iterable
+
+### Definition
 
 **Iterable:** An object that implements `[Symbol.iterator]()` and can provide an iterator.
 
-Built-in examples:
+### Built-in Examples
 
-**Array, String, Map, Set**
+* **Array**
+* **String**
+* **Map**
+* **Set**
 
-Important: **plain `{}` objects are not iterable by default.**
+> **Important:** Plain `{}` objects are not iterable by default.
+
+---
 
 ## 16. Iterable Protocol
+
+### Definition
 
 **Iterable Protocol:** An iterable must implement `[Symbol.iterator]()` that returns an iterator.
 
@@ -259,7 +365,11 @@ Symbol.iterator()
 Iterator
 ```
 
+---
+
 ## 17. Iterator
+
+### Definition
 
 **Iterator:** An object with a `next()` method that produces the next iteration result.
 
@@ -267,21 +377,33 @@ Iterator
 iterator.next();
 ```
 
-returns:
+### Returns
 
 ```js
-{ value: 10, done: false }
+{
+  value: 10,
+  done: false
+}
 ```
+
+---
 
 ## 18. Iterator Protocol
 
+### Definition
+
 **Iterator Protocol:** An iterator must provide `next()`, which returns an object containing `value` and `done`.
 
-`value → current value`
+```text
+value → current value
+done  → whether iteration finished
+```
 
-`done → whether iteration finished`
+---
 
 ## 19. Generator
+
+### Definition
 
 **Generator:** A special `function*` that can pause and resume using `yield` and provides an easy way to create iterators.
 
@@ -292,33 +414,39 @@ function* numbers() {
 }
 ```
 
-Calling it:
+### Calling It
 
 ```js
 const gen = numbers();
 ```
 
-returns a **Generator Object**.
+This returns a **Generator Object**.
 
-Important:
+### Important
 
-**Generator Object = Iterator + Iterable**
+> **Generator Object = Iterator + Iterable**
+
+---
 
 ## 20. `yield`
+
+### Definition
 
 **`yield`:** Produces a value from a generator and pauses execution until the next `next()` call.
 
 ```text
 next()
- ↓
+  ↓
 yield
- ↓
+  ↓
 PAUSE
- ↓
+  ↓
 next()
- ↓
+  ↓
 RESUME
 ```
+
+---
 
 ## 21. `yield` vs `return`
 
@@ -329,7 +457,11 @@ RESUME
 | Generator only           | Normal + generator functions  |
 | Multiple yields possible | Executed return ends function |
 
+---
+
 ## 22. Lazy Evaluation
+
+### Definition
 
 **Lazy Evaluation:** A value is generated/calculated only when it is requested.
 
@@ -341,51 +473,38 @@ next() → Generate 2
 next() → Generate 3
 ```
 
-## ⭐ Last-Minute Definitions to Memorize
+---
+
+# ⭐ Last-Minute Definitions to Memorize
 
 If you have very little time, memorize these:
 
-**Closure** → Function remembers its outer lexical variables.
+| Topic               | Quick Definition                                                      |
+| ------------------- | --------------------------------------------------------------------- |
+| **Closure**         | Function remembers its outer lexical variables.                       |
+| **Hoisting**        | Bindings/declarations are processed during creation before execution. |
+| **TDZ**             | `let`/`const` cannot be accessed before initialization.               |
+| **Promise**         | Object representing eventual success/failure of async work.           |
+| **Async/Await**     | Cleaner syntax for working with Promises.                             |
+| **Event Loop**      | Coordinates execution of queued asynchronous callbacks.               |
+| **Prototype**       | Object used for property/method inheritance.                          |
+| **Class**           | Cleaner syntax over JavaScript's prototype-based object system.       |
+| **`this`**          | Depends on how a regular function is called.                          |
+| **`call`**          | Execute now with specified `this`.                                    |
+| **`apply`**         | Execute now with specified `this` + arguments array.                  |
+| **`bind`**          | Return a new function with fixed `this`.                              |
+| **Debounce**        | Wait until events stop.                                               |
+| **Throttle**        | Limit execution frequency.                                            |
+| **Iterable**        | Has `[Symbol.iterator]()`.                                            |
+| **Iterator**        | Has `next()` → `{ value, done }`.                                     |
+| **Generator**       | `function*` that pauses/resumes using `yield`.                        |
+| **`yield`**         | Produce value + pause generator.                                      |
+| **Lazy Evaluation** | Generate values only when requested.                                  |
+| **Memory Leak**     | Unneeded memory remains reachable/referenced.                         |
 
-**Hoisting** → Bindings/declarations are processed during creation before execution.
+---
 
-**TDZ** → `let`/`const` cannot be accessed before initialization.
-
-**Promise** → Object representing eventual success/failure of async work.
-
-**Async/Await** → Cleaner syntax for working with Promises.
-
-**Event Loop** → Coordinates execution of queued asynchronous callbacks.
-
-**Prototype** → Object used for property/method inheritance.
-
-**Class** → Cleaner syntax over JavaScript's prototype-based object system.
-
-**`this`** → Depends on how a regular function is called.
-
-**call** → Execute now with specified `this`.
-
-**apply** → Execute now with specified `this` + arguments array.
-
-**bind** → Return a new function with fixed `this`.
-
-**Debounce** → Wait until events stop.
-
-**Throttle** → Limit execution frequency.
-
-**Iterable** → Has `[Symbol.iterator]()`.
-
-**Iterator** → Has `next()` → `{value, done}`.
-
-**Generator** → `function*` that pauses/resumes using `yield`.
-
-**`yield`** → Produce value + pause generator.
-
-**Lazy Evaluation** → Generate values only when requested.
-
-**Memory Leak** → Unneeded memory remains reachable/referenced.
-
-### 🔥 Core JS Flow
+# 🔥 Core JS Flow
 
 ```text
 JavaScript Code
@@ -407,4 +526,19 @@ Event Loop
 Call Stack
 ```
 
-For tomorrow's interview, the **highest-priority topics** from this sheet are: **Execution Context, Call Stack, Hoisting + TDZ, Scope + Closure, `this` + call/apply/bind, Promises + Async/Await + Event Loop, Prototype + OOP, Events + Event Delegation, Debounce vs Throttle, and Iterable/Iterator/Generator.**
+---
+
+# 🎯 Highest-Priority Interview Topics
+
+For tomorrow's interview, the **highest-priority topics** from this sheet are:
+
+1. **Execution Context**
+2. **Call Stack**
+3. **Hoisting + TDZ**
+4. **Scope + Closure**
+5. **`this` + `call()` / `apply()` / `bind()`**
+6. **Promises + Async/Await + Event Loop**
+7. **Prototype + OOP**
+8. **Events + Event Delegation**
+9. **Debounce vs Throttle**
+10. **Iterable / Iterator / Generator**
