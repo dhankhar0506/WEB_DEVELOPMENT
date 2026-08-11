@@ -1,41 +1,76 @@
-## What is Routing?
--> Routing is the process of deciding which code should run based on the request URL and HTTP method.
-->Routing is the process of mapping an incoming request (URL and HTTP method) to the appropriate function or handler.
+# What is Routing?
 
-## Why is Express better?
-Because Express automatically manages routing, making the code cleaner, easier to read, and easier to maintain.
+-> **Routing** is the process of deciding which code should run based on the **request URL and HTTP method**.
 
+-> Routing is the process of **mapping an incoming request (URL and HTTP method) to the appropriate function or handler**.
 
-    Request comes
-    ↓
+---
 
-    Check URL + Method
-    ↓
-    Run the correct function
-    ↓
-    Send Response
+# Why is Express better?
 
+Because **Express automatically manages routing**, making the code cleaner, easier to read, and easier to maintain.
 
-## Without Express
-    const http = require("http");
+### Routing Flow
 
-    const server = http.createServer((req, res) => {
-        if(req.url === "/users" && req.method === "GET"){
-                // return user details
-        }   
+```text
+Request comes
+     ↓
+Check URL + Method
+     ↓
+Run the correct function
+     ↓
+Send Response
+```
 
-        else if(req.url === "/users" && req.method === "POST"){
-            // saved user details
-        }
+---
 
-        else if(req.url === "/products"){
-                return 
-        }
+# Without Express
 
-        else if(req.url === "/login"){
+Without Express, we need to manually check the request URL and HTTP method using conditions like `if` and `else if`.
 
-        }
+```javascript
+const http = require("http");
 
-    });
+const server = http.createServer((req, res) => {
 
-    server.listen(3000);
+    if (req.url === "/users" && req.method === "GET") {
+        // return user details
+    }
+
+    else if (req.url === "/users" && req.method === "POST") {
+        // save user details
+    }
+
+    else if (req.url === "/products") {
+        // return products
+    }
+
+    else if (req.url === "/login") {
+        // login logic
+    }
+
+});
+
+server.listen(3000);
+```
+
+### Problem with this approach
+
+As the application grows, we may have many:
+
+```text
+if
+else if
+else if
+else if
+...
+```
+
+This makes the code:
+
+* Harder to read
+* Harder to maintain
+* Harder to organize
+* Difficult to scale
+
+Express provides a cleaner routing system.

@@ -1,48 +1,140 @@
-## Node.js path Module
--> The path module is a built-in Node.js module used to create, combine, extract, and manipulate file/folder paths safely.
--> const path = require("path");
+# Node.js `path` Module
 
-1. path.join() -> Combines multiple path parts into one normalized path.
-    const result = path.join(
-        "uploads",
-        "students",
-        "profile.jpg"
-    );
-    console.log(result);
-    -> uploads/students/profile.jpg
+-> The **path module** is a built-in Node.js module used to create, combine, extract, and manipulate file/folder paths safely.
 
-##  What is __dirname?
+```javascript
+const path = require("path");
+```
 
-__dirname gives the absolute path of the directory containing the current JavaScript file in CommonJS.
+---
 
-2. path.resolve() -> resolve() creates an absolute path.
-    const result = path.resolve(
-        "uploads",
-        "profile.jpg"
-    );
+## 1. `path.join()`
 
-    console.log(result);
-    -> C:\project\uploads\profile.jpg
+-> `path.join()` combines multiple path parts into one normalized path.
 
-3. path.basename() -> Returns the last portion of a path, usually the file name.
-4. path.dirname()-> Returns the directory/folder portion of a path.
-    -> dirname() returns the directory portion of a path, excluding the last part.
-    /users/gourav/uploads/profile.jpg
-    │                     │         │
-    └──── dirname ────────┘         │
-                        └basename─┘
-                                └── .jpg = extname
-    
-    -> /uploads/students/profile.jpg
-        dirname  → /uploads/students
-        basename → profile.jpg
+```javascript
+const result = path.join(
+    "uploads",
+    "students",
+    "profile.jpg"
+);
 
-5. path.extname() -> Returns the extension of the path.
-    path.extname("video.mp4");
-    // .mp4
+console.log(result);
+```
 
-    path.extname("data.json");
-    // .json
+**Output:**
 
-    path.extname("document.pdf");
-    // .pdf
+```text
+uploads/students/profile.jpg
+```
+
+---
+
+## What is `__dirname`?
+
+-> `__dirname` gives the **absolute path of the directory containing the current JavaScript file in CommonJS**.
+
+---
+
+## 2. `path.resolve()`
+
+-> `path.resolve()` creates an **absolute path**.
+
+```javascript
+const result = path.resolve(
+    "uploads",
+    "profile.jpg"
+);
+
+console.log(result);
+```
+
+**Output:**
+
+```text
+C:\project\uploads\profile.jpg
+```
+
+---
+
+## 3. `path.basename()`
+
+-> `path.basename()` returns the **last portion of a path**, usually the file name.
+
+```javascript
+path.basename("/users/gourav/uploads/profile.jpg");
+```
+
+**Output:**
+
+```text
+profile.jpg
+```
+
+---
+
+## 4. `path.dirname()`
+
+-> `path.dirname()` returns the **directory/folder portion of a path**, excluding the last part.
+
+```text
+/users/gourav/uploads/profile.jpg
+│                     │         │
+│                     │         └── basename
+│                     └──────────── dirname
+│
+└── path
+```
+
+```javascript
+const filePath = "/uploads/students/profile.jpg";
+
+console.log(path.dirname(filePath));
+```
+
+**Output:**
+
+```text
+/uploads/students
+```
+
+### Example
+
+```text
+/uploads/students/profile.jpg
+
+dirname  → /uploads/students
+basename → profile.jpg
+extname  → .jpg
+```
+
+---
+
+## 5. `path.extname()`
+
+-> `path.extname()` returns the **extension of the path**.
+
+```javascript
+path.extname("video.mp4");
+// .mp4
+
+path.extname("data.json");
+// .json
+
+path.extname("document.pdf");
+// .pdf
+```
+
+---
+
+## Quick Revision
+
+| Method            | Purpose                  | Example                    |
+| ----------------- | ------------------------ | -------------------------- |
+| `path.join()`     | Combines path parts      | `uploads/images/a.jpg`     |
+| `path.resolve()`  | Creates absolute path    | `C:\project\uploads\a.jpg` |
+| `path.basename()` | Gets last part/file name | `profile.jpg`              |
+| `path.dirname()`  | Gets directory portion   | `/uploads/students`        |
+| `path.extname()`  | Gets file extension      | `.jpg`                     |
+
+> **Interview Tip:** `join()` combines paths, while `resolve()` produces an absolute path.

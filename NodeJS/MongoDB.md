@@ -1,24 +1,32 @@
+# MongoDB
+
 ## What is MongoDB?
+
 -> MongoDB is a NoSQL document database that stores data in flexible JSON-like documents instead of rows and tables.
 
+---
+
 ## Database, Collection, Document, Field
--> Database
-    └── college
 
-        Collection 
-            └── students
+```text
+Database
+└── college
 
-            Document
-                └── {
-                    name: "Gourav",
-                    age: 25,
-                    course: "MTech"
-                }
+    Collection
+        └── students
 
-                ↓
+        Document
+            └── {
+                name: "Gourav",
+                age: 25,
+                course: "MTech"
+            }
 
-                Fields 
-                name, age, course'
+            ↓
+
+            Fields
+            name, age, course
+```
 
 | SQL      | MongoDB    |
 | -------- | ---------- |
@@ -27,179 +35,588 @@
 | Row      | Document   |
 | Column   | Field      |
 
-## What is _id?
--> Every MongoDB document needs a unique _id.
--> If you don't provide one, MongoDB automatically generates it, commonly as an ObjectId.
+---
 
-## CRUD Operations?
-1. Create :
-        db.students.insertOne({
-            name: "Gourav",
-            age: 25
-        });
+## What is `_id`?
 
-    -> Multiple:
-        db.students.insertMany([
-            { name: "Aman", age: 22 },
-            { name: "Rahul", age: 24 }
-        ]);
+-> Every MongoDB document needs a unique `_id`.
 
-2. Read :
-    -> All students: db.students.find();
-    -> specific : db.students.find({
-                    name: "Gourav"
-                });
-    -> One document: db.students.findOne({
-                            name: "Gourav"
-                        });
+-> If you don't provide one, MongoDB automatically generates it, commonly as an `ObjectId`.
 
-3. Update
-    -> db.students.updateOne({ name: "Gourav" },{$set: {age: 26}});
+---
 
-4. Delete => db.students.deleteOne({name: "Gourav"});
-    - Many => db.students.deleteMany({
-                    course: "MTech"
-            });
+# CRUD Operations
 
-5. Query Operators
-    -> db.students.find({age: {$gte: 20,$lte: 30}});
-    Greater -> db.students.find({age: { $gt: 20 }});
-    Smaller -> {$lt}
-    $gt   → greater than
-    $gte  → greater than or equal
-    $lt   → less than
-    $lte  → less than or equal
-    $eq   → equal
-    $ne   → not equal
-    $in   → value exists in list
-    $nin  → value not in list
+## 1. Create
 
-6. Logical Operators
-    -> db.students.find({$and: [{ age: { $gt: 20 } },     { role: "student" }]});
-    -> AND = $and
-    -> OR =  $or
+### Insert One
 
-7. sorting
-    -> db.students.find().sort({age: 1});
-        -> 1 => Ascending
-        -> -1 -> Descending
+```js
+db.students.insertOne({
+    name: "Gourav",
+    age: 25
+});
+```
 
-8.  Limit -> Return only 10 documents.
-    -> db.students.find().limit(10);
+### Insert Multiple
 
-9.  db.students.find().skip(10).limit(10);
+```js
+db.students.insertMany([
+    { name: "Aman", age: 22 },
+    { name: "Rahul", age: 24 }
+]);
+```
 
-10. Projection => Return only the fields we need    
-    {
-        name: "Gourav",
-        age: 25,
-        email: "...",
-        password: "...",
-        role: "student"
+---
+
+## 2. Read
+
+### Get All Students
+
+```js
+db.students.find();
+```
+
+### Find Specific Student
+
+```js
+db.students.find({
+    name: "Gourav"
+});
+```
+
+### Find One Document
+
+```js
+db.students.findOne({
+    name: "Gourav"
+});
+```
+
+---
+
+## 3. Update
+
+```js
+db.students.updateOne(
+    { name: "Gourav" },
+    { $set: { age: 26 } }
+);
+```
+
+---
+
+## 4. Delete
+
+### Delete One
+
+```js
+db.students.deleteOne({
+    name: "Gourav"
+});
+```
+
+### Delete Many
+
+```js
+db.students.deleteMany({
+    course: "MTech"
+});
+```
+
+---
+
+# 5. Query Operators
+
+```js
+db.students.find({
+    age: {
+        $gte: 20,
+        $lte: 30
     }
+});
+```
 
-    db.students.find({},{name: 1,email: 1});
+### Common Query Operators
+
+| Operator | Meaning               |
+| -------- | --------------------- |
+| `$gt`    | Greater than          |
+| `$gte`   | Greater than or equal |
+| `$lt`    | Less than             |
+| `$lte`   | Less than or equal    |
+| `$eq`    | Equal                 |
+| `$ne`    | Not equal             |
+| `$in`    | Value exists in list  |
+| `$nin`   | Value not in list     |
+
+### Greater Than
+
+```js
+db.students.find({
+    age: { $gt: 20 }
+});
+```
+
+### Smaller Than
+
+```js
+db.students.find({
+    age: { $lt: 20 }
+});
+```
+
+---
+
+# 6. Logical Operators
+
+### AND
+
+```js
+db.students.find({
+    $and: [
+        { age: { $gt: 20 } },
+        { role: "student" }
+    ]
+});
+```
+
+-> AND = `$and`
+
+-> OR = `$or`
+
+---
+
+# 7. Sorting
+
+```js
+db.students.find().sort({
+    age: 1
+});
+```
+
+* `1` → Ascending
+* `-1` → Descending
+
+---
+
+# 8. Limit
+
+-> Return only 10 documents.
+
+```js
+db.students.find().limit(10);
+```
+
+---
+
+# 9. Skip + Limit
+
+```js
+db.students.find()
+    .skip(10)
+    .limit(10);
+```
+
+---
+
+# 10. Projection
+
+-> Return only the fields we need.
+
+Example document:
+
+```js
+{
+    name: "Gourav",
+    age: 25,
+    email: "...",
+    password: "...",
+    role: "student"
+}
+```
+
+### Return Only `name` and `email`
+
+```js
+db.students.find(
+    {},
     {
-        name: "Gourav",
-        email: "..."
+        name: 1,
+        email: 1
     }
+);
+```
 
-11. Handle Nested Obj
-    -> MongoDB can store nested objects
-        { name: "Gourav",address: {city: "Jalandhar",state: "Punjab"}}
-    -> db.students.find({"address.city": "Jalandhar"});
+Result:
 
-12. Arrays
-    -> {name: "Gourav",skills: ["React","Node","MongoDB"]}
-    -> db.students.find({skills: "MongoDB"});
+```js
+{
+    name: "Gourav",
+    email: "..."
+}
+```
 
-> find second highest salary 
--> db.students.find().sort({ salary: -1 }).skip(1).limit(1);
+---
 
->  Employees salary greater than 50,000
--> db.employees.find({salary: { $gt: 50000 }});
+# 11. Handle Nested Objects
 
-> Salary between 50,000 and 80,000
--> db.employees.find({salary: { $gte: 50000, $lte: 80000}});
+-> MongoDB can store nested objects.
 
-> Employees from IT department AND salary > 50,000
--> db.employees.find({department: "IT",salary: { $gt: 50000 }});
+```js
+{
+    name: "Gourav",
+    address: {
+        city: "Jalandhar",
+        state: "Punjab"
+    }
+}
+```
 
-> Employee from Delhi OR Punjab
--> db.employees.find({$or: [{ city: "Delhi" },{ city: "Punjab" }]});
--> db.employees.find({ city: {$in: ["Delhi", "Punjab"] }});
+### Search Nested Field
 
-> Employees NOT from Delhi
--> db.employees.find({city: { $ne: "Delhi" }});
+```js
+db.students.find({
+    "address.city": "Jalandhar"
+});
+```
 
->  Check whether a field exists
-=> db.employees.find({salary: { $exists: true }});
+---
 
-## Aggregation
-> $match => db.employees.aggregate([{$match: {salary: { $gt: 50000 } } }]);
+# 12. Arrays
 
-> Find average salary department-wise.
--> In MongoDB $group, _id tells MongoDB which field to GROUP BY.
--> db.employees.aggregate([ {$group: { _id: "$department",averageSalary: { $avg: "$salary"}} }]);
+```js
+{
+    name: "Gourav",
+    skills: ["React", "Node", "MongoDB"]
+}
+```
 
-> Find total salary department-wise.
--> db.employees.aggregate([{$group: {_id: "$department",totalSalary: {$sum: "$salary"}}}]);
+### Find Students Having MongoDB Skill
 
->Highest salary department-wise: 
--> db.employees.aggregate([{$group: {_id: "$department",highestSalary: { $max: "$salary"}} }]);
+```js
+db.students.find({
+    skills: "MongoDB"
+});
+```
 
-> $count => db.employees.aggregate([{ $match: {department: "IT"}},{$count: "totalEmployees"}]);
+---
 
->$unwind 
-    ->breaks an array into individual pipeline documents.
-    -> {name: "Gourav",skills: ["React","Node","MongoDB"]}
+# Common MongoDB Interview Queries
 
-        {name: "Gourav",skills: "React"}
+## Find Second Highest Salary
 
-        {name: "Gourav",skills: "Node"}
+```js
+db.students.find()
+    .sort({ salary: -1 })
+    .skip(1)
+    .limit(1);
+```
 
-        {name: "Gourav",skills: "MongoDB"}
+---
 
-> $regex — LIKE
-    ^G -> start with G
-    "xyz " -> contain
-    -> db.employees.find({name: {$regex: "^G",$options: "i"}});
-    -> db.employees.find({name: {$regex: "dhank",$options: "i"}});
+## Employees with Salary Greater Than 50,000
 
+```js
+db.employees.find({
+    salary: { $gt: 50000 }
+});
+```
 
-## Joins
+---
+
+## Salary Between 50,000 and 80,000
+
+```js
+db.employees.find({
+    salary: {
+        $gte: 50000,
+        $lte: 80000
+    }
+});
+```
+
+---
+
+## Employees from IT Department AND Salary > 50,000
+
+```js
+db.employees.find({
+    department: "IT",
+    salary: { $gt: 50000 }
+});
+```
+
+---
+
+## Employee from Delhi OR Punjab
+
+```js
+db.employees.find({
+    $or: [
+        { city: "Delhi" },
+        { city: "Punjab" }
+    ]
+});
+```
+
+### Using `$in`
+
+```js
+db.employees.find({
+    city: {
+        $in: ["Delhi", "Punjab"]
+    }
+});
+```
+
+---
+
+## Employees NOT from Delhi
+
+```js
+db.employees.find({
+    city: { $ne: "Delhi" }
+});
+```
+
+---
+
+## Check Whether a Field Exists
+
+```js
+db.employees.find({
+    salary: {
+        $exists: true
+    }
+});
+```
+
+---
+
+# Aggregation
+
+## `$match`
+
+```js
+db.employees.aggregate([
+    {
+        $match: {
+            salary: { $gt: 50000 }
+        }
+    }
+]);
+```
+
+---
+
+## Find Average Salary Department-Wise
+
+-> In MongoDB `$group`, `_id` tells MongoDB which field to **GROUP BY**.
+
+```js
+db.employees.aggregate([
+    {
+        $group: {
+            _id: "$department",
+            averageSalary: {
+                $avg: "$salary"
+            }
+        }
+    }
+]);
+```
+
+---
+
+## Find Total Salary Department-Wise
+
+```js
+db.employees.aggregate([
+    {
+        $group: {
+            _id: "$department",
+            totalSalary: {
+                $sum: "$salary"
+            }
+        }
+    }
+]);
+```
+
+---
+
+## Highest Salary Department-Wise
+
+```js
+db.employees.aggregate([
+    {
+        $group: {
+            _id: "$department",
+            highestSalary: {
+                $max: "$salary"
+            }
+        }
+    }
+]);
+```
+
+---
+
+## `$count`
+
+```js
+db.employees.aggregate([
+    {
+        $match: {
+            department: "IT"
+        }
+    },
+    {
+        $count: "totalEmployees"
+    }
+]);
+```
+
+---
+
+# `$unwind`
+
+-> `$unwind` breaks an array into individual pipeline documents.
+
+Example:
+
+```js
+{
+    name: "Gourav",
+    skills: ["React", "Node", "MongoDB"]
+}
+```
+
+After `$unwind`:
+
+```js
+{
+    name: "Gourav",
+    skills: "React"
+}
+
+{
+    name: "Gourav",
+    skills: "Node"
+}
+
+{
+    name: "Gourav",
+    skills: "MongoDB"
+}
+```
+
+---
+
+# `$regex` — LIKE
+
+### Start With `G`
+
+```text
+^G
+```
+
+### Contain Text
+
+```text
+"xyz"
+```
+
+### Example
+
+```js
+db.employees.find({
+    name: {
+        $regex: "^G",
+        $options: "i"
+    }
+});
+```
+
+```js
+db.employees.find({
+    name: {
+        $regex: "dhank",
+        $options: "i"
+    }
+});
+```
+
+---
+
+# Joins
+
 -> Suppose we have two collections/tables.
 
-    userId   name
-    ----------------
-    1        Aman
-    2        Rahul
-    3        Neha
-    4        Karan
+### Users
 
-    orderId   userId   product
-    --------------------------
-    101       1        Laptop
-    102       1        Mobile
-    103       2        Shoes
-    104       5        Watch
+```text
+userId   name
+----------------
+1        Aman
+2        Rahul
+3        Neha
+4        Karan
+```
 
--> We want information from both: JOIN combines related data from two tables/collections based on a matching field.
+### Orders
 
-1. INNER JOIN => Returns only records that have a match in BOTH tables.
-2. LEFT JOIN => Returns ALL records from the left table + matching records from the right table.
-3. RIGHT JOIN => Returns ALL records from the right table + matching records from the left table.
-4. FULL OUTER JOIN =>Returns everything from BOTH tables.
-                    Matched records
-                    +
-                    Unmatched LEFT records
-                    +
-                    Unmatched RIGHT records
-5. SELF JOIN -> A SELF JOIN joins a table with itself.
-    ->SELF JOIN means joining a table with itself based on some relationship/condition between rows of that same table.
-    id   name      managerId
-    -------------------------
-    1    Rahul     NULL
-    2    Aman      1
-    3    Gourav    1
-    4    Neha      2
+```text
+orderId   userId   product
+--------------------------
+101       1        Laptop
+102       1        Mobile
+103       2        Shoes
+104       5        Watch
+```
+
+-> We want information from both.
+
+-> **JOIN** combines related data from two tables/collections based on a matching field.
+
+---
+
+## Types of Joins
+
+### 1. INNER JOIN
+
+-> Returns only records that have a match in **BOTH** tables.
+
+---
+
+### 2. LEFT JOIN
+
+-> Returns **ALL** records from the left table + matching records from the right table.
+
+---
+
+### 3. RIGHT JOIN
+
+-> Returns **ALL** records from the right table + matching records from the left table.
+
+---
+
+### 4. FULL OUTER JOIN
+
+-> Returns everything from **BOTH** tables.
+
+Includes:
+
+* Matched records
+* Unmatched LEFT records
+* Unmatched RIGHT records
+
+Example:
+
+```text
+1    Rahul     NULL
+2    Aman      1
+3    Gourav    1
+4    Neha      2
+```
