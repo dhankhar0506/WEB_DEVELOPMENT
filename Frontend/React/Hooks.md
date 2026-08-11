@@ -1,325 +1,499 @@
-## What are Hooks?
--> Hooks are React functions that allow functional components to use React features such as state, effects/lifecycle-related behavior, context, refs, etc
--> Hooks are special React functions that allow functional components to use React features like state, effects, context, refs, etc.
+# React Forms
 
-## Why do we need Hooks?
--> Hooks allow functional components to use React features like state, effects, context, refs, and reusable stateful logic.
+## What are Forms?
 
-## useState() — Manage State
-    -> useState is a React Hook that allows functional components to manage state. When the state is updated using its setter function, React re-renders the component to reflect the updated value in the UI.
-    -> const [count, setCount] = useState(0);
-        - count → current state/value
-        - setCount → function used to update count
-        - 0 → initial value
+> **Forms** are used to collect user input such as:
 
-        import { useState } from "react";
+* Login
+* Registration
+* Search
+* Feedback
+* Payment
 
-        function Counter() {
-        const [count, setCount] = useState(0);
+---
 
-        const increase = () => {
-            setCount(count + 1);
-        };
+# Ways to Handle Forms in React
 
-            return (
-                <>
-                    <h1>{count}</h1>
-                    <button onClick={increase}>Increase</button>
-                </>
-            );
-    }
+In React, there are two ways to handle forms:
 
-##  useEffect 
-    ->  it is a React Hook used to handle side effects in functional components, such as API calls, timers, and event listeners. It runs after the component renders and can be controlled using a dependency array.
-    -> 
-        import { useEffect } from "react";
-        function Users() {
+1. **Controlled Components**
+2. **Uncontrolled Components**
 
-        useEffect(() => {
-            fetch("https://api.example.com/users");
-        }, []);
+---
 
-            return <h1>Users</h1>;
-        }
-    -> empty [] means the effect runs only once after the component's first render (mount).
+# 1. Controlled Component
 
-##
+> A **Controlled Component** is a form element whose value is controlled by **React State**.
 
+The input value is stored in state, and every change updates the state using `onChange`.
 
+### Flow
 
-## useRef 
-    -> It is a React Hook used to store a value or directly access a DOM element without causing a re-render when its value changes.
-    -> Suppose you want to focus an input when a button is clicked:
-        -> You want to track how many times a user clicks a "More" button.
-        -> If they click more than 5 times, you’ll hit an API to log this behavior (analytics tracking).
-        -> You don’t want to trigger re-renders every time the counter changes, so storing it in state isn’t ideal.
-        -> Instead, you can use useRef to keep track of the count.
+```text
+User Types
+    │
+    ▼
+onChange Event
+    │
+    ▼
+setState()
+    │
+    ▼
+React State Updated
+    │
+    ▼
+Input Value Updated
+```
 
-     -> import { useRef } from "react";
+### Example
 
-        function App() {
-        const inputRef = useRef(null);
+```jsx
+import { useState } from "react";
 
-        const handleClick = () => {
-            inputRef.current.focus();
-        };
+function Login() {
 
-        return (
-            <>
-            <input ref={inputRef} />
+    const [name, setName] = useState("");
 
-            <button onClick={handleClick}>
-                Focus Input
-            </button>
-            </>
-        );
-        }
-
-
-## useContext 
--> It is a React Hook used to access shared/global data in different components without passing that data manually through props at every level.
--> The main problem it solves is prop drilling.
-
-> step1: UserContext.jsx -> Create context and provide dummy data.
-    -  import { createContext, useEffect, useState } from "react";
-        
-        export const UserContext = createContext(null);
-        
-        export function UserProvider({ children }) {
-        
-            const [user, setUser] = useState(null);
-
-            useEffect(() => {
-                fetch("/api/user")
-                .then((res) => res.json())
-                .then((data) => {
-                    setUser(data);
-                });
-            }, []);
-
-        return (
-            <UserContext.Provider value={{ user, setUser }}>
-                {children}
-            </UserContext.Provider>
-            );
-        }
-
-> step 2 : Wrap your application with the Provider.
-    import React from "react";
-    import ReactDOM from "react-dom/client";
-    import App from "./App";
-    import { UserProvider } from "./context/UserContext";
-
-    ReactDOM.createRoot(document.getElementById("root")).render(
-        <UserProvider>
-            <App />
-        </UserProvider>
-    );
-
-> step3 : 
-    import Navbar from "./components/Navbar";
-    import Profile from "./components/Profile";
-
-    function App() {
     return (
         <>
-        <Navbar />
-        <Profile />
+            <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+
+            <h2>{name}</h2>
         </>
     );
-    }
+}
+```
 
-    export default App;
+### Important
 
-> step 4: Use the context
-    import { useContext } from "react";
-    import { UserContext } from "../context/UserContext";
+```jsx
+value={name}
+```
 
-    function Navbar() {
-        const { user } = useContext(UserContext);
+The input value comes from React state.
 
-        return <h2>Welcome {user?.name}</h2>;
-        }
+```jsx
+onChange={(e) => setName(e.target.value)}
+```
 
-    export default Navbar;
-        
+Every time the user types:
 
-## children 
--> It   is a special React prop that contains the elements or components passed between a component's opening and closing tags.
+```text
+Input
+  ↓
+onChange
+  ↓
+setName()
+  ↓
+State changes
+  ↓
+Component re-renders
+  ↓
+Input gets updated value
+```
 
+---
 
-## Prop drilling 
--> prop drlling in React means passing props through multiple layers of components just to reach a deeply nested child, even when intermediate components don’t use those props. This often makes code harder to maintain, less reusable, and more complex.
+# Select Example
 
-    -> 
-    function App() {
-        const user = { name: "Sarah", role: "Developer" };
-        return <Dashboard user={user} />;
-    }
+A `<select>` can also be a controlled component.
 
-    function Dashboard({ user }) {
-        return <Sidebar user={user} />;
-    }
+```jsx
+import { useState } from "react";
 
-    function Sidebar({ user }) {
-        return <Navigation user={user} />;
-    }
+function App() {
 
-    function Navigation({ user }) {
-        return <UserProfile user={user} />;
-    }
+    const [city, setCity] = useState("");
 
-    function UserProfile({ user }) {
-        return <p>Welcome, {user.name}! Role: {user.role}</p>;
-    }
+    return (
+        <select
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+        >
+            <option value="">Select City</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Jaipur">Jaipur</option>
+        </select>
+    );
+}
+```
 
+Here:
 
-## UseMemo()
-=> useMemo is a React Hook used to cache the result of an expensive calculation so React doesn't calculate it again on every render.
-    import { useState, useMemo } from "react";
+```jsx
+value={city}
+```
 
-    function App() {
-        const [number, setNumber] = useState(2);
-        const [count, setCount] = useState(0);
+controls the selected option using React state.
 
-        const square = useMemo(() => {
-            console.log("Calculating...");
-            return number * number;
-        }, [number]);
+---
 
-        return (
-            <>
-            <h2>Square: {square}</h2>
+# Checkbox
 
-            <button onClick={() => setNumber(number + 1)}>
-                Change Number
-            </button>
+Checkboxes use `checked` instead of `value` to control their checked state.
 
-            <button onClick={() => setCount(count + 1)}>
-                Count: {count}
-            </button>
-            </>
-        );
-    }
-    -> number changes → calculate square again ✅
+```jsx
+import { useState } from "react";
 
-            count changes → component re-renders
-             → don't calculate square again ❌
-             → use cached value ✅
-             because useMemo depend on number 
+function App() {
 
+    const [checked, setChecked] = useState(false);
 
+    return (
+        <>
+            <input
+                type="checkbox"
+                checked={checked}
+                onChange={(e) => setChecked(e.target.checked)}
+            />
 
+            {checked && <h2>Accepted</h2>}
+        </>
+    );
+}
+```
 
+### Flow
 
-## useCallback
-=> useCallback is a React Hook that keeps the same function reference between re-renders and creates a new function reference only when its dependencies change.
+```text
+User checks checkbox
+        ↓
+onChange
+        ↓
+e.target.checked
+        ↓
+setChecked()
+        ↓
+State updated
+        ↓
+Component re-renders
+        ↓
+"Accepted" displayed
+```
 
-## react.memo
-=> "If this component's props are the same as before, you can skip re-rendering this component."
-    - We mainly use it when a child component renders frequently or is expensive to render, while its props usually remain unchanged.
+---
 
-## Lifting State up 
--> Lifting state up means moving state from a child component to their common parent so multiple child components can use and update the same state.
-        App
-        /   \
-    Product   Cart
-    -> Why do we need it?
+# Radio Buttons
 
-Because both sibling components need the same data.
+```jsx
+import { useState } from "react";
 
-## UseReducer
-->  IT is a React Hook used to manage complex state when we have multiple state-update operations.
-    -> Instead of writing many separate state-update functions, we manage them in a reducer.
-    - ADD_ITEM
-    - REMOVE_ITEM
-    - CLEAR_CART
+function App() {
 
+    const [gender, setGender] = useState("");
 
-    import React, { useReducer } from "react";
-
-    function reducer(state, action) {
-            switch (action.type) {
-                case "INCREMENT":
-                    if (state >= 10) {
-                        return state;
-                    }
-                    return state + 1;
-
-                case "DECREMENT":
-                    if (state <= 1) {
-                        return state;
-                    }
-                    return state - 1;
-
-                case "RESET":
-                    return 1;
-
-                default:
-                    return state;
-            }
-    }
-
-        function App() {
-            const [quantity, dispatch] = useReducer(reducer, 1);
-
-        return (
-            <div>
-            <h2>Quantity: {quantity}</h2>
-
-                <button
-                    onClick={() => dispatch({ type: "DECREMENT" })}>
-                    -
-                </button>
-
-                <button
-                    onClick={() => dispatch({ type: "INCREMENT" })} >
-                    +
-                </button>
-
-                <button
-                    onClick={() => dispatch({ type: "RESET" })} >
-                    Reset
-                </button>
-            </div>
-        );
-        }
-
-        export default App;'
-
-## useId 
--> is a React Hook used to generate a unique ID, mainly for connecting form elements with labels and accessibility attributes.
-
-    import { useId } from "react";
-    function LoginForm() {
-        const emailId = useId();
-
-        return (
-            <>
-            <label htmlFor={emailId}> // htmlFor connects a <label> with a specific form input.
-                Email
-            </label>
+    return (
+        <>
+            <input
+                type="radio"
+                value="Male"
+                checked={gender === "Male"}
+                onChange={(e) => setGender(e.target.value)}
+            />
+            Male
 
             <input
-                id={emailId}
-                type="email"
+                type="radio"
+                value="Female"
+                checked={gender === "Female"}
+                onChange={(e) => setGender(e.target.value)}
             />
-            </>
-        );
-    }
+            Female
 
-    export default LoginForm;
+            <h2>{gender}</h2>
+        </>
+    );
+}
+```
 
+### Important
 
-## useLayoutEffect
-->  runs after the DOM is updated, but before the browser paints/shows the updated UI to the user.
--> useLayoutEffect runs synchronously after DOM updates but before the browser paints the screen.
-        React Render
-            ↓
-        DOM Updated
-            ↓
-        useLayoutEffect() ✅
-            ↓
-        Browser Paints UI
-            ↓
-        useEffect()
+```jsx
+checked={gender === "Male"}
+```
+
+The radio button is checked when:
+
+```text
+gender === "Male"
+```
+
+is `true`.
+
+---
+
+# 2. Uncontrolled Component
+
+> An **Uncontrolled Component** is a form element where the input value is managed by the **DOM instead of React State**.
+
+React accesses the value using a **Ref**.
+
+```text
+User Types
+    ↓
+DOM stores value
+    ↓
+React does not control every change
+    ↓
+useRef can access the DOM value
+```
+
+---
+
+# What is `useRef`?
+
+> `useRef` is a React Hook used to access DOM elements directly or store mutable values without causing a component re-render.
+
+It returns an object containing a `.current` property.
+
+`useRef` can be useful when we need to:
+
+* Access a DOM element
+* Focus an input
+* Read a file input
+* Scroll to an element
+* Play or pause a video
+* Store a timer/interval ID
+* Store a previous value
+* Work with third-party libraries
+
+> Since changing `ref.current` does not trigger a re-render, it is useful for values that do not need to immediately update the JSX.
+
+---
+
+# `useRef` Example
+
+```jsx
+import { useRef } from "react";
+
+function Counter() {
+
+    const countRef = useRef(0);
+
+    const increase = () => {
+        countRef.current++;
+        console.log(countRef.current);
+    };
+
+    return (
+        <>
+            <h1>{countRef.current}</h1>
+
+            <button onClick={increase}>
+                Increment
+            </button>
+        </>
+    );
+}
+```
+
+### What happens?
+
+When the button is clicked:
+
+```text
+countRef.current++
+        ↓
+Value changes
+        ↓
+Console updates
+        ↓
+UI does NOT update
+```
+
+For example:
+
+```text
+Click 1 → Console: 1
+Click 2 → Console: 2
+Click 3 → Console: 3
+```
+
+But the `<h1>` does not automatically update because changing `ref.current` does **not** trigger a re-render.
+
+---
+
+# `useRef` Use Cases
+
+| Use Case                  | Why useRef?                            |
+| ------------------------- | -------------------------------------- |
+| **Focus Input**           | Call `focus()` on DOM element          |
+| **File Upload**           | Read selected files                    |
+| **Scroll**                | Scroll to an element                   |
+| **Timer**                 | Store interval ID                      |
+| **Previous Value**        | Store previous value without re-render |
+| **Video**                 | Play/Pause video                       |
+| **Third-party Libraries** | Access DOM elements                    |
+
+---
+
+# Can We Use `useRef` Instead of `useState` for All Inputs?
+
+> ❌ **No.** Because `useRef` does not trigger a re-render.
+
+If the UI depends on the input value, use `useState`.
+
+### Examples
+
+Use `useState` when you need:
+
+* Validation
+* Live search
+* Error messages
+* Enabling/disabling buttons
+* Conditional rendering
+* Displaying the current value in the UI
+
+```text
+Input changes
+     ↓
+Does UI need to update?
+     │
+   ┌─┴─┐
+  YES  NO
+   ↓    ↓
+useState useRef
+```
+
+---
+
+# What is Re-render?
+
+> **Re-render** means React executes the component function again to generate a new JSX/UI description.
+
+It **does NOT reload the page**.
+
+React then compares the new Virtual DOM with the previous one and updates the required parts of the Real DOM.
+
+### Important
+
+```text
+Re-render ≠ Page Reload
+```
+
+A re-render means:
+
+```text
+State / Props Changed
+        ↓
+Component function executes again
+        ↓
+New JSX
+        ↓
+New Virtual DOM
+        ↓
+Compare with previous Virtual DOM
+        ↓
+Update required DOM parts
+        ↓
+Browser displays updated UI
+```
+
+---
+
+# Re-render Example
+
+Suppose:
+
+```jsx
+const [count, setCount] = useState(0);
+```
+
+When:
+
+```jsx
+setCount(1);
+```
+
+is called:
+
+```text
+State Changed
+     ↓
+Counter() executes again
+     ↓
+return <h1>1</h1>
+     ↓
+New Virtual DOM
+     ↓
+Compare
+     ↓
+Update only <h1>
+     ↓
+Browser shows 1
+```
+
+### Notice
+
+```text
+❌ Page Reload
+❌ Browser Refresh
+
+Only:
+
+✅ Component executes again
+```
+
+---
+
+# Controlled vs Uncontrolled Components
+
+| Controlled                              | Uncontrolled                                      |
+| --------------------------------------- | ------------------------------------------------- |
+| React State controls the value          | DOM controls the value                            |
+| Uses `useState`                         | Commonly uses `useRef`                            |
+| `value` / `checked` controlled by state | Value remains in the DOM                          |
+| `onChange` updates React state          | React reads the value when needed                 |
+| Causes re-render when state changes     | Ref changes don't cause re-render                 |
+| Useful when UI depends on input         | Useful when React doesn't need every input change |
+
+---
+
+# 🔥 Interview Quick Revision
+
+> **Controlled Component** → Form value is controlled by React state.
+
+> **Uncontrolled Component** → Form value is controlled by the DOM.
+
+> **useState** → Use when changing the value should update the UI.
+
+> **useRef** → Use when you need a DOM reference or a mutable value without causing a re-render.
+
+> **Re-render** → React executes the component again to generate the updated UI description; it does not reload the page.
+
+### Most Important Flow
+
+```text
+CONTROLLED
+
+User Input
+    ↓
+onChange
+    ↓
+setState()
+    ↓
+State Update
+    ↓
+Re-render
+    ↓
+UI Update
+```
+
+```text
+UNCONTROLLED
+
+User Input
+    ↓
+DOM stores value
+    ↓
+useRef
+    ↓
+Read value when needed
+    ↓
+No automatic re-render
+```
