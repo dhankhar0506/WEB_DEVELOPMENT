@@ -350,7 +350,7 @@ When the link is clicked, it opens **inside the iframe**, not in a new tab.
 # `name` Attribute
 
 > **Definition:**  
-The `name` attribute is used to identify an element.
+the `name` attribute is used to give the input element a unique identifier that is sent to the backend when a form is submitted.
 
 ### Uses
 

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Canvas and Multimedia</title>
+  </head>
+
+  <body>
+    <!-- ==================== CANVAS ==================== -->
+
+    <h1>Canvas</h1>
+
+    <canvas id="myCanvas" width="500" height="300">
+      Your browser does not support canvas.
+    </canvas>
+
+    <!-- ==================== AUDIO ==================== -->
+
+    <h1>Audio</h1>
+
+    <audio controls loop preload="metadata">
+      <source src="song.mp3" type="audio/mpeg" />
+
+      <source src="song.ogg" type="audio/ogg" />
+
+      Your browser does not support audio.
+    </audio>
+
+    <!-- ==================== VIDEO ==================== -->
+
+    <h1>Video</h1>
+
+    <video
+      controls
+      width="600"
+      height="400"
+      poster="thumbnail.jpg"
+      preload="metadata"
+    >
+      <!-- Video Sources -->
+      <source
+        src="video.webm"
+        type="video/mp4"
+      />
+
+      <source src="video.webm" type="video/webm" />
+
+      <h1>Subtitles</h1>
+      <track
+        src="english.vtt"
+        kind="subtitles"
+        srclang="en"
+        label="English"
+        default
+      />
+
+      <track src="hindi.vtt" kind="subtitles" srclang="hi" label="Hindi" />
+
+      Your browser does not support video.
+    </video>
+
+    <!-- ==================== JAVASCRIPT FOR CANVAS ==================== -->
+
+    <script>
+      const canvas = document.querySelector("#myCanvas");
+
+      // Get 2D drawing context
+      const ctx = canvas.getContext("2d");
+
+      // Set color
+      ctx.fillStyle = "red";
+
+      // Draw rectangle
+      ctx.fillRect(50, 50, 200, 100);
+    </script>
+  </body>
+</html>

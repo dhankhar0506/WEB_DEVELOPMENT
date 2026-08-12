@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Form</title>
+  </head>
+
+  <body>
+    <form action="/submit" method="post">
+      <!-- Text -->
+      <input type="text" name="username" placeholder="Enter username" />
+      <br /><br />
+
+      <!-- Email -->
+      <input type="email" name="email" placeholder="Enter email" />
+      <br /><br />
+
+      <!-- Password -->
+      <input type="password" name="password" placeholder="Enter password" />
+      <br /><br />
+
+      <!-- Number -->
+      <input type="number" name="age" placeholder="Enter age" />
+      <br /><br />
+
+      <!-- Phone Number -->
+      <input type="tel" name="phone" placeholder="Enter phone number" />
+      <br /><br />
+
+      <!-- Date -->
+      <input type="date" name="dob" />
+      <br /><br />
+
+      <!-- Radio -->
+      <input type="radio" name="gender" value="male" /> Male
+      <input type="radio" name="gender" value="female" /> Female <br /><br />
+
+      <!-- Checkbox -->
+      <input type="checkbox" name="skills" value="html" /> HTML
+      <input type="checkbox" name="skills" value="css" /> CSS
+      <input type="checkbox" name="skills" value="javascript" /> JavaScript
+      <br /><br />
+
+      <!-- Drop down -->
+      <label for="course">Choose Course:</label>
+
+      <select id="course" name="course">
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="js">JavaScript</option>
+        <option value="react">React</option>
+      </select>
+
+      <br><br>
+      <!-- text area -->
+      <label for="message">Message:</label>
+
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        cols="30"
+        placeholder="Enter your message"
+      >
+      </textarea>
+      <br>
+      <!-- Field Set -->
+      <fieldset>
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+      </fieldset>
+
+      <br><br>
+      <!-- File -->
+      <input type="file" name="profile" />
+      <br /><br />
+
+      <!-- URL -->
+      <input type="url" name="website" placeholder="Enter website URL" />
+      <br /><br />
+
+      <!-- Submit -->
+      <input type="submit" value="Submit" />
+
+      <!-- Reset -->
+      <input type="reset" value="Reset" />
+    </form>
+
+    <br><br>
+    <!-- 2nd form -->
+    <form>
+        <fieldset>
+          <legend>Personal Information</legend>
+      
+          <label>First Name:</label>
+          <input type="text" name="firstName">
+      
+          <label>Last Name:</label>
+          <input type="text" name="lastName">
+      
+          <label>Age:</label>
+          <input type="number" name="age">
+        </fieldset>
+      </form>
+  </body>
+</html>

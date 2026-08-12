@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Three ways to Add JS In our Project</h1>
+    <!-- INLINE -->
+    <button onclick="alert('this is an Inline way ')">
+      Click to Show inline
+    </button>
+    <br />
+    <hr />
+    <!-- Internal -->
+    <button onclick="showMessage()">click to show internal</button>
+    <br />
+    <hr />
+    <!-- External  -->
+    <button id="btn">External</button>
+    <script>
+      function showMessage() {
+        alert("this is a Internal Way");
+      }
+    </script>
+
+    <script src="./fifth.js"></script>
+  </body>
+</html>
