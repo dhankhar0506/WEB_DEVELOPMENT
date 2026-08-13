@@ -1,0 +1,72 @@
+/* ========================================= */
+/* General Styling */
+/* ========================================= */
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 2px solid black;
+}
+
+p {
+  padding: 10px;
+  margin: 5px;
+  background-color: lightgray;
+}
+
+/* ========================================= */
+/* 1. DESCENDANT COMBINATOR */
+/* ========================================= */
+
+/*
+  Selects ALL <p> elements inside .descendant
+  at any level.
+*/
+
+.descendant p {
+  background-color: lightblue;
+}
+
+/* ========================================= */
+/* 2. CHILD COMBINATOR */
+/* ========================================= */
+
+/*
+  Selects only <p> elements that are
+  DIRECT children of .child
+*/
+
+.child > p {
+  background-color: lightgreen;
+}
+
+/* ========================================= */
+/* 3. ADJACENT SIBLING */
+/* ========================================= */
+
+/*
+  Selects the <p> that comes
+  IMMEDIATELY after <h2>
+*/
+
+.adjacent h2 + p {
+  background-color: yellow;
+}
+
+/* ========================================= */
+/* 4. GENERAL SIBLING */
+/* ========================================= */
+
+/*
+  Selects ALL <p> elements that come
+  AFTER <h2> and are siblings of it.
+*/
+
+.general h2 ~ p {
+  background-color: pink;
+}

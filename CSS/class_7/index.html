@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Pseudo Classes</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>CSS Pseudo-Classes</h1>
+    <h1>
+      Used to style an element based on its state, condition, or position.
+    </h1>
+
+    <!-- ====================================== -->
+    <!-- 1. HOVER -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>1. :hover</h2>
+
+      <button class="hover-btn">Hover Over Me</button>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 2. ACTIVE -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>2. :active</h2>
+
+      <button class="active-btn">Click and Hold Me</button>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 3. FOCUS -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>3. :focus</h2>
+
+      <input type="text" class="focus-input" placeholder="Click inside me" />
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 4. LINK / VISITED -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>4. :link and :visited</h2>
+
+      <a href="https://example.com" class="my-link"> Visit Example </a>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 5. FIRST CHILD -->
+    <!-- ====================================== -->
+
+    <section class="children-section">
+      <h2>5. :first-child</h2>
+
+      <div class="children">
+        <p>Paragraph 1 - First Child</p>
+        <p>Paragraph 2</p>
+        <p>Paragraph 3</p>
+      </div>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 6. LAST CHILD -->
+    <!-- ====================================== -->
+
+    <section class="children-section">
+      <h2>6. :last-child</h2>
+
+      <div class="children">
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <p>Paragraph 3 - Last Child</p>
+      </div>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 7. NTH CHILD -->
+    <!-- ====================================== -->
+
+    <section class="children-section">
+      <h2>7. :nth-child()</h2>
+
+      <div class="children nth">
+        <p>Paragraph 1</p>
+        <p>Paragraph 2 - Selected</p>
+        <p>Paragraph 3</p>
+        <p>Paragraph 4</p>
+      </div>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 8. ODD / EVEN -->
+    <!-- ====================================== -->
+
+    <section class="children-section">
+      <h2>8. :nth-child(odd/even)</h2>
+
+      <div class="children table">
+        <p>Row 1</p>
+        <p>Row 2</p>
+        <p>Row 3</p>
+        <p>Row 4</p>
+        <p>Row 5</p>
+      </div>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 9. CHECKED -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>9. :checked</h2>
+
+      <label>
+        <input type="checkbox" class="check" />
+        Select me
+      </label>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 10. DISABLED -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>10. :disabled</h2>
+
+      <button class="disabled-btn" disabled>Disabled Button</button>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 11. ENABLED -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>11. :enabled</h2>
+
+      <input type="text" class="enabled-input" placeholder="Enabled input" />
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 12. REQUIRED -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>12. :required</h2>
+
+      <input
+        type="text"
+        class="required-input"
+        placeholder="Required field"
+        required
+      />
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 13. VALID / INVALID -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>13. :valid / :invalid</h2>
+
+      <input
+        type="email"
+        class="email-input"
+        placeholder="Enter email"
+        required
+      />
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 14. NOT -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>14. :not()</h2>
+
+      <div class="not-example">
+        <p>Normal Paragraph</p>
+        <p class="special">Special Paragraph</p>
+        <p>Normal Paragraph</p>
+      </div>
+    </section>
+
+    <!-- ====================================== -->
+    <!-- 15. EMPTY -->
+    <!-- ====================================== -->
+
+    <section>
+      <h2>15. :empty</h2>
+
+      <div class="empty-box"></div>
+
+      <div class="non-empty-box">I have content</div>
+    </section>
+  </body>
+</html>

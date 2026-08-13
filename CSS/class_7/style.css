@@ -1,0 +1,153 @@
+/* ====================================== */
+/* GENERAL */
+/* ====================================== */
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 2px solid black;
+}
+
+button,
+input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* ====================================== */
+/* 1. :hover */
+/* ====================================== */
+
+.hover-btn:hover {
+  background-color: blue;
+  color: white;
+}  
+
+/* ====================================== */
+/* 2. :active */
+/* ====================================== */
+
+.active-btn:active {
+  background-color: red;
+  color: white;
+}
+
+/* ====================================== */
+/* 3. :focus */
+/* ====================================== */
+
+.focus-input:focus {
+  border: 3px solid blue;
+  outline: none;
+}
+
+/* ====================================== */
+/* 4. :link */
+/* ====================================== */
+
+.my-link:link {
+  color: blue;
+}
+
+/* ====================================== */
+/* 4. :visited */
+/* ====================================== */
+
+.my-link:visited {
+  color: purple;
+}
+
+/* ====================================== */
+/* 5. :first-child */
+/* ====================================== */
+
+.children p:first-child {
+  color: red;
+  font-weight: bold;
+}
+
+/* ====================================== */
+/* 6. :last-child */
+/* ====================================== */
+
+.children p:last-child {
+  color: blue;
+  font-weight: bold;
+}
+
+/* ====================================== */
+/* 7. :nth-child() */
+/* ====================================== */
+
+.nth p:nth-child(2) {
+  color: green;
+  font-weight: bold;
+}
+
+/* ====================================== */
+/* 8. :nth-child(odd/even) */
+/* ====================================== */
+
+.table p:nth-child(odd) {
+  background-color: lightgray;
+}
+
+.table p:nth-child(even) {
+  background-color: lightblue;
+}
+
+/* ====================================== */
+/* 9. :checked */
+/* ====================================== */
+
+.check:checked {
+  width: 25px;
+  height: 25px;
+}
+
+/* ====================================== */
+/* 10. :disabled */
+/* ====================================== */
+
+.disabled-btn:disabled {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+}
+
+/* ====================================== */
+/* 11. :enabled */
+/* ====================================== */
+
+.enabled-input:enabled {
+  border: 2px solid green;
+}
+
+/* ====================================== */
+/* 12. :required */
+/* ====================================== */
+
+.required-input:required {
+  border: 2px solid orange;
+}
+
+/* ====================================== */
+/* 13. :valid */
+/* ====================================== */
+
+.email-input:valid {
+  border: 2px solid green;
+}
+
+/* ====================================== */
+/* 13. :invalid */
+/* ====================================== */
+
+.email-input:invalid {
+  border: 2px solid red;
+}

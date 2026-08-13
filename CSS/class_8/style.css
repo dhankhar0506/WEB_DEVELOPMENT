@@ -1,0 +1,78 @@
+/* ====================================== */
+/* GENERAL */
+/* ====================================== */
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 2px solid black;
+}
+
+/* ====================================== */
+/* 1. ::before */
+/* ====================================== */
+
+.before::before {
+  content: "👉 ";
+  color: blue;
+}
+
+/* ====================================== */
+/* 2. ::after */
+/* ====================================== */
+
+.after::after {
+  content: " ✔";
+  color: green;
+}
+
+/* ====================================== */
+/* 3. ::first-letter */
+/* ====================================== */
+
+.first-letter::first-letter {
+  font-size: 40px;
+  font-weight: bold;
+  color: red;
+}
+
+/* ====================================== */
+/* 4. ::first-line */
+/* ====================================== */
+
+.first-line::first-line {
+  color: blue;
+  font-weight: bold;
+}
+
+/* ====================================== */
+/* 5. ::selection */
+/* ====================================== */
+
+.selection::selection {
+  background-color: yellow;
+  color: black;
+}
+
+/* ====================================== */
+/* 6. ::placeholder */
+/* ====================================== */
+
+.input::placeholder {
+  color: gray;
+  font-style: italic;
+}
+
+/* ====================================== */
+/* 7. ::marker */
+/* ====================================== */
+
+.list li::marker {
+  color: red;
+  font-size: 20px;
+}

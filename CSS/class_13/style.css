@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 50px;
+}
+
+/* ================================= */
+/* ANIMATION */
+/* ================================= */
+
+.box {
+  width: 120px;
+  height: 120px;
+
+  background-color: blue;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Animation properties */
+
+  animation-name: moveBox;
+
+  animation-duration: 3s;
+
+  animation-timing-function: ease;
+
+  animation-delay: 0s;
+
+  animation-iteration-count: infinite;
+
+  animation-direction: alternate;
+
+  animation-fill-mode: forwards;
+
+  animation-play-state: running;
+}
+
+/* ================================= */
+/* KEYFRAMES */
+/* ================================= */
+
+@keyframes moveBox {
+  from {
+    transform: translateX(0);
+    background-color: blue;
+  }
+
+  to {
+    transform: translateX(500px);
+    background-color: red;
+  }
+}

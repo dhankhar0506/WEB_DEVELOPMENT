@@ -1,0 +1,324 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+/*
+   box-sizing: border-box
+
+   Width and height include:
+   Content + Padding + Border
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+
+/* =========================================================
+   1. CSS LINKS
+   ========================================================= */
+
+/*
+   Basic link styling
+*/
+
+a {
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+/*
+   :link
+   Normal / unvisited link
+*/
+
+a:link {
+  color: blue;
+}
+
+
+/*
+   :visited
+   Link that user has already visited
+*/
+
+a:visited {
+  color: purple;
+}
+
+
+/*
+   :hover
+   When mouse is placed over the link
+*/
+
+a:hover {
+  color: red;
+}
+
+
+/*
+   :active
+   While the link is being clicked
+*/
+
+a:active {
+  color: green;
+}
+
+
+/* =========================================================
+   2. CSS LISTS
+   ========================================================= */
+
+
+/* ---------------- UNORDERED LIST ---------------- */
+
+
+/*
+   Circle
+*/
+
+ul.circle {
+  list-style-type: circle;
+}
+
+
+/*
+   Disc
+*/
+
+ul.disc {
+  list-style-type: disc;
+}
+
+
+/*
+   Square
+*/
+
+ul.square {
+  list-style-type: square;
+}
+
+
+/* ---------------- ORDERED LIST ---------------- */
+
+
+/*
+   Upper Roman
+
+   1 → I
+   2 → II
+   3 → III
+*/
+
+ol.upper-roman {
+  list-style-type: upper-roman;
+}
+
+
+/*
+   Lower Roman
+
+   1 → i
+   2 → ii
+   3 → iii
+*/
+
+ol.lower-roman {
+  list-style-type: lower-roman;
+}
+
+
+/*
+   Lower Alpha
+
+   1 → a
+   2 → b
+   3 → c
+*/
+
+ol.lower-alpha {
+  list-style-type: lower-alpha;
+}
+
+
+/*
+   Decimal
+
+   1 → 1
+   2 → 2
+   3 → 3
+*/
+
+ol.decimal {
+  list-style-type: decimal;
+}
+
+
+/* =========================================================
+   3. CSS TABLE
+   ========================================================= */
+
+
+/*
+   Table takes full available width
+*/
+
+table {
+  width: 100%;
+
+  /*
+     Combines the borders of adjacent cells
+     into a single border.
+  */
+
+  border-collapse: collapse;
+}
+
+
+/*
+   Border + padding + alignment
+   for table headings and cells
+*/
+
+th,
+td {
+  border: 1px solid black;
+
+  padding: 10px;
+
+  text-align: center;
+}
+
+
+/*
+   Table heading
+*/
+
+th {
+  background-color: black;
+  color: white;
+}
+
+
+/*
+   When mouse moves over a table row
+*/
+
+tr:hover {
+  background-color: lightgray;
+}
+
+
+/* =========================================================
+   4. COMMON BOX STYLE
+   ========================================================= */
+
+/*
+   All display examples use this common style.
+*/
+
+.box {
+  width: 150px;
+  height: 60px;
+
+  padding: 20px;
+
+  margin: 10px;
+
+  border: 2px solid black;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   5. DISPLAY: BLOCK
+   ========================================================= */
+
+/*
+   Block:
+
+   - Starts on a new line
+   - Takes available width by default
+   - Width and height can be set
+*/
+
+.block {
+  display: block;
+}
+
+
+/* =========================================================
+   6. DISPLAY: INLINE
+   ========================================================= */
+
+/*
+   Inline:
+
+   - Stays on the same line
+   - Takes only required content space
+   - Width and height do NOT work normally
+*/
+
+.inline {
+  display: inline;
+}
+
+
+/* =========================================================
+   7. DISPLAY: INLINE-BLOCK
+   ========================================================= */
+
+/*
+   Inline-block:
+
+   - Stays on the same line
+   - Width and height CAN be set
+*/
+
+.inline-block {
+  display: inline-block;
+}
+
+
+/* =========================================================
+   8. DISPLAY: NONE
+   ========================================================= */
+
+/*
+   display: none
+
+   - Element is still present in the DOM
+   - Element is not displayed
+   - Element takes NO space
+*/
+
+.hide {
+  display: none;
+}
+
+
+/* =========================================================
+   9. VISIBILITY: HIDDEN
+   ========================================================= */
+
+/*
+   visibility: hidden
+
+   - Element is still present in the DOM
+   - Element is not visible
+   - Element's space IS preserved
+*/
+
+.visibility-hidden {
+  visibility: hidden;
+}

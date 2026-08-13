@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Units</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>CSS Units Examples</h1>
+
+    <!-- =============================== -->
+    <!-- 1. PX -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>1. px - Pixels</h2>
+      <p>A fixed-size unit.</p>
+      <p>The declared value remains 100px even if the screen size changes.</p>
+      <div class="px-box">200px × 100px</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 2. % -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>2. % - Percentage</h2>
+      <p>Relative to the size of the parent/container in many properties.</p>
+      <div class="percentage-parent">
+        <div class="percentage-box">Width = 50% of parent</div>
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 3. em -->
+    <!-- =============================== -->
+
+    <section class="em-parent">
+      <h2>3. em</h2>
+      <p>Relative to the font size of the element's context.</p>
+      <p class="em-text">This text uses em.</p>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 4. rem -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>4. rem</h2>
+      <p>Relative to the root (html) font size.</p>
+      <p class="rem-text">This text uses rem.</p>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 5. vw -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>5. vw - Viewport Width</h2>
+      <p>Relative to broswer width</p>
+      <div class="vw-box">Width = 50vw</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 6. vh -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>6. vh - Viewport Height</h2>
+      <p>relative to broswer height</p>
+      <div class="vh-box">Height = 30vh</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 7. vmin -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>7. vmin</h2>
+
+      <div class="vmin-box">20vmin</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 8. vmax -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>8. vmax</h2>
+
+      <div class="vmax-box">20vmax</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 9. ch -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>9. ch</h2>
+
+      <p class="ch-text">
+        This paragraph has a width based on the number of characters.
+      </p>
+    </section>
+
+    <!-- =============================== -->
+    <!-- 10. ex -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>10. ex</h2>
+
+      <p class="ex-text">This text uses the x-height unit.</p>
+    </section>
+  </body>
+</html>

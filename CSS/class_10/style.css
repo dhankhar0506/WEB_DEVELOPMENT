@@ -1,0 +1,126 @@
+/* =============================== */
+/* General */
+/* =============================== */
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 30px;
+}
+
+section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 2px solid black;
+}
+
+/* =============================== */
+/* 1. PX */
+/* =============================== */
+
+.px-box {
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =============================== */
+/* 2. % */
+/* =============================== */
+
+.percentage-parent {
+  width: 100%;
+  height: 100px;
+  background-color: lightgray;
+}
+
+.percentage-box {
+  width: 50%;
+  height: 100%;
+  background-color: lightgreen;
+}
+
+/* =============================== */
+/* 3. EM */
+/* =============================== */
+
+.em-parent {
+  font-size: 20px;
+}
+
+.em-text {
+  font-size: 1.5em;
+}
+
+/* =============================== */
+/* 4. REM */
+/* =============================== */
+
+.rem-text {
+  font-size: 2rem;
+}
+
+/* =============================== */
+/* 5. VW */
+/* =============================== */
+
+.vw-box {
+  width: 50vw;
+  height: 80px;
+  background-color: lightcoral;
+}
+
+/* =============================== */
+/* 6. VH */
+/* =============================== */
+
+.vh-box {
+  width: 200px;
+  height: 30vh;
+  background-color: lightyellow;
+}
+
+/* =============================== */
+/* 7. VMIN */
+/* =============================== */
+
+.vmin-box {
+  width: 20vmin;
+  height: 20vmin;
+  background-color: lightpink;
+}
+
+/* =============================== */
+/* 8. VMAX */
+/* =============================== */
+
+.vmax-box {
+  width: 20vmax;
+  height: 100px;
+  background-color: lightblue;
+}
+
+/* =============================== */
+/* 9. CH */
+/* =============================== */
+
+.ch-text {
+  width: 40ch;
+  border: 2px solid green;
+}
+
+/* =============================== */
+/* 10. EX */
+/* =============================== */
+
+.ex-text {
+  font-size: 3ex;
+}

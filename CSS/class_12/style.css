@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+/* Initial state */
+
+.card {
+  width: 250px;
+  height: 180px;
+
+  padding: 20px;
+
+  background-color: white;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  text-align: center;
+
+  /* ============================= */
+  /* TRANSITION PROPERTIES */
+  /* ============================= */
+
+  /* WHAT should change? */
+  transition-property:
+    width, height, background-color, transform, border-radius;
+
+  /* HOW LONG should it take? */
+  transition-duration: 1s, 1s, 1s, 1s, 1s;
+
+  /* HOW should the change happen? */
+  transition-timing-function: ease, ease, ease, ease, ease;
+
+  /* WHEN should it start? */
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+}
+
+/* Hover state */
+
+.card:hover {
+  /* Increase width */
+  width: 350px;
+
+  /* Increase height */
+  height: 250px;
+
+  /* Change background */
+  background-color: lightblue;
+
+  /* Rotate + move + scale */
+  transform: scale(1.05) rotate(2deg);
+
+  /* Change border */
+  border-radius: 20px;
+}

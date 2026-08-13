@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Position Property</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- =====================================================
+       FIXED POSITION
+       ===================================================== -->
+
+    <div class="fixed-button">Fixed</div>
+
+    <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+
+    <header>
+      <h1>CSS Position Property</h1>
+    </header>
+
+    <!-- =====================================================
+       STICKY POSITION
+       ===================================================== -->
+
+    <div class="sticky-header">I am Sticky</div>
+
+    <!-- =====================================================
+       1. STATIC
+       ===================================================== -->
+
+    <section>
+      <h2>1. Position: Static</h2>
+
+      <div class="static-box">Static Box</div>
+
+      <p>Default position. Element stays in the normal document flow.</p>
+    </section>
+
+    <!-- =====================================================
+       2. RELATIVE
+       ===================================================== -->
+
+    <section>
+      <h2>2. Position: Relative</h2>
+      <p>
+        Relative means the element can move from its original position in
+        different directions.
+      </p>
+      <div class="relative-box">
+        Relative Box :move from your original position
+      </div>
+
+      <p>
+        The box is moved from its original position, but its original space is
+        still preserved.
+      </p>
+    </section>
+
+    <!-- =====================================================
+       3. ABSOLUTE
+       ===================================================== -->
+
+    <section>
+      <h2>3. Position: Absolute</h2>
+
+      <!--
+      Parent has position: relative.
+      Therefore the absolute child will use
+      this parent as its reference.
+    -->
+
+      <div class="absolute-parent">
+        <div class="absolute-child">Absolute</div>
+
+        <p>This is the parent container.</p>
+        <p>
+          Element is positioned relative to its nearest positioned
+          parent/ancestor and removed from normal flow.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+       4. FIXED
+       ===================================================== -->
+
+    <section>
+      <h2>4. Position: Fixed</h2>
+
+      <p>
+        Look at the bottom-right corner. The "Fixed" button stays there even
+        when you scroll.
+      </p>
+      <p>
+        → Element is fixed to the browser screen and stays there while
+        scrolling.
+      </p>
+    </section>
+
+    <!-- =====================================================
+       EXTRA CONTENT FOR SCROLLING
+       ===================================================== -->
+
+    <section class="long-content">
+      <h2>Scroll the Page</h2>
+
+      <p>
+        This extra content is here so you can scroll and understand fixed and
+        sticky positioning.
+      </p>
+      <p>
+        sticky → Element behaves normally until a scroll position is reached,
+        then it sticks there.
+      </p>
+
+      <p>Keep scrolling down.</p>
+
+      <p>The fixed button will remain in the same place.</p>
+
+      <p>The sticky heading will stick when it reaches the top of the page.</p>
+
+      <div class="large-space"></div>
+
+      <h2>End of Page</h2>
+    </section>
+
+    <!-- =====================================================
+       OFFSETS
+       ===================================================== -->
+    <section>
+      <p>
+        Offsets are the properties used to control the position of an element:
+      </p>
+      <ul>
+        <li>top</li>
+        <li>bottom</li>
+        <li>left</li>
+        <li>right</li>
+      </ul>
+    </section>
+    <!-- =====================================================
+       Z-INDEX  
+       ===================================================== -->
+    <section>
+      <p>
+        z-index controls which element appears in front of or behind another
+        element.
+      </p>
+      <code> .box1 { position: relative; z-index: 1; } </code>
+      <br>
+
+      <code> .box2 { position: relative; z-index: 2; } </code>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Float</title>
+    <style>
+      .image {
+        float: left;
+        margin-right: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- FLOAT -->
+    <section>
+      <p>
+        Float is used to position an element to the left or right and allow
+        surrounding content to flow around it.
+      </p>
+      <pre>
+        ┌────────┐  This is some text that
+        │ IMAGE  │  flows around the image.
+        │        │  More text continues here.
+        └────────┘  And when the text reaches
+                    below the image, it uses
+                    the full width.
+      </pre>
+    </section>
+    <section>
+      <img src="https://picsum.photos/200/300" class="image" />
+
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, est
+        quasi nobis numquam ab illo repudiandae cum doloremque voluptatem.
+        Magnam veritatis quaerat, tenetur vel debitis commodi tempore sit
+        voluptatum ea nisi eligendi velit culpa ipsam nobis atque accusantium in
+        quam aliquam rem. Ut recusandae architecto fugiat, saepe, quia similique
+        accusamus consequuntur eum debitis quasi sint adipisci perspiciatis odit
+        nisi tenetur beatae officia? Non tempore sapiente rerum, ea possimus
+        vero eveniet ullam atque reprehenderit suscipit aut? Et delectus, sint
+        tempore dolorem maiores placeat similique incidunt debitis eos
+        repellendus reiciendis atque consequatur rerum repellat omnis sit est
+        accusantium? Molestiae numquam doloribus suscipit?
+      </p>
+    </section>
+    <section>
+      <p>
+        clear is used to prevent an element from moving/sitting next to a
+        floated element.
+      </p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Makes the page responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Learning</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ==================================================
+         1. CSS SELECTORS
+         ================================================== -->
+
+    <!-- Class selector -->
+    <h1 class="first">This is our Style Sheet (CSS)</h1>
+
+    <!-- Element selector -->
+    <p>This paragraph is styled using the p selector.</p>
+
+    <!-- ID selector -->
+    <p id="second">This paragraph is styled using an ID selector.</p>
+
+    <!-- ==================================================
+         2. SAME CLASS
+         ================================================== -->
+
+    <!-- The class "center" is used on different elements -->
+
+    <h1 class="center">This heading will NOT be affected</h1>
+
+    <p class="center">This paragraph will be red and center-aligned.</p>
+
+    <!-- ==================================================
+         CSS Gradients
+         ================================================== -->
+    <div>
+      <ul>
+        <li>Linear Gradients -</li>
+        <li>Radial Gradients</li>
+        <li>Conic Gradients</li>
+      </ul>
+      <h1>Linear Gradient - Top to Bottom</h1>
+      <p>
+        A gradient is a smooth transition from one color to another or between
+        multiple colors.
+      </p>
+      <div id="grad1"></div>
+    </div>
+    <br />
+    <br />
+
+    <!-- ==================================================
+         3. CSS BACKGROUND
+         ================================================== -->
+
+    <!-- Background color + opacity -->
+    <div class="background"></div>
+    <br />
+
+    <!-- Background image -->
+    <div class="background-image"></div>
+    <br />
+
+    <!-- ==================================================
+         4. CSS BORDER
+         ================================================== -->
+
+    <h1 class="border">This is a Border</h1>
+
+    <!-- ==================================================
+         5. CSS MARGIN AND PADDING
+         ================================================== -->
+
+    <div class="marPad">
+      <h4>This is a margin and padding</h4>
+    </div>
+
+    <!-- ==================================================
+         6. CSS TEXT PROPERTIES
+         ================================================== -->
+
+    <p class="p-text">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet quia iusto
+      veniam consequatur ex enim eaque recusandae.
+    </p>
+
+    <!-- ==================================================
+         7. CSS FONT PROPERTIES
+         ================================================== -->
+
+    <p class="p-font">Testing font properties</p>
+
+    <!-- ==================================================
+         8. CSS FONT PROPERTIES
+         ================================================== -->
+<div>
+      <h2>CSS Variables — var() Function</h2>
+    <p>
+      CSS variables are custom values that you define once and reuse throughout
+      your CSS.
+    </p>
+    <code>:root { --primary-color: blue; }</code>
+    <p>:root is a pseudo-class that selects the root element of the HTML document, which is <html>.</p>
+    <code> background-color: var(--primary-color);</code>
+</div>
+  </body>
+</html>

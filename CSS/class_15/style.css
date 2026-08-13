@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  background-color: #f5f5f5;
+}
+
+/* ================================= */
+/* NAVBAR - FLEX PARENT */
+/* ================================= */
+
+.navbar {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 20px;
+
+  background-color: #222;
+}
+
+/* ================================= */
+/* LOGO - FLEX CHILD */
+/* ================================= */
+
+.logo {
+  color: white;
+
+  font-size: 25px;
+
+  font-weight: bold;
+}
+
+/* ================================= */
+/* NAV LINKS - ANOTHER FLEX PARENT */
+/* ================================= */
+
+.nav-links {
+  display: flex;
+
+  flex-direction: row;
+
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+
+  text-decoration: none;
+}
+
+/* ================================= */
+/* LOGIN BUTTON */
+/* ================================= */
+
+.login-btn {
+  padding: 10px 20px;
+
+  border: none;
+
+  cursor: pointer;
+}
+
+/* ================================= */
+/* MAIN */
+/* ================================= */
+
+main {
+  padding: 40px;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* ================================= */
+/* PRODUCT CONTAINER - FLEX PARENT */
+/* ================================= */
+
+.products {
+  display: flex;
+
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  align-items: stretch;
+
+  gap: 30px;
+}
+
+/* ================================= */
+/* PRODUCT CARD - FLEX CHILD */
+/* ================================= */
+
+.product-card {
+  flex-grow: 1;
+
+  flex-shrink: 1;
+
+  flex-basis: 250px;
+
+  max-width: 350px;
+
+  padding: 25px;
+
+  background-color: white;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+}
+
+/* ================================= */
+/* BUTTON INSIDE CARD */
+/* ================================= */
+
+.product-card button {
+  padding: 10px 20px;
+
+  border: none;
+
+  background-color: black;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+/* ================================= */
+/* MOBILE */
+/* ================================= */
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .product-card {
+    max-width: none;
+
+    flex-basis: 100%;
+  }
+}

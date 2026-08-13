@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Overflow Examples</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>CSS Overflow Examples</h1>
+
+    <!-- 1. Visible -->
+    <div class="container">
+      <h2>1. Overflow: Visible</h2>
+
+      <div class="box visible">
+        This is a very long text. The extra content will be visible outside the
+        box because overflow is set to visible.
+      </div>
+    </div>
+
+    <!-- 2. Hidden -->
+    <div class="container">
+      <h2>2. Overflow: Hidden</h2>
+
+      <div class="box hidden">
+        This is a very long text. The extra content will be hidden because
+        overflow is set to hidden.
+      </div>
+    </div>
+
+    <!-- 3. Scroll -->
+    <div class="container">
+      <h2>3. Overflow: Scroll</h2>
+
+      <div class="box scroll">
+        This is a very long text. Scrollbars will always be available because
+        overflow is set to scroll.
+      </div>
+    </div>
+
+    <!-- 4. Auto -->
+    <div class="container">
+      <h2>4. Overflow: Auto</h2>
+
+      <div class="box auto">
+        This is a very long text. Scrollbars will appear only when the content
+        is larger than the container.
+      </div>
+    </div>
+
+    <!-- 5. Ellipsis -->
+    <div class="container">
+      <h2>5. Text Ellipsis</h2>
+
+      <div class="ellipsis">
+        This is a very long text and we want to show three dots when the text
+        does not fit inside the container.
+      </div>
+    </div>
+
+    <!-- 6. Show Whole Text -->
+    <div class="container">
+      <h2>6. Show Whole Text</h2>
+
+      <div class="whole-text">
+        This is a very long text. Instead of hiding the text or showing
+        ellipsis, the text will move to multiple lines so that the complete text
+        can be displayed.
+      </div>
+    </div>
+
+    <!-- 7. Horizontal Overflow -->
+    <div class="container">
+      <h2>7. Horizontal Overflow</h2>
+
+      <div class="both">
+        This is a very long single line of text that will create a horizontal
+        scrollbar because the content is wider than the container.
+      </div>
+    </div>
+  </body>
+</html>

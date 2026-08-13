@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Text Effects</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>CSS Text Effects</h1>
+
+    <!-- =============================== -->
+    <!-- WORD-BREAK -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>1. word-break: break-all</h2>
+      <p>
+        word-break controls where a word can be broken when it doesn't fit
+        inside its container.
+      </p>
+      <div class="box break-all">ThisIsAVeryVeryVeryVeryVeryVeryLongWord</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- WORD-WRAP -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>2. word-wrap: break-word</h2>
+      <p>
+        word-wrap allows a long word to move/break onto the next line when it
+        doesn't fit.
+      </p>
+      <div class="box word-wrap">ThisIsAVeryVeryVeryVeryVeryVeryLongWord</div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- OVERFLOW-WRAP -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>3. overflow-wrap: break-word</h2>
+      <div class="box overflow-wrap">
+        ThisIsAVeryVeryVeryVeryVeryVeryLongWord
+      </div>
+    </section>
+
+    <!-- =============================== -->
+    <!-- TEXT-OVERFLOW -->
+    <!-- =============================== -->
+
+    <section>
+      <h2>4. text-overflow: ellipsis</h2>
+      <p>
+        text-overflow controls how text is displayed when it overflows a
+        container and is hidden.
+      </p>
+      <div class="box ellipsis">
+        This is a very long text and we want to show three dots when the text
+        does not fit.
+      </div>
+    </section>
+  </body>
+</html>

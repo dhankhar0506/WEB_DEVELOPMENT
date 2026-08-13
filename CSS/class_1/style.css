@@ -1,0 +1,363 @@
+/* =========================================================
+   GLOBAL BOX SIZING
+   ========================================================= */
+
+/*
+   Every element uses border-box.
+
+   This means:
+   width = content + padding + border
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   1. CSS SELECTORS
+   ========================================================= */
+
+/* ---------- Class Selector ---------- */
+
+/*
+   Selects elements having class="first"
+*/
+
+.first {
+  color: rgb(39, 168, 255);
+}
+
+/* ---------- Element Selector ---------- */
+
+/*
+   Selects ALL <p> elements
+*/
+
+p {
+  color: red;
+}
+
+/* ---------- ID Selector ---------- */
+
+/*
+   Selects the element having id="second"
+*/
+
+#second {
+  color: rgb(177, 45, 230);
+  font-weight: 700;
+}
+
+/* ---------- Element + Class Selector ---------- */
+
+/*
+   p.center means:
+
+   Select only <p> elements
+   that have class="center"
+
+   Therefore:
+
+   <p class="center">  → affected
+   <h1 class="center"> → NOT affected
+*/
+
+p.center {
+  font-size: 22px;
+  color: rgb(255, 86, 44);
+}
+
+/* =========================================================
+   2. CSS BACKGROUND
+   ========================================================= */
+
+/* ---------- Background Color ---------- */
+
+.background {
+  width: 100px;
+  height: 100px;
+
+  background-color: rgb(76, 138, 0);
+
+  /*
+     opacity controls transparency.
+
+     1   = completely visible
+     0.5 = 50% transparent
+     0   = completely transparent
+  */
+  opacity: 0.3;
+}
+
+/*----------------CSS gradient-----------*/
+#grad1 {
+  height: 200px;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom, red, yellow);
+}
+
+/* ---------- Background Image ---------- */
+
+.background-image {
+  width: 200px;
+  height: 100px;
+
+  background-image: url("https://picsum.photos/200/300");
+
+  /*
+     no-repeat means:
+     Don't repeat the image.
+  */
+  background-repeat: no-repeat;
+
+  /*
+     Other useful values:
+
+     background-repeat: repeat;
+     background-repeat: repeat-x;
+     background-repeat: repeat-y;
+  */
+
+  /*
+     Background position:
+
+     background-position: center;
+     background-position: left;
+     background-position: right;
+     background-position: top;
+     background-position: bottom;
+  */
+
+  /*
+     Background size:
+
+     contain → entire image fits inside
+     cover   → image covers the entire element
+
+     Example:
+
+     background-size: contain;
+     background-size: cover;
+  */
+}
+
+/* =========================================================
+   3. CSS BORDER
+   ========================================================= */
+
+.border {
+  /* Type of border */
+  border-style: solid;
+
+  /*
+     Other border styles:
+
+     border-style: dashed;
+     border-style: dotted;
+     border-style: double;
+     border-style: groove;
+  */
+
+  /* Border thickness */
+  border-width: 2px;
+
+  /*
+     Border width can also be different
+     on different sides.
+
+     Example:
+
+     border-width: 2px 7px;
+
+     Means:
+     top/bottom = 2px
+     left/right = 7px
+  */
+
+  /* Border color */
+  border-color: red;
+
+  /*
+     Different colors can also be used:
+
+     border-color: red green blue yellow;
+
+     Order:
+
+     top    = red
+     right  = green
+     bottom = blue
+     left   = yellow
+  */
+
+  /* Rounded corners */
+  border-radius: 10px;
+}
+
+/* =========================================================
+   4. CSS MARGIN AND PADDING
+   ========================================================= */
+
+.marPad {
+  /*
+     Width and height
+
+     Because we are using:
+
+     box-sizing: border-box;
+
+     these include:
+     content + padding + border
+  */
+
+  width: 300px;
+  height: 100px;
+
+  /* Border around the element */
+  border: 15px solid;
+
+  /*
+     MARGIN = space OUTSIDE the element
+
+     top    = 20px
+     right  = 40px
+     bottom = 50px
+     left   = 30px
+  */
+
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 40px;
+  margin-bottom: 50px;
+
+  /*
+     PADDING = space INSIDE the element
+
+     30px creates space between
+     content and border.
+  */
+
+  padding: 30px;
+}
+
+/* =========================================================
+   5. CSS TEXT PROPERTIES
+   ========================================================= */
+
+.p-text {
+  /* Space inside the top of the element */
+  padding-top: 20px;
+
+  /* Border around paragraph */
+  border: 1px solid black;
+
+  /* Text color */
+  color: red;
+
+  /* ---------- Text Alignment ---------- */
+
+  /*
+     Possible values:
+
+     text-align: left;
+     text-align: center;
+     text-align: right;
+     text-align: justify;
+  */
+
+  text-align: justify;
+
+  /* ---------- Text Decoration ---------- */
+
+  /*
+     Possible values:
+
+     underline
+     overline
+     line-through
+     none
+  */
+
+  text-decoration: underline;
+
+  /* ---------- Text Transform ---------- */
+
+  /*
+     Possible values:
+
+     uppercase
+     lowercase
+     capitalize
+     none
+  */
+
+  text-transform: capitalize;
+
+  /* ---------- Text Indentation ---------- */
+
+  /*
+     Moves the first line
+     40px from the left.
+  */
+
+  text-indent: 40px;
+
+  /* ---------- Letter Spacing ---------- */
+
+  /*
+     Space between individual letters.
+
+     Example:
+
+     letter-spacing: 2px;
+  */
+
+  /* ---------- Word Spacing ---------- */
+
+  /*
+     Space between words.
+  */
+
+  word-spacing: 10px;
+
+  /* ---------- Line Height ---------- */
+
+  /*
+     Controls the vertical space
+     between lines.
+  */
+
+  line-height: 2;
+
+  /* ---------- Text Shadow ---------- */
+
+  /*
+     2px → horizontal shadow
+     2px → vertical shadow
+     5px → blur
+     gray → shadow color
+  */
+
+  text-shadow: 2px 2px 5px gray;
+}
+
+/* =========================================================
+   6. CSS FONT PROPERTIES
+   ========================================================= */
+
+.p-font {
+  /* Font type */
+  font-family: Arial;
+
+  /* Font size */
+  font-size: 50px;
+
+  /* Font thickness */
+  font-weight: bold;
+
+  /* Font style */
+  font-style: italic;
+
+  /* Small capital letters */
+  font-variant: small-caps;
+}

@@ -1,0 +1,260 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+header {
+  padding: 20px;
+
+  background-color: #222;
+
+  color: white;
+
+  text-align: center;
+}
+
+/* =========================================================
+   1. POSITION: STATIC
+   ========================================================= */
+
+/*
+   static is the DEFAULT position.
+
+   The element follows the normal document flow.
+
+   top
+   right
+   bottom
+   left
+
+   do NOT work with static.
+*/
+
+.static-box {
+  position: static;
+
+  width: 200px;
+
+  padding: 20px;
+
+  margin: 20px;
+
+  border: 2px solid black;
+
+  background-color: lightblue;
+}
+
+/* =========================================================
+   2. POSITION: RELATIVE
+   ========================================================= */
+
+/*
+   Relative means:
+
+   "Start from your normal position,
+    then move yourself."
+
+   The original space is still preserved.
+*/
+
+.relative-box {
+  position: relative;
+
+  /*
+     Move 50px from the left
+     of its original position.
+  */
+
+  left: 50px;
+
+  width: 200px;
+
+  padding: 20px;
+
+  margin: 20px;
+
+  border: 2px solid black;
+
+  background-color: lightgreen;
+}
+
+/* =========================================================
+   3. POSITION: ABSOLUTE
+   ========================================================= */
+
+/*
+   Parent:
+
+   position: relative
+
+   This makes the parent a reference
+   for the absolute child.
+*/
+
+.absolute-parent {
+  position: relative;
+
+  width: 500px;
+
+  height: 200px;
+
+  margin: 30px;
+
+  padding: 20px;
+
+  border: 3px solid black;
+
+  background-color: lightgray;
+}
+
+/*
+   Absolute child
+
+   It is positioned relative to
+   .absolute-parent.
+*/
+
+.absolute-child {
+  position: absolute;
+
+  /*
+     10px from the top of parent
+  */
+
+  top: 10px;
+
+  /*
+     10px from the right of parent
+  */
+
+  right: 10px;
+
+  width: 100px;
+
+  padding: 10px;
+
+  border: 2px solid red;
+
+  background-color: white;
+
+  text-align: center;
+}
+
+/* =========================================================
+   4. POSITION: FIXED
+   ========================================================= */
+
+/*
+   Fixed means:
+
+   "Stay fixed to the browser screen."
+
+   It does NOT move when the page is scrolled.
+
+   Common uses:
+
+   - Chat button
+   - Navbar
+   - Floating button
+   - Back to top button
+*/
+
+.fixed-button {
+  position: fixed;
+
+  /*
+     Distance from bottom of screen
+  */
+
+  bottom: 20px;
+
+  /*
+     Distance from right of screen
+  */
+
+  right: 20px;
+
+  width: 100px;
+
+  padding: 15px;
+
+  border-radius: 10px;
+
+  background-color: black;
+
+  color: white;
+
+  text-align: center;
+}
+
+/* =========================================================
+   5. POSITION: STICKY
+   ========================================================= */
+
+/*
+   Sticky works like this:
+
+   Initially → normal position
+
+   While scrolling → when it reaches top: 0,
+   it sticks there.
+*/
+
+.sticky-header {
+  position: sticky;
+
+  /*
+     Stick to the top of the screen
+     when scrolling.
+  */
+
+  top: 0;
+
+  padding: 15px;
+
+  background-color: orange;
+
+  color: black;
+
+  text-align: center;
+
+  font-weight: bold;
+
+  /*
+     Keeps sticky element above
+     other elements visually.
+  */
+
+  z-index: 10;
+}
+
+/* =========================================================
+   EXTRA CONTENT
+   ========================================================= */
+
+section {
+  padding: 30px;
+}
+
+.long-content {
+  min-height: 1200px;
+}
+
+.large-space {
+  height: 700px;
+}

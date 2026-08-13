@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS Combinators</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>CSS Combinators</h1>
+
+    <!-- ========================================= -->
+    <!-- 1. DESCENDANT COMBINATOR -->
+    <!-- ========================================= -->
+
+    <section class="descendant">
+      <h2>1. Descendant Combinator</h2>
+
+      <p>Direct Paragraph</p>
+
+      <div>
+        <p>Nested Paragraph</p>
+
+        <div>
+          <p>Deeply Nested Paragraph</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- 2. CHILD COMBINATOR -->
+    <!-- ========================================= -->
+
+    <section class="child">
+      <h2>2. Child Combinator</h2>
+
+      <p>Selects only direct children.</p>
+
+      <div>
+        <p>Nested Paragraph</p>
+      </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- 3. ADJACENT SIBLING -->
+    <!-- ========================================= -->
+
+    <section class="adjacent">
+      <h2>3. Adjacent Sibling Combinator</h2>
+
+      <p>Selects the immediately next element.</p>
+
+      <p>Second Paragraph</p>
+      <p>
+        Only Paragraph 1 becomes yellow because it comes immediately after h2
+      </p>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- 4. GENERAL SIBLING -->
+    <!-- ========================================= -->
+
+    <section class="general">
+      <h2>4. General Sibling Combinator</h2>
+      <p>Selects all matching siblings that come after the first element.</p>
+
+      <p>Paragraph 1</p>
+
+      <div>Some Div</div>
+
+      <p>Paragraph 2</p>
+
+      <p>Paragraph 3</p>
+    </section>
+  </body>
+</html>

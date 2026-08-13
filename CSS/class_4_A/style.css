@@ -1,0 +1,56 @@
+/* =============================== */
+/* GENERAL */
+/* =============================== */
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+.box {
+  width: 200px;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+
+/* =============================== */
+/* 1. WORD-BREAK */
+/* =============================== */
+
+.break-all {
+  word-break: break-all;
+}
+
+
+/* =============================== */
+/* 2. WORD-WRAP */
+/* =============================== */
+
+.word-wrap {
+  word-wrap: break-word;
+}
+
+
+/* =============================== */
+/* 3. OVERFLOW-WRAP */
+/* =============================== */
+
+.overflow-wrap {
+  overflow-wrap: break-word;
+}
+
+
+/* =============================== */
+/* 4. TEXT-OVERFLOW */
+/* =============================== */
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

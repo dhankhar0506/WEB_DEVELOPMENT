@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+.container {
+  margin-bottom: 40px;
+}
+
+.box {
+  width: 250px;
+  height: 80px;
+  border: 2px solid black;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+/* 1. Visible */
+.visible {
+  overflow: visible;
+}
+
+/* 2. Hidden */
+.hidden {
+  overflow: hidden;
+}
+
+/* 3. Scroll */
+.scroll {
+  overflow: scroll;
+}
+
+/* 4. Auto */
+.auto {
+  overflow: auto;
+}
+
+/* 5. Ellipsis */
+.ellipsis {
+  width: 250px;
+  border: 2px solid black;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 6. Show whole text */
+.whole-text {
+  width: 250px;
+  border: 2px solid black;
+
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: break-word;
+}
+
+/* 7. Horizontal and Vertical */
+.both {
+  width: 250px;
+  height: 80px;
+  border: 2px solid black;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
