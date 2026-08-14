@@ -123,3 +123,10 @@ const result_20 = [...a, ...b, ...c];
 console.log("concat", result_10);
 console.log("spread", result_20);
 
+// Fill
+const newArray = new Array(5);
+console.log("before Fill: ", newArray);
+
+newArray.fill(0)
+
+console.log("After Fill: ", newArray);
