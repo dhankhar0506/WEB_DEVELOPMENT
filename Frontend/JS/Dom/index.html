@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DOM Practice</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        input {
+            padding: 10px;
+            width: 70%;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px;
+            margin-top: 10px;
+            background: #f1f1f1;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 id="title">Todo List</h1>
+
+        <form id="todoForm">
+
+            <input
+                type="text"
+                id="todoInput"
+                placeholder="Enter your task"
+            >
+
+            <button type="submit">
+                Add
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <ul id="todoList"></ul>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
