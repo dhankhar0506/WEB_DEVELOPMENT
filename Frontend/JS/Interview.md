@@ -6,6 +6,8 @@
 
 > **Hoisting is JavaScript's behavior where variable and function declarations are processed before the code executes.**
 
+> **Hoisting is a mechanism in JavaScript where variable and function declarations are processed during the memory (creation) phase before the code is executed.**
+
 A common mental model is that declarations are "moved to the top of their scope," although JavaScript does not literally move the code.
 
 ## Declaration vs Initialization
