@@ -32,6 +32,7 @@
     Dashboard     → Name + registration number
     Attendance    → Student ID
     Results       → Student ID
+
 -> Without Redux, you may call the same API repeatedly or pass data through many components.
 -> With Redux, we can fetch the data, store shared state centrally, and let components read the pieces they need.
 
@@ -55,8 +56,8 @@
             └── courseId
     
     -> configureStore() basically creates/configures our Redux store.
+    
     import { configureStore } from "@reduxjs/toolkit";
-
         export const store = configureStore({
             reducer: {
                 student: studentReducer
@@ -125,27 +126,27 @@ Store is the central place where Redux keeps the application's shared/global sta
             // This is the starting state of our counter.
             initialState: {count: 1},
 
-        // -> How this slice's state can change.
-        reducers: { 
-            increment: (state) => {
-                if (state.count < 20) {
-                    state.count += 1;
-                }
-             },
+            // -> How this slice's state can change.
+            reducers: { 
+                increment: (state) => {
+                    if (state.count < 20) {
+                        state.count += 1;
+                    }
+                },
 
-            decrement: (state) => {
-                if (state.count > 1) {
-                    state.count -= 1;
-                }
-            },
+                decrement: (state) => {
+                    if (state.count > 1) {
+                        state.count -= 1;
+                    }
+                },
 
-            incrementByValue: (state, action) => {
-                const newCount = state.count + action.payload;
-                if (newCount <= 20) {
-                    state.count = newCount;
+                incrementByValue: (state, action) => {
+                    const newCount = state.count + action.payload;
+                    if (newCount <= 20) {
+                        state.count = newCount;
+                    }
                 }
             }
-        }
         });
 
 
@@ -162,11 +163,11 @@ Store is the central place where Redux keeps the application's shared/global sta
 
         export const store = configureStore({
 
-        reducer: {
+            reducer: {
 
-            counter: counterReducer
+                counter: counterReducer
 
-        }
+            }
 
         });
 
@@ -270,7 +271,7 @@ Store is the central place where Redux keeps the application's shared/global sta
         ↑        ↑
         slice     operation
 
-> edux Toolkit uses it to generate:
+> Redux Toolkit uses it to generate:
 
     -> course/getCourses/pending
     -> course/getCourses/fulfilled
