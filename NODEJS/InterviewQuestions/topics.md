@@ -43,49 +43,6 @@ Interview question:
 
 > How does Node.js execute JavaScript code?
 
----
-
-# 2. Node.js Architecture
-
-1. What is the Node.js runtime?
-2. What is the V8 engine?
-3. What is the Event Loop?
-4. What is libuv?
-5. What is non-blocking I/O?
-6. What is asynchronous programming?
-7. What is synchronous programming?
-8. Difference between blocking and non-blocking code?
-9. How does Node.js handle multiple requests?
-10. Why is Node.js called single-threaded?
-11. Does Node.js actually use multiple threads?
-12. What are worker threads?
-13. What is the thread pool?
-14. What tasks are handled by the libuv thread pool?
-15. What is the Event Queue?
-16. What is the Call Stack?
-17. What is the Microtask Queue?
-18. Difference between Microtask Queue and Callback Queue?
-19. What is `process.nextTick()`?
-20. Difference between `setTimeout()`, `setImmediate()` and `process.nextTick()`?
-
-### Most important interview concept
-
-```text
-Request
-   ↓
-Node.js
-   ↓
-Event Loop
-   ↓
-Async Operation
-   ↓
-Callback / Promise
-   ↓
-Response
-```
-
----
-
 # 3. Asynchronous JavaScript
 
 1. What is a callback?
