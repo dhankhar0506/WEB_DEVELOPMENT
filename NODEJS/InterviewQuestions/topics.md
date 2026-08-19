@@ -43,31 +43,7 @@ Interview question:
 
 > How does Node.js execute JavaScript code?
 
-# 3. Asynchronous JavaScript
 
-1. What is a callback?
-2. What is callback hell?
-3. How can callback hell be solved?
-4. What is a Promise?
-5. Promise states?
-6. What is `async/await`?
-7. Difference between Promise and callback?
-8. What is `Promise.all()`?
-9. What is `Promise.allSettled()`?
-10. What is `Promise.race()`?
-11. What is `Promise.any()`?
-12. How do you handle errors with async/await?
-13. What happens if an async function throws an error?
-14. How do you execute multiple APIs simultaneously?
-
-Example:
-
-```js
-const [users, products] = await Promise.all([
-    getUsers(),
-    getProducts()
-]);
-```
 
 ---
 
